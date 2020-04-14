@@ -12,6 +12,8 @@ namespace SCSMVVMUnitTest
         {
             Assert.Fail();
             //Test Code from test Branch
+
+            //Test code from second test Branch
         }
     }
 }
