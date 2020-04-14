@@ -11,6 +11,7 @@ namespace SCSMVVMUnitTest
         public void TestMethod1()
         {
             Assert.Fail();
+            //Test Code from test Branch
         }
     }
 }
