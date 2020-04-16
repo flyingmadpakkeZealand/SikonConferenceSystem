@@ -158,6 +158,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ModelLibrary\ModelLibrary.csproj">
+      <Project>{f09a489a-4fb2-4409-9644-0a4099954db9}</Project>
+      <Name>ModelLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SikonConferenceSystem\SikonConferenceSystem.csproj">
       <Project>{36fab6f8-393e-4659-9e7a-d0d865384adf}</Project>
       <Name>SikonConferenceSystem</Name>
