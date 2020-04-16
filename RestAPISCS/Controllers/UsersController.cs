@@ -15,6 +15,8 @@ namespace RestAPISCS.Controllers
     {
         private ManageGenericWithLambda<User> manager = DataBases.Access<User>(BaseNames.SikonDatabase, "UserSikon");
 
+        //The string inside is the name of the primary key for UserSikon table. It is used to associate an actual phone number value you give it ex. "12345678" with the that primary key via its column name, such that it can find a single entry with that phone number.
+        //If you had more than one primary key, you add all of them one by one to the dictionary in the method.
         public static Dictionary<string, object> PrimaryKeys(string phoneNumber)
         {
             Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
