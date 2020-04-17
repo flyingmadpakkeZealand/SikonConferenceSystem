@@ -41,12 +41,17 @@ namespace RestAPISCS.Controllers
         // POST: api/Admins
         public bool Post([FromBody]Admin admin)
         {
-
-            bool adminOk = adminManager.Post(Extractables.ExtractAdmin(admin));
-
             bool userOk =
                 userManager.Post(Extractables.ExtractUser(new User(admin.Name, admin.PhoneNumber, admin.Email,
                     admin.Password)));
+
+            bool adminOk = false;
+            if (userOk)
+            {
+                adminOk = adminManager.Post(Extractables.ExtractAdmin(admin)); 
+            }
+
+            
             return userOk && adminOk;
         }
 
