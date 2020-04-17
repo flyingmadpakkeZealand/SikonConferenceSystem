@@ -10,7 +10,7 @@ namespace SikonConferenceSystem.Model
 {
     public class CatalogSingleton<T>
     {
-        private static CatalogSingleton<T> instance;
+        private static CatalogSingleton<T> instance = new CatalogSingleton<T>();
 
         public static CatalogSingleton<T> Instance
         {
@@ -53,7 +53,7 @@ namespace SikonConferenceSystem.Model
                 return;
             }
 
-            List<T> loadedItems = await consumer.Get();
+            List<T> loadedItems = await consumer.GetAsync();
 
             foreach (T loadedItem in loadedItems)
             {

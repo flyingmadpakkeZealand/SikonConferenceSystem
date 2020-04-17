@@ -17,49 +17,49 @@ namespace SikonConferenceSystem.Persistency
             URL = url;
         }
 
-        public async Task<List<T>> Get()
+        public async Task<List<T>> GetAsync()
         {
             using (HttpClient client = new HttpClient())
             {
-                return await HandleHTTPResponse<List<T>>(() => client.GetAsync(URL));
+                return await HandleHTTPResponseAsync<List<T>>(() => client.GetAsync(URL));
             }
         }
 
-        public async Task<T> GetOne(int[] ids)
+        public async Task<T> GetOneAsync(int[] ids)
         {
             using (HttpClient client = new HttpClient())
             {
-                return await HandleHTTPResponse<T>(() => client.GetAsync(URL + RouteIds(ids)));
+                return await HandleHTTPResponseAsync<T>(() => client.GetAsync(URL + RouteIds(ids)));
             }
         }
 
-        public async Task<bool> Post(T item)
-        {
-            StringContent content = EncodeContent(item);
-            using (HttpClient client = new HttpClient())
-            {
-                return await HandleHTTPResponse<bool>(() => client.PostAsync(URL, content));
-            }
-        }
-
-        public async Task<bool> Put(T item, int[] ids)
+        public async Task<bool> PostAsync(T item)
         {
             StringContent content = EncodeContent(item);
             using (HttpClient client = new HttpClient())
             {
-                return await HandleHTTPResponse<bool>(() => client.PutAsync(URL + RouteIds(ids), content));
+                return await HandleHTTPResponseAsync<bool>(() => client.PostAsync(URL, content));
             }
         }
 
-        public async Task<bool> Delete(int[] ids)
+        public async Task<bool> PutAsync(T item, int[] ids)
+        {
+            StringContent content = EncodeContent(item);
+            using (HttpClient client = new HttpClient())
+            {
+                return await HandleHTTPResponseAsync<bool>(() => client.PutAsync(URL + RouteIds(ids), content));
+            }
+        }
+
+        public async Task<bool> DeleteAsync(int[] ids)
         {
             using (HttpClient client = new HttpClient())
             {
-                return await HandleHTTPResponse<bool>(()=>client.DeleteAsync(URL + RouteIds(ids)));
+                return await HandleHTTPResponseAsync<bool>(()=>client.DeleteAsync(URL + RouteIds(ids)));
             }
         }
 
-        private async Task<TB> HandleHTTPResponse<TB>(Func<Task<HttpResponseMessage>> clientResponse)
+        private async Task<TB> HandleHTTPResponseAsync<TB>(Func<Task<HttpResponseMessage>> clientResponse)
         {
             HttpResponseMessage response = await clientResponse();
             if (response.IsSuccessStatusCode)
