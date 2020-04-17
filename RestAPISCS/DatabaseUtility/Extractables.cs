@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DBUtility;
 using ModelLibrary;
+using RestAPISCS.App_Start;
+using RestAPISCS.Controllers;
 
 namespace RestAPISCS.DatabaseUtility
 {
@@ -15,6 +18,15 @@ namespace RestAPISCS.DatabaseUtility
             lookupDictionary.Add("Name", user.Name);
             lookupDictionary.Add("Email", user.Email);
             lookupDictionary.Add("Password", user.Password);
+            return lookupDictionary;
+        }
+
+        public static Dictionary<string, object> ExtractAdmin(Admin admin)
+        {
+            Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
+            lookupDictionary.Add("PhoneNumber", admin.PhoneNumber);
+            lookupDictionary.Add("AccessLevel", admin.AccessLevel);
+            
             return lookupDictionary;
         }
     }
