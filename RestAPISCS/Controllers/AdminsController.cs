@@ -56,17 +56,19 @@ namespace RestAPISCS.Controllers
         }
 
         // PUT: api/Admins/5
-
         public bool Put(int id, [FromBody]Admin admin)
-
         {
             string phoneNumber = Convert.ToString(id);
             bool adminOk = adminManager.Put(Extractables.ExtractAdmin(admin), PrimaryKeys(phoneNumber));
 
-            bool userOk =
-                userManager.Put(Extractables.ExtractUser(new User(admin.Name, admin.PhoneNumber, admin.Email,
-                    admin.Password)), PrimaryKeys(phoneNumber));
-            return userOk && adminOk;
+            bool userOk = false;
+            if (adminOk)
+            {
+                userOk =
+                        userManager.Put(Extractables.ExtractUser(new User(admin.Name, admin.PhoneNumber, admin.Email,
+                            admin.Password)), PrimaryKeys(phoneNumber)); 
+            }
+            return adminOk && userOk;
         }
 
         // DELETE: api/Admins/5
@@ -74,7 +76,12 @@ namespace RestAPISCS.Controllers
         {
             string phoneNumber = Convert.ToString(id);
             bool adminDelete = adminManager.Delete(PrimaryKeys(phoneNumber));
-            bool userDelete = userManager.Delete(PrimaryKeys(phoneNumber));
+
+            bool userDelete = false;
+            if (adminDelete)
+            {
+                userDelete = userManager.Delete(PrimaryKeys(phoneNumber)); 
+            }
             return adminDelete && userDelete;
         }
     }
