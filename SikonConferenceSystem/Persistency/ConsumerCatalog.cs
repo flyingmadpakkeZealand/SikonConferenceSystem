@@ -11,7 +11,8 @@ namespace SikonConferenceSystem.Persistency
     {
         private static Dictionary<Type, string> _urlDictionary = new Dictionary<Type, string>()
         {
-            {typeof(User), "http://localhost:61467/api/Users" }
+            {typeof(User), "http://localhost:61467/api/Users" },
+            {typeof(Admin), "http://localhost:61467/api/Admins" }
         };
 
         public static string GetUrl<T>()
