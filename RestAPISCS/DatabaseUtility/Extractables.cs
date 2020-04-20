@@ -35,6 +35,7 @@ namespace RestAPISCS.DatabaseUtility
             Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
             lookupDictionary.Add("PhoneNumber", speaker.PhoneNumber);
 
+            //TODO: implement
             throw new NotImplementedException("Missing Bio");
         }
     }
