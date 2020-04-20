@@ -36,48 +36,72 @@
     </Page.Resources>
 
     <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid Background="White">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Command="{Binding NavBackCommand}" Width="50" Style="{StaticResource MenuNavButtonStyle}">
-                    <StackPanel>
-                        <TextBlock Text="&#xE760;" FontSize="16" Style="{StaticResource MenuNavIconStyle}" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Tilbage" FontSize="8" Style="{StaticResource MenuNavTextStyle}" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding NavForwardCommand}" Width="50" Style="{StaticResource MenuNavButtonStyle}">
-                    <StackPanel>
-                        <TextBlock Text="&#xE761;" FontSize="16" Style="{StaticResource MenuNavIconStyle}" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Frem" FontSize="8" Style="{StaticResource MenuNavTextStyle}" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
+
+        <Grid Name="Header" Grid.Row="0" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+
+            <Grid Grid.Column="0" Background="CornflowerBlue">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Command="{Binding NavBackCommand}" Width="50" Style="{StaticResource MenuNavButtonStyle}">
+                        <StackPanel>
+                            <TextBlock Text="&#xE760;" FontSize="16" Style="{StaticResource MenuNavIconStyle}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Tilbage" FontSize="8" Style="{StaticResource MenuNavTextStyle}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding NavForwardCommand}" Width="50" Style="{StaticResource MenuNavButtonStyle}">
+                        <StackPanel>
+                            <TextBlock Text="&#xE761;" FontSize="16" Style="{StaticResource MenuNavIconStyle}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Frem" FontSize="8" Style="{StaticResource MenuNavTextStyle}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                <TextBox Text="Sikon Konference"  HorizontalAlignment="Left"/>
+                <TextBlock Margin="70,0,0,0" Text="{Binding Title}" FontSize="30" Width="450" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Margin="20,0,0,0" Text="{Binding ActiveUser.UserName}" Width="100" TextAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Margin="5,0,0,0" Text="&#xE77B;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource TextBlockStyle}"/>
             </StackPanel>
+
+            <!--<StackPanel Grid.Column="0" Grid.Row="1">
+                <Button Style="{StaticResource MenuNavButtonStyle}" Command="{Binding NavToPageCommand}" CommandParameter="{Binding LoginUserPage}">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <TextBlock Text="&#xE77B;" Style="{StaticResource MenuNavIconStyle}"/>
+                        <TextBlock Text="Login" Style="{StaticResource MenuNavTextStyle}"/>
+                    </StackPanel>
+                </Button>
+
+
+            </StackPanel>-->
         </Grid>
 
-        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="119,0,0,0" Orientation="Horizontal">
-            <TextBox Text="Sikon Konference"  HorizontalAlignment="Left"/>
-            <TextBlock Margin="70,0,0,0" Text="{Binding Title}" FontSize="30" Width="450" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Margin="20,0,0,0" Text="{Binding ActiveUser.UserName}" Width="100" TextAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Margin="5,0,0,0" Text="&#xE77B;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource TextBlockStyle}"/>
-        </StackPanel>
+        <ScrollViewer Grid.Row="1" Margin="0,-50,0,0" Padding="0,50,0,0">
+            <Grid Background="SlateGray" Name="Content" >
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.Row="1">
-            <Button Style="{StaticResource MenuNavButtonStyle}" Command="{Binding NavToPageCommand}" CommandParameter="{Binding LoginUserPage}">
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="&#xE77B;" Style="{StaticResource MenuNavIconStyle}"/>
-                    <TextBlock Text="Login" Style="{StaticResource MenuNavTextStyle}"/>
-                </StackPanel>
-            </Button>
+<TextBlock Text="Test Text" FontSize="800"/>
+
+                <!--<Frame Name="ContentFrame" Grid.Row="0"/>-->
+
+                <Grid Name="ContentLowerPage" Background="DarkSlateGray" Grid.Row="1">
+                    <TextBlock VerticalAlignment="Bottom" Text="LowerPage" FontSize="150"></TextBlock>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
 
 
-        </StackPanel>
     </Grid>
 </Page>
