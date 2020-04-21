@@ -47,7 +47,6 @@ namespace RestAPISCS.DatabaseUtility
             speaker.Email = user.Email;
             speaker.Password = user.Password;
 
-            //TODO: implement
             throw new NotImplementedException("Missing Bio");
         }
     }
