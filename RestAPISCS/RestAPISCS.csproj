@@ -90,7 +90,6 @@
     <Compile Include="App_Start\SetupDatabase.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
-    <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DatabaseUtility\Extractables.cs" />
     <Compile Include="DatabaseUtility\Fillables.cs" />
