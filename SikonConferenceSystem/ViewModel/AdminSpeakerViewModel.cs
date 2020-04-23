@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ModelLibrary;
 using SikonConferenceSystem.Annotations;
+using SikonConferenceSystem.Handler;
 using SikonConferenceSystem.Model;
 
 namespace SikonConferenceSystem.ViewModel
 {
-    public class AdminSpeakerPage:INotifyPropertyChanged
+    public class AdminSpeakerViewModel:INotifyPropertyChanged
     {
         private Speaker _newSpeaker;
+        public AdminSpeakerHandler AdminSpeakerHandler { get; set; }
 
         public CatalogSingleton<Speaker> AdminSpeakerSingleton { get; set; }
 
-        public AdminSpeakerPage()
+        public AdminSpeakerViewModel()
         {
             AdminSpeakerSingleton = CatalogSingleton<Speaker>.Instance;
             _newSpeaker = new Speaker();
+            AdminSpeakerHandler = new AdminSpeakerHandler(this);
         }
 
         public Speaker NewSpeaker
