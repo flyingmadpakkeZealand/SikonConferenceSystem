@@ -29,5 +29,14 @@ namespace RestAPISCS.DatabaseUtility
             
             return lookupDictionary;
         }
+
+        public static Dictionary<string, object> ExtractSpeaker(Speaker speaker)
+        {
+            Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
+            lookupDictionary.Add("PhoneNumber", speaker.PhoneNumber);
+            lookupDictionary.Add("Bio", speaker.Bio);
+
+            return lookupDictionary;
+        }
     }
 }

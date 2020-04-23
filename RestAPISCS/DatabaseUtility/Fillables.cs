@@ -33,5 +33,18 @@ namespace RestAPISCS.DatabaseUtility
             admin.Email = placeholder.Email;
             admin.Password = placeholder.Password;
         }
+
+        public static void FillSpeaker(Speaker speaker, SqlDataReader reader)
+        {
+            string phoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
+
+            speaker.PhoneNumber = phoneNumber;
+            speaker.Bio = reader.GetString(reader.GetOrdinal("Bio"));
+            User user = DataBases.Access<User>(BaseNames.SikonDatabase, "UserSikon")
+                .GetOne(FillUser, UsersController.PrimaryKeys(phoneNumber));
+            speaker.Name = user.Name;
+            speaker.Email = user.Email;
+            speaker.Password = user.Password;
+        }
     }
 }
