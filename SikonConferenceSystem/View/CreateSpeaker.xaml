@@ -5,17 +5,24 @@
     xmlns:local="using:SikonConferenceSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.DataContext>
+        <viewModel:AdminSpeakerViewModel></viewModel:AdminSpeakerViewModel>
+    </Page.DataContext>
     <Grid>
         <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Speakers" FontSize="36"></TextBlock>
+                <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300"></ListView>
+            </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="400">
-            <TextBox Text="Name" FontSize="36"></TextBox>
-            <TextBox Text="Phonenumber" FontSize="36"></TextBox>
-            <TextBox Text="Email" FontSize="36"></TextBox>
-            <TextBox Text="Password" FontSize="36"></TextBox>
-            <StackPanel Orientation="Horizontal" Spacing="50">
+            <TextBox Text="{Binding NewSpeaker.Name, Mode=TwoWay}" FontSize="36"></TextBox>
+            <TextBox Text="{Binding NewSpeaker.PhoneNumber, Mode=TwoWay}" FontSize="36"></TextBox>
+            <TextBox Text="{Binding NewSpeaker.Email, Mode=TwoWay}" FontSize="36"></TextBox>
+            <TextBox Text="{Binding NewSpeaker.Password, Mode=TwoWay}" FontSize="36"></TextBox>
+            <StackPanel Orientation="Horizontal" Spacing="50" Margin="0,50,0,0">
                 <Button Content="Create" FontSize="24"></Button>
                 <Button Content="Update" FontSize="24"></Button>
                 <Button Content="Delete" FontSize="24"></Button>
