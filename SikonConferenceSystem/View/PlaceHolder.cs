@@ -8,5 +8,6 @@ namespace SikonConferenceSystem.View
 {
     class PlaceHolder
     {
+        //Initial commit.
     }
 }
