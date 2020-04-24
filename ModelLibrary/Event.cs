@@ -6,8 +6,6 @@ namespace ModelLibrary
 {
     public class Event
     {
-        public Room Room;
-
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
         public float Rating { get; set; }
@@ -28,6 +26,11 @@ namespace ModelLibrary
         public Event()
         {
             
+        }
+
+        public override string ToString()
+        {
+            return $"EventId: {EventID}";
         }
     }
 }
