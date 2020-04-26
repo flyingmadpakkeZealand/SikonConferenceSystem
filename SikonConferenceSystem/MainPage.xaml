@@ -71,20 +71,22 @@
                 <TextBlock Margin="70,0,0,0" Text="{Binding Title}" FontSize="30" Width="450" Style="{StaticResource TextBlockStyle}"/>
                 <TextBlock Margin="20,0,0,0" Text="{Binding ActiveUser.UserName}" Width="100" TextAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
                 <TextBlock Margin="5,0,0,0" Text="&#xE77B;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource TextBlockStyle}"/>
-                <AppBarButton Label="Login" Icon="ContactInfo" AllowFocusOnInteraction="True" Width="100">
-                    <AppBarButton.Flyout>
-                        <Flyout>
-                            <Flyout.FlyoutPresenterStyle>
-                                <Style TargetType="FlyoutPresenter">
-                                    <Setter Property="Background" Value="White"></Setter>
-                                </Style>
-                            </Flyout.FlyoutPresenterStyle>
+                <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent" HorizontalAlignment="Left" IsOpen="True">
+                    <AppBarButton Label="Login" AllowFocusOnInteraction="True" Width="100" Icon="ContactInfo">
+                        <AppBarButton.Flyout>
+                            <Flyout>
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter">
+                                        <Setter Property="Background" Value="White"></Setter>
+                                    </Style>
+                                </Flyout.FlyoutPresenterStyle>
 
-                            <Frame Name="UserLoginFrame"></Frame>
+                                <Frame Name="UserLoginFrame"></Frame>
 
-                        </Flyout>
-                    </AppBarButton.Flyout>
-                </AppBarButton>
+                            </Flyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
+                </CommandBar>
             </StackPanel>
 
             <!--<StackPanel Grid.Column="0" Grid.Row="1">
