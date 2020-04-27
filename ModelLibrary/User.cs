@@ -6,6 +6,7 @@ namespace ModelLibrary
 {
     public class User
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
@@ -26,7 +27,7 @@ namespace ModelLibrary
 
         public override string ToString()
         {
-            return $"Name: {Name}\nPhoneNumber: {PhoneNumber}";
+            return $"Name: {Name}\nPhoneNumber: {PhoneNumber}\nID: {Id}";
         }
     }
 }

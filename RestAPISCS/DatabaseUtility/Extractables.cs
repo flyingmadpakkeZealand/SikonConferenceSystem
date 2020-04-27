@@ -24,7 +24,7 @@ namespace RestAPISCS.DatabaseUtility
         public static Dictionary<string, object> ExtractAdmin(Admin admin)
         {
             Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
-            lookupDictionary.Add("PhoneNumber", admin.PhoneNumber);
+            lookupDictionary.Add("Id", admin.Id);
             lookupDictionary.Add("AccessLevel", admin.AccessLevel);
             
             return lookupDictionary;
@@ -33,7 +33,7 @@ namespace RestAPISCS.DatabaseUtility
         public static Dictionary<string, object> ExtractSpeaker(Speaker speaker)
         {
             Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
-            lookupDictionary.Add("PhoneNumber", speaker.PhoneNumber);
+            lookupDictionary.Add("Id", speaker.Id);
             lookupDictionary.Add("Bio", speaker.Bio);
 
             return lookupDictionary;
