@@ -71,7 +71,7 @@
                 <TextBlock Margin="70,0,0,0" Text="{Binding Title}" FontSize="30" Width="450" Style="{StaticResource TextBlockStyle}"/>
                 <TextBlock Margin="20,0,0,0" Text="{Binding ActiveUser.UserName}" Width="100" TextAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
                 <TextBlock Margin="5,0,0,0" Text="&#xE77B;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource TextBlockStyle}"/>
-                <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent" HorizontalAlignment="Left" IsOpen="True">
+                <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent" HorizontalAlignment="Left" IsOpen="True" IsSticky="True">
                     <AppBarButton IsCompact="False" Label="Login" AllowFocusOnInteraction="True" Width="100" Icon="ContactInfo">
                         <AppBarButton.Flyout>
                             <Flyout>
