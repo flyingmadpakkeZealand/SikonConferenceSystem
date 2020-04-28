@@ -19,10 +19,10 @@ namespace RestAPISCS.Controllers
         private ManageGenericWithLambda<User>
             userManager = DataBases.Access<User>(BaseNames.SikonDatabase, "UserSikon");
 
-        public static Dictionary<string, object> PrimaryKeys(string PhoneNumber)
+        public static Dictionary<string, object> PrimaryKeys(int id)
         {
             Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
-            lookupDictionary.Add("PhoneNumber", PhoneNumber);
+            lookupDictionary.Add("Id", id);
             return lookupDictionary;
         }
 
@@ -35,19 +35,24 @@ namespace RestAPISCS.Controllers
         // GET: api/Speakers/5
         public Speaker Get(int id)
         {
-            string phoneNumber = Convert.ToString(id);
-            return speakerManager.GetOne(Fillables.FillSpeaker, PrimaryKeys(phoneNumber));
+            return speakerManager.GetOne(Fillables.FillSpeaker, PrimaryKeys(id));
         }
 
         // POST: api/Speakers
         public bool Post([FromBody]Speaker speaker)
         {
-            bool userOk = userManager.Post(Extractables.ExtractUser(new User(speaker.Name, speaker.PhoneNumber,
-                speaker.Email, speaker.Password)));
+            speaker.Id = -1;
+            bool userOk = false;
+
+            if (CheckNoDuplicate(speaker))
+            {
+                userOk = userManager.Post(Extractables.ExtractUser(speaker)); 
+            }
 
             bool speakerOk = false;
             if (userOk)
             {
+                speaker.Id = RetrieveId(speaker);
                 speakerOk = speakerManager.Post(Extractables.ExtractSpeaker(speaker));
             }
 
@@ -57,16 +62,19 @@ namespace RestAPISCS.Controllers
         // PUT: api/Speakers/5
         public bool Put(int id, [FromBody]Speaker speaker)
         {
-            string phoneNumber = Convert.ToString(id);
+            speaker.Id = id;
+            if (!CheckNoDuplicate(speaker))
+            {
+                return false;
+            }
 
-            bool speakerOk = speakerManager.Put(Extractables.ExtractSpeaker(speaker), PrimaryKeys(phoneNumber));
+            bool speakerOk = speakerManager.Put(Extractables.ExtractSpeaker(speaker), PrimaryKeys(id));
 
             bool userOk = false;
             if (speakerOk)
             {
                 userOk = userManager.Put(
-                    Extractables.ExtractUser(new User(speaker.Name, speaker.PhoneNumber, speaker.Email,
-                        speaker.Password)), PrimaryKeys(phoneNumber));
+                    Extractables.ExtractUser(speaker), PrimaryKeys(id));
             }
 
             return speakerOk && userOk;
@@ -75,17 +83,39 @@ namespace RestAPISCS.Controllers
         // DELETE: api/Speakers/5
         public bool Delete(int id)
         {
-            string phoneNumber = Convert.ToString(id);
-
-            bool speakerOk = speakerManager.Delete(PrimaryKeys(phoneNumber));
+            bool speakerOk = speakerManager.Delete(PrimaryKeys(id));
 
             bool userOk = false;
             if (speakerOk)
             {
-                userOk = userManager.Delete(PrimaryKeys(phoneNumber));
+                userOk = userManager.Delete(PrimaryKeys(id));
             }
 
             return speakerOk && userOk;
+        }
+
+        private bool CheckNoDuplicate(User user) //This should probably be replaced by some other code in the UWP app part.
+        {
+            User userEmailTemp = userManager.GetOne(Fillables.FillUser, UsersController.EmailKey(user.Email));
+            User userPhoneNumberTemp = userManager.GetOne(Fillables.FillUser, UsersController.PhoneNumberKey(user.PhoneNumber));
+
+            string email = userEmailTemp != null ? userEmailTemp.Email : string.Empty;
+            string phoneNumber = userPhoneNumberTemp != null ? userPhoneNumberTemp.PhoneNumber : string.Empty;
+
+            bool emailOk = email == string.Empty || userEmailTemp.Id == user.Id;
+            bool phoneNumberOk = phoneNumber == string.Empty || userPhoneNumberTemp.Id == user.Id;
+
+            return emailOk && phoneNumberOk;
+        }
+
+        private int RetrieveId(User user)
+        {
+            if (user.Email != string.Empty)
+            {
+                return userManager.GetOne(Fillables.FillUser, UsersController.EmailKey(user.Email)).Id;
+            }
+
+            return userManager.GetOne(Fillables.FillUser, UsersController.PhoneNumberKey(user.PhoneNumber)).Id;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace RestAPISCS.DatabaseUtility
     {
         public static void FillUser(User user, SqlDataReader reader)
         {
+            user.Id = reader.GetInt32(reader.GetOrdinal("Id"));
             user.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
             user.Name = reader.GetString(reader.GetOrdinal("Name"));
             user.Email = reader.GetString(reader.GetOrdinal("Email"));
@@ -23,25 +24,27 @@ namespace RestAPISCS.DatabaseUtility
 
         public static void FillAdmin(Admin admin, SqlDataReader reader)
         {
-            string PhoneNumber =  reader.GetString(reader.GetOrdinal("PhoneNumber"));
+            int id =  reader.GetInt32(reader.GetOrdinal("Id"));
 
-            admin.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
+            admin.Id = id;
             admin.AccessLevel = reader.GetInt32(reader.GetOrdinal("AccessLevel"));
-            User placeholder = DataBases.Access<User>(BaseNames.SikonDatabase, "UserSikon")
-                .GetOne(FillUser, UsersController.PrimaryKeys(PhoneNumber));
-            admin.Name = placeholder.Name;
-            admin.Email = placeholder.Email;
-            admin.Password = placeholder.Password;
+            User user = DataBases.Access<User>(BaseNames.SikonDatabase, "UserSikon")
+                .GetOne(FillUser, UsersController.PrimaryKeys(id));
+            admin.PhoneNumber = user.PhoneNumber;
+            admin.Name = user.Name;
+            admin.Email = user.Email;
+            admin.Password = user.Password;
         }
 
         public static void FillSpeaker(Speaker speaker, SqlDataReader reader)
         {
-            string phoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
+            int id = reader.GetInt32(reader.GetOrdinal("Id"));
 
-            speaker.PhoneNumber = phoneNumber;
+            speaker.Id = id;
             speaker.Bio = reader.GetString(reader.GetOrdinal("Bio"));
             User user = DataBases.Access<User>(BaseNames.SikonDatabase, "UserSikon")
-                .GetOne(FillUser, UsersController.PrimaryKeys(phoneNumber));
+                .GetOne(FillUser, UsersController.PrimaryKeys(id));
+            speaker.PhoneNumber = user.PhoneNumber;
             speaker.Name = user.Name;
             speaker.Email = user.Email;
             speaker.Password = user.Password;
