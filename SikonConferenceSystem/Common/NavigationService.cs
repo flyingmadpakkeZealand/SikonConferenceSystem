@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace SikonConferenceSystem.Common
-{
+{ //Initial Commit.
     public class NavigationService
     {
         private readonly Frame _frame;
