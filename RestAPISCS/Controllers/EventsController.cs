@@ -37,18 +37,23 @@ namespace RestAPISCS.Controllers
         // POST: api/Events
         public bool Post([FromBody]Event sikonEvent)
         {
-            sikonEvent.EventID = -1;
+            return eventManager.Post(Extractables.ExtractEvent(sikonEvent));
             
         }
 
         // PUT: api/Events/5
-        public void Put(int eventId, [FromBody]string value)
+        public bool Put(int eventId, [FromBody]Event sikonEvent)
         {
+            return eventManager.Put(Extractables.ExtractEvent(sikonEvent), PrimaryKeys(eventId));
         }
 
         // DELETE: api/Events/5
-        public void Delete(int eventId)
+        public bool Delete(int eventId)
         {
+            return eventManager.Delete(PrimaryKeys(eventId));
         }
+
+        //Der mangler CheckNoDuplicate og RetrieveId
+
     }
 }

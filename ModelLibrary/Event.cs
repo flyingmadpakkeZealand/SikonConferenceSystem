@@ -28,9 +28,5 @@ namespace ModelLibrary
             
         }
 
-        public override string ToString()
-        {
-            return $"EventId: {EventID}";
-        }
     }
 }

@@ -29,24 +29,30 @@ namespace RestAPISCS.Controllers
         }
 
         // GET: api/Bookings/5
-        public string Get(int id)
+        public Booking Get(int bookingId)
         {
-            return "value";
+            return bookingManager.GetOne(Fillables.FillBooking, PrimaryKeys(bookingId));
         }
 
         // POST: api/Bookings
-        public void Post([FromBody]string value)
+        public bool Post([FromBody]Booking booking)
         {
+            return bookingManager.Post(Extractables.ExtractBooking(booking));
         }
 
         // PUT: api/Bookings/5
-        public void Put(int id, [FromBody]string value)
+        public bool Put(int bookingId, [FromBody]Booking booking)
         {
+            return bookingManager.Put(Extractables.ExtractBooking(booking), PrimaryKeys(bookingId));
         }
 
         // DELETE: api/Bookings/5
-        public void Delete(int id)
+        public bool Delete(int bookingId)
         {
+            return bookingManager.Delete(PrimaryKeys(bookingId));
         }
+
+        //Der mangler CheckNoDuplicate og RetrieveId
+
     }
 }

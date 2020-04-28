@@ -29,24 +29,30 @@ namespace RestAPISCS.Controllers
         }
 
         // GET: api/Rooms/5
-        public string Get(int roomNr)
+        public Room Get(int roomNr)
         {
-            return "value";
+            return roomManager.GetOne(Fillables.FillRoom, PrimaryKeys(roomNr));
         }
 
         // POST: api/Rooms
-        public void Post([FromBody]Room room)
+        public bool Post([FromBody]Room room)
         {
+            return roomManager.Post(Extractables.ExtractRoom(room));
         }
 
         // PUT: api/Rooms/5
-        public void Put(int roomNr, [FromBody]Room room)
+        public bool Put(int roomNr, [FromBody]Room room)
         {
+            return roomManager.Put(Extractables.ExtractRoom(room), PrimaryKeys(roomNr));
         }
 
         // DELETE: api/Rooms/5
-        public void Delete(int roomNr)
+        public bool Delete(int roomNr)
         {
+            return roomManager.Delete(PrimaryKeys(roomNr));
         }
+
+        //Der mangler CheckNoDuplicate og RetrieveId
+
     }
 }
