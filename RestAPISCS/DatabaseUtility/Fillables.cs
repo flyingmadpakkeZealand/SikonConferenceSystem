@@ -52,7 +52,7 @@ namespace RestAPISCS.DatabaseUtility
         public static void FillRoom(Room room, SqlDataReader reader)
         {
             room.RoomNr = reader.GetInt32(reader.GetOrdinal("RoomNr"));
-            room.RoomMaxPersons = reader.GetInt32(reader.GetOrdinal("MaxPersons"));
+            room.RoomMaxPersons = reader.GetInt32(reader.GetOrdinal("RoomMaxPersons"));
             room.AutistSeats = reader.GetInt32(reader.GetOrdinal("AutistSeats"));
         }
         public static void FillEvent(Event sikonEvent, SqlDataReader reader)
