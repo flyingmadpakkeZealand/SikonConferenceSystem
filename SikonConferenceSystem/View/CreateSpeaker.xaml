@@ -15,7 +15,7 @@
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Speakers" FontSize="36"></TextBlock>
-                <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300"></ListView>
+                <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" SelectedIndex="{Binding SelectedSpeakerIndex, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300"></ListView>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="400">
             <TextBox Text="{Binding NewSpeaker.Name, Mode=TwoWay}" FontSize="36"></TextBox>

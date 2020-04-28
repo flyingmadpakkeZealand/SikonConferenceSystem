@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ModelLibrary;
 using SikonConferenceSystem.Annotations;
+using SikonConferenceSystem.Common;
 using SikonConferenceSystem.Handler;
 using SikonConferenceSystem.Model;
 
@@ -18,6 +19,8 @@ namespace SikonConferenceSystem.ViewModel
         private Speaker _newSpeaker;
         public AdminSpeakerHandler AdminSpeakerHandler { get; set; }
 
+        public int SelectedSpeakerIndex { get; set; }
+
         public CatalogSingleton<Speaker> AdminSpeakerSingleton { get; set; }
 
         public AdminSpeakerViewModel()
@@ -25,6 +28,7 @@ namespace SikonConferenceSystem.ViewModel
             AdminSpeakerSingleton = CatalogSingleton<Speaker>.Instance;
             _newSpeaker = new Speaker();
             AdminSpeakerHandler = new AdminSpeakerHandler(this);
+  
         }
 
         public Speaker NewSpeaker
