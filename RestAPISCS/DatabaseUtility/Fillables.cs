@@ -49,5 +49,33 @@ namespace RestAPISCS.DatabaseUtility
             speaker.Email = user.Email;
             speaker.Password = user.Password;
         }
+        public static void FillRoom(Room room, SqlDataReader reader)
+        {
+            room.RoomNr = reader.GetInt32(reader.GetOrdinal("RoomNr"));
+            room.RoomMaxPersons = reader.GetInt32(reader.GetOrdinal("MaxPersons"));
+            room.AutistSeats = reader.GetInt32(reader.GetOrdinal("AutistSeats"));
+        }
+        public static void FillEvent(Event sikonEvent, SqlDataReader reader)
+        {
+            int roomNr = reader.GetInt32(reader.GetOrdinal("RoomNr"));
+
+
+            sikonEvent.EventID = reader.GetInt32(reader.GetOrdinal("EventId"));
+            sikonEvent.Date = reader.GetDateTime(reader.GetOrdinal("Date"));
+            sikonEvent.Duration = reader.GetTimeSpan(reader.GetOrdinal("Time"));
+            sikonEvent.Rating = reader.GetFloat(reader.GetOrdinal("Rating"));
+            sikonEvent.Abstract = reader.GetString(reader.GetOrdinal("Abstact"));
+            sikonEvent.RoomNr = roomNr;
+        }
+
+
+        public static void FillBooking(Booking booking, SqlDataReader reader)
+        {
+            int id = reader.GetInt32(reader.GetOrdinal("Id"));
+
+            booking.Id = id;
+            booking.BookingID = reader.GetInt32(reader.GetOrdinal("BookingId"));
+            booking.BookingDate = reader.GetDateTime(reader.GetOrdinal("BookingDate"));
+        }
     }
 }

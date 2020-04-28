@@ -8,13 +8,13 @@ namespace ModelLibrary
     {
         public int BookingID { get; set; }
         public DateTime BookingDate { get; set; }
-        public int CustomerPhoneNumber { get; set; }
+        public int Id { get; set; }
 
-        public Booking(int bookingId, DateTime bookingDate, int customerPhoneNumber)
+        public Booking(int bookingId, DateTime bookingDate, int id)
         {
             BookingID = bookingId;
             BookingDate = bookingDate;
-            CustomerPhoneNumber = customerPhoneNumber;
+            Id = id;
         }
 
         public Booking()
