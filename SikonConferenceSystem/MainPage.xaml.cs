@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Display.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,10 +26,23 @@ namespace SikonConferenceSystem
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private const uint TopSize = 50;
+        private const uint BottomSize = 200;
+        private const uint NativeScreenSace = 100;
+
+        public static uint AproxFrameHeight { get; set; }
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            var screenHeight = DisplayInformation.GetForCurrentView().ScreenHeightInRawPixels;
+            AproxFrameHeight = screenHeight - (TopSize + BottomSize + NativeScreenSace);
+
             UserLoginFrame.Navigate(typeof(UserLoginPage));
+            ContentFrame.Navigate(typeof(EventsPage));
+
+            
         }
     }
 }

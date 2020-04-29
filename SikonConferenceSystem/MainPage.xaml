@@ -108,9 +108,9 @@
                     <RowDefinition Height="200"/>
                 </Grid.RowDefinitions>
 
-<TextBlock Text="Test Text" FontSize="800"/>
+<!--<TextBlock Text="Test Text" FontSize="800"/>-->
 
-                <!--<Frame Name="ContentFrame" Grid.Row="0"/>-->
+                <Frame Background="Transparent" Name="ContentFrame" Grid.Row="0"/>
 
                 <Grid Name="ContentLowerPage" Background="DarkSlateGray" Grid.Row="1">
                     <TextBlock VerticalAlignment="Bottom" Text="LowerPage" FontSize="150"></TextBlock>

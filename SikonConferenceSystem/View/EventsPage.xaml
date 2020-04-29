@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="SikonConferenceSystem.View.EventsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SikonConferenceSystem.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <local:GroupingEventVM x:Name="EventVm"/>
+    </Page.DataContext>
+
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="ViewSourceEvents" Source="{x:Bind EventVm.HourGroups}" ItemsPath="EventGroup" IsSourceGrouped="True"></CollectionViewSource>
+        
+    </Page.Resources>
+
+
+
+    <Grid Background="SlateGray">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="Transparent" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0,0,0,30" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <ListView MaxHeight="{x:Bind MaxHeightForGrid}" Background="Beige" ItemsSource="{Binding Source={StaticResource ViewSourceEvents}}" Grid.Row="1">
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate x:DataType="local:HourGroup">
+                                <TextBlock Text="{Binding Time}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel AreStickyGroupHeadersEnabled="True"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:EventAdapter">
+                        <StackPanel Spacing="20" Width="800" Orientation="Horizontal" Background="{Binding Color}">
+                            <Image Height="100" Width="100" Source="{Binding ImagePath}"/>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Event.Abstract}"/>
+                                <TextBlock Text="{Binding Event.Date.Hour}"/>
+                                <TextBlock Text="{Binding Event.Duration}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+        </Grid>
+
+
+    </Grid>
+</Page>
