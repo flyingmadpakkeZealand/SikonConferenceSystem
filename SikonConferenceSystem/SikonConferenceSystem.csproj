@@ -137,6 +137,9 @@
     <Compile Include="View\CreateSpeaker.xaml.cs">
       <DependentUpon>CreateSpeaker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DetailedEventView.xaml.cs">
+      <DependentUpon>DetailedEventView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PlaceHolder.cs" />
     <Compile Include="View\UserLoginPage.xaml.cs">
       <DependentUpon>UserLoginPage.xaml</DependentUpon>
@@ -167,6 +170,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CreateSpeaker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DetailedEventView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
