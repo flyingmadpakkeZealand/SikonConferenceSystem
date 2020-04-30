@@ -181,7 +181,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
 
-    <Page Include="View\EventsPage.xaml">
+    <Page Include="View\EventsPage.xaml"/>
 
     <Page Include="View\DetailedEventView.xaml">
 
