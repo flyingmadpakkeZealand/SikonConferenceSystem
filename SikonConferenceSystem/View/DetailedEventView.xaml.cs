@@ -20,23 +20,11 @@ namespace SikonConferenceSystem.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CreateSpeaker : Page
+    public sealed partial class DetailedEventView : Page
     {
-        public CreateSpeaker()
+        public DetailedEventView()
         {
             this.InitializeComponent();
-        }
-
-        private void CheckBox_Changed(object sender, RoutedEventArgs e)
-        {
-            if (revealModeCheckBox.IsChecked == true)
-            {
-                passwordBox1.PasswordRevealMode = PasswordRevealMode.Visible;
-            }
-            else
-            {
-                passwordBox1.PasswordRevealMode = PasswordRevealMode.Hidden;
-            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace RestAPISCS.Controllers
 {
     public class EventsController : ApiController
     {
-        
+        private ManageGenericWithLambda<Event> eventManager = DataBases.Access<Event>(BaseNames.SikonDatabase, "Event");
 
         private static Dictionary<string, object> PrimaryKeys(int eventId)
         {
@@ -23,30 +23,37 @@ namespace RestAPISCS.Controllers
         }
 
         // GET: api/Events
-        //public IEnumerable<Event> Get()
-        //{
-        //    return;
-        //}
+        public IEnumerable<Event> Get()
+        {
+            return eventManager.Get(Fillables.FillEvent);
+        }
 
         // GET: api/Events/5
-        public string Get(int id)
+        public Event Get(int eventId)
         {
-            return "value";
+            return eventManager.GetOne(Fillables.FillEvent, PrimaryKeys(eventId));
         }
 
         // POST: api/Events
-        public void Post([FromBody]string value)
+        public bool Post([FromBody]Event sikonEvent)
         {
+            return eventManager.Post(Extractables.ExtractEvent(sikonEvent));
+            
         }
 
         // PUT: api/Events/5
-        public void Put(int id, [FromBody]string value)
+        public bool Put(int eventId, [FromBody]Event sikonEvent)
         {
+            return eventManager.Put(Extractables.ExtractEvent(sikonEvent), PrimaryKeys(eventId));
         }
 
         // DELETE: api/Events/5
-        public void Delete(int id)
+        public bool Delete(int eventId)
         {
+            return eventManager.Delete(PrimaryKeys(eventId));
         }
+
+        //Der mangler CheckNoDuplicate og RetrieveId
+
     }
 }

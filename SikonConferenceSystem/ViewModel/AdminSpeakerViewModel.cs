@@ -28,13 +28,26 @@ namespace SikonConferenceSystem.ViewModel
             AdminSpeakerSingleton = CatalogSingleton<Speaker>.Instance;
             _newSpeaker = new Speaker();
             AdminSpeakerHandler = new AdminSpeakerHandler(this);
-  
+            CreateSpeakerCommand = new RelayCommand(AdminSpeakerHandler.CreateSpeaker, (() => NewSpeaker.PhoneNumber!="" && NewSpeaker.Email!=""));
+            DeleteSpeakerCommand = new RelayCommand(AdminSpeakerHandler.DeleteSpeaker, (() => NewSpeaker.PhoneNumber != "" && NewSpeaker.Email != ""));
+            UpdateSpeakerCommand = new RelayCommand(AdminSpeakerHandler.UpdateSpeaker, (() => NewSpeaker.PhoneNumber != "" && NewSpeaker.Email != ""));
+            ClearSpeakerCommand = new RelayCommand(AdminSpeakerHandler.ClearSpeaker, (() => NewSpeaker.PhoneNumber != "" && NewSpeaker.Email != ""));
         }
 
         public Speaker NewSpeaker
         {
             get { return _newSpeaker; }
-            set { _newSpeaker = value; OnPropertyChanged(); }
+            set {
+                if (value != null)
+                {
+                    _newSpeaker = value;
+                    OnPropertyChanged();
+                    ((RelayCommand)DeleteSpeakerCommand).RaiseCanExecuteChanged();
+                    ((RelayCommand)CreateSpeakerCommand).RaiseCanExecuteChanged();
+                    ((RelayCommand)UpdateSpeakerCommand).RaiseCanExecuteChanged();
+                    ((RelayCommand)ClearSpeakerCommand).RaiseCanExecuteChanged();
+                }
+            }
         }
 
         public ICommand CreateSpeakerCommand { get; set; }
