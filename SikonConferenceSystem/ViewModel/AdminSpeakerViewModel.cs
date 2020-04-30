@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Xaml.Media.Animation;
 using ModelLibrary;
 using SikonConferenceSystem.Annotations;
 using SikonConferenceSystem.Common;
@@ -26,13 +27,38 @@ namespace SikonConferenceSystem.ViewModel
         public AdminSpeakerViewModel()
         {
             AdminSpeakerSingleton = CatalogSingleton<Speaker>.Instance;
-            _newSpeaker = new Speaker();
+            _newSpeaker = new Speaker("","","","","");
             AdminSpeakerHandler = new AdminSpeakerHandler(this);
-            CreateSpeakerCommand = new RelayCommand(AdminSpeakerHandler.CreateSpeaker, (() => NewSpeaker.PhoneNumber!="" && NewSpeaker.Email!=""));
-            DeleteSpeakerCommand = new RelayCommand(AdminSpeakerHandler.DeleteSpeaker, (() => NewSpeaker.PhoneNumber != "" && NewSpeaker.Email != ""));
-            UpdateSpeakerCommand = new RelayCommand(AdminSpeakerHandler.UpdateSpeaker, (() => NewSpeaker.PhoneNumber != "" && NewSpeaker.Email != ""));
-            ClearSpeakerCommand = new RelayCommand(AdminSpeakerHandler.ClearSpeaker, (() => NewSpeaker.PhoneNumber != "" && NewSpeaker.Email != ""));
+            CreateSpeakerCommand = new RelayCommand(AdminSpeakerHandler.CreateSpeaker, (() => CheckforBlank() && CheckData()));
+            DeleteSpeakerCommand = new RelayCommand(AdminSpeakerHandler.DeleteSpeaker, (() => CheckforBlank()));
+            UpdateSpeakerCommand = new RelayCommand(AdminSpeakerHandler.UpdateSpeaker, (() => CheckforBlank() && CheckData()));
+            ClearSpeakerCommand = new RelayCommand(AdminSpeakerHandler.ClearSpeaker);
         }
+
+        private bool CheckforBlank()
+        {
+            if (NewSpeaker.PhoneNumber != "" && NewSpeaker.Email != "")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckData()
+        {
+            if (NewSpeaker.Password.Length > 7 && NewSpeaker.PhoneNumber.Length == 8 && NewSpeaker.Email.Contains("@"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         public Speaker NewSpeaker
         {
@@ -42,11 +68,58 @@ namespace SikonConferenceSystem.ViewModel
                 {
                     _newSpeaker = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(TransitionName));
+                    OnPropertyChanged(nameof(TransitionEmail));
+                    OnPropertyChanged(nameof(TransitionPhoneNumber));
+                    OnPropertyChanged(nameof(TransitionPassword));
                     ((RelayCommand)DeleteSpeakerCommand).RaiseCanExecuteChanged();
                     ((RelayCommand)CreateSpeakerCommand).RaiseCanExecuteChanged();
                     ((RelayCommand)UpdateSpeakerCommand).RaiseCanExecuteChanged();
-                    ((RelayCommand)ClearSpeakerCommand).RaiseCanExecuteChanged();
                 }
+            }
+        }
+
+        public string TransitionName
+        {
+            get { return NewSpeaker.Name; }
+            set
+            {
+                NewSpeaker.Name = value;
+                ((RelayCommand)CreateSpeakerCommand).RaiseCanExecuteChanged();
+                ((RelayCommand)UpdateSpeakerCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public string TransitionPhoneNumber
+        {
+            get { return NewSpeaker.PhoneNumber; }
+            set
+            {
+                NewSpeaker.PhoneNumber = value;
+                ((RelayCommand)CreateSpeakerCommand).RaiseCanExecuteChanged();
+                ((RelayCommand)UpdateSpeakerCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public string TransitionEmail
+        {
+            get { return NewSpeaker.Email; }
+            set
+            {
+                NewSpeaker.Email = value;
+                ((RelayCommand)CreateSpeakerCommand).RaiseCanExecuteChanged();
+                ((RelayCommand)UpdateSpeakerCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public string TransitionPassword
+        {
+            get { return NewSpeaker.Password; }
+            set
+            {
+                NewSpeaker.Password = value;
+                ((RelayCommand)CreateSpeakerCommand).RaiseCanExecuteChanged();
+                ((RelayCommand)UpdateSpeakerCommand).RaiseCanExecuteChanged();
             }
         }
 

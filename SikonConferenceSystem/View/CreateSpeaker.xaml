@@ -19,14 +19,14 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="600">
                 <TextBlock Text="Name" FontSize="24"></TextBlock>
-                <TextBox Text="{Binding NewSpeaker.Name, Mode=TwoWay}" PlaceholderText="Name" FontSize="36"></TextBox>
+                <TextBox Text="{Binding TransitionName, Mode=TwoWay}" PlaceholderText="Name" FontSize="36"></TextBox>
                 <TextBlock Text="Phonenumber" FontSize="24"></TextBlock>
-                <TextBox Text="{Binding NewSpeaker.PhoneNumber, Mode=TwoWay}"  PlaceholderText="Phonenumber" FontSize="36"></TextBox>
+                <TextBox Text="{Binding TransitionPhoneNumber, Mode=TwoWay}"  PlaceholderText="Phonenumber" FontSize="36"></TextBox>
                 <TextBlock Text="Email" FontSize="24"></TextBlock>
-                <TextBox Text="{Binding NewSpeaker.Email, Mode=TwoWay}" PlaceholderText="Email" FontSize="36"></TextBox>
+                <TextBox Text="{Binding TransitionEmail, Mode=TwoWay}" PlaceholderText="Email" FontSize="36"></TextBox>
                 <TextBlock Text="Password" FontSize="24"></TextBlock>
                 
-                <PasswordBox Width="500" Name ="passwordBox1" Password="{Binding NewSpeaker.Password, Mode=TwoWay}"  PlaceholderText="Password" FontSize="36" PasswordRevealMode="Hidden"/>
+                <PasswordBox Width="500" Name ="passwordBox1" Password="{Binding TransitionPassword, Mode=TwoWay}"  PlaceholderText="Password" FontSize="36" PasswordRevealMode="Hidden"/>
                 <CheckBox Name="revealModeCheckBox" Content="Show password"
                           IsChecked="False" 
                           Checked="CheckBox_Changed" Unchecked="CheckBox_Changed" FontSize="24"/>
