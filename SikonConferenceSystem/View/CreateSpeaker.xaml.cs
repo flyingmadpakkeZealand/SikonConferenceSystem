@@ -26,5 +26,17 @@ namespace SikonConferenceSystem.View
         {
             this.InitializeComponent();
         }
+
+        private void CheckBox_Changed(object sender, RoutedEventArgs e)
+        {
+            if (revealModeCheckBox.IsChecked == true)
+            {
+                passwordBox1.PasswordRevealMode = PasswordRevealMode.Visible;
+            }
+            else
+            {
+                passwordBox1.PasswordRevealMode = PasswordRevealMode.Hidden;
+            }
+        }
     }
 }

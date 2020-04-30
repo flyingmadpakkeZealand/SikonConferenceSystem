@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using ModelLibrary;
+using SikonConferenceSystem.Common;
 using SikonConferenceSystem.Persistency;
 using SikonConferenceSystem.ViewModel;
 
@@ -11,48 +13,53 @@ namespace SikonConferenceSystem.Handler
 {
     public class AdminSpeakerHandler
     {
-        private AdminSpeakerViewModel adminSpeakerViewModel;
+        private AdminSpeakerViewModel _adminSpeakerViewModel;
 
         public AdminSpeakerHandler(AdminSpeakerViewModel adminSpeakerViewModel)
         {
-            adminSpeakerViewModel = adminSpeakerViewModel;
+            _adminSpeakerViewModel = adminSpeakerViewModel;
         }
 
         public async void CreateSpeaker()
         {
-            string speakerName = adminSpeakerViewModel.NewSpeaker.Name;
-            string speakerEmail = adminSpeakerViewModel.NewSpeaker.Email;
-            string speakerPhoneNumber = adminSpeakerViewModel.NewSpeaker.PhoneNumber;
-            string speakerPassword = adminSpeakerViewModel.NewSpeaker.Password;
+            string speakerName = _adminSpeakerViewModel.NewSpeaker.Name;
+            string speakerEmail = _adminSpeakerViewModel.NewSpeaker.Email;
+            string speakerPhoneNumber = _adminSpeakerViewModel.NewSpeaker.PhoneNumber;
+            string speakerPassword = _adminSpeakerViewModel.NewSpeaker.Password;
 
             Speaker aSpeaker = new Speaker(speakerName,speakerPhoneNumber,speakerEmail,speakerPassword,"");
             Persistency.Consumer<Speaker> AdminSpeakerFacade = new Persistency.Consumer<Speaker>("http://localhost:61467/api/Speakers");
             bool ok = await AdminSpeakerFacade.PostAsync(aSpeaker);
+            ClearSpeaker();
+            _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.CreateSpeakerCommand).RaiseCanExecuteChanged);
+
 
         }
 
         public async void DeleteSpeaker()
         {
-            string speakerName = adminSpeakerViewModel.NewSpeaker.Name;
-            string speakerEmail = adminSpeakerViewModel.NewSpeaker.Email;
-            string speakerPhoneNumber = adminSpeakerViewModel.NewSpeaker.PhoneNumber;
-            string speakerPassword = adminSpeakerViewModel.NewSpeaker.Password;
-
-            Speaker aSpeaker = new Speaker(speakerName, speakerPhoneNumber, speakerEmail, speakerPassword, "");
+            int speakerID = _adminSpeakerViewModel.NewSpeaker.Id;
+            
             Persistency.Consumer<Speaker> AdminSpeakerFacade = new Persistency.Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
-            bool ok = await AdminSpeakerFacade.DeleteAsync(new[] {Convert.ToInt32(aSpeaker.PhoneNumber)});
+            bool ok = await AdminSpeakerFacade.DeleteAsync(new[] {(speakerID)});
+            ClearSpeaker();
+            _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.DeleteSpeakerCommand).RaiseCanExecuteChanged);
+
         }
 
         public async void UpdateSpeaker()
         {
-            string speakerName = adminSpeakerViewModel.NewSpeaker.Name;
-            string speakerEmail = adminSpeakerViewModel.NewSpeaker.Email;
-            string speakerPhoneNumber = adminSpeakerViewModel.NewSpeaker.PhoneNumber;
-            string speakerPassword = adminSpeakerViewModel.NewSpeaker.Password;
+            string speakerName = _adminSpeakerViewModel.NewSpeaker.Name;
+            string speakerEmail = _adminSpeakerViewModel.NewSpeaker.Email;
+            string speakerPhoneNumber = _adminSpeakerViewModel.NewSpeaker.PhoneNumber;
+            string speakerPassword = _adminSpeakerViewModel.NewSpeaker.Password;
+            int speakerID = _adminSpeakerViewModel.NewSpeaker.Id;
 
             Speaker aSpeaker = new Speaker(speakerName, speakerPhoneNumber, speakerEmail, speakerPassword, "");
             Persistency.Consumer<Speaker> AdminSpeakerFacade = new Persistency.Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
-            bool ok = await AdminSpeakerFacade.PutAsync(aSpeaker,new[] { Convert.ToInt32(aSpeaker.PhoneNumber) });
+            bool ok = await AdminSpeakerFacade.PutAsync(aSpeaker, new[] { (speakerID) });
+            ClearSpeaker();
+            _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.UpdateSpeakerCommand).RaiseCanExecuteChanged);
 
 
         }
@@ -65,10 +72,9 @@ namespace SikonConferenceSystem.Handler
             string speakerPassword = "";
 
 
-            Speaker aspeaker = new Speaker(speakerName,speakerEmail,speakerEmail,speakerPassword,"");
+            Speaker aspeaker = new Speaker(speakerName,speakerEmail,speakerPhoneNumber,speakerPassword,"");
 
-            Persistency.Consumer<Speaker> AdminSpeakerFacade = new Persistency.Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
-            adminSpeakerViewModel.NewSpeaker = aspeaker;
+            _adminSpeakerViewModel.NewSpeaker = aspeaker;
         }
     }
 }
