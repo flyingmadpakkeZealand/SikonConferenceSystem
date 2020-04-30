@@ -140,7 +140,7 @@
     <Compile Include="View\EventsPage.xaml.cs">
       <DependentUpon>EventsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\GroupingEventVM.cs" />
+    <Compile Include="ViewModel\GroupingEventVM.cs" />
     <Compile Include="View\PlaceHolder.cs" />
     <Compile Include="View\UserLoginPage.xaml.cs">
       <DependentUpon>UserLoginPage.xaml</DependentUpon>

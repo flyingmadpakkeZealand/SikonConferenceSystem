@@ -5,16 +5,17 @@
     xmlns:local="using:SikonConferenceSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <local:GroupingEventVM x:Name="EventVm"/>
+        <viewModel:GroupingEventVM x:Name="EventVm"/>
     </Page.DataContext>
 
 
     <Page.Resources>
-        <CollectionViewSource x:Name="ViewSourceEvents" Source="{x:Bind EventVm.HourGroups}" ItemsPath="EventGroup" IsSourceGrouped="True"></CollectionViewSource>
+        <CollectionViewSource x:Name="ViewSourceEvents" Source="{x:Bind EventVm.HourGroups}" ItemsPath="Events" IsSourceGrouped="True"></CollectionViewSource>
         
     </Page.Resources>
 
@@ -35,7 +36,7 @@
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
-                            <DataTemplate x:DataType="local:HourGroup">
+                            <DataTemplate x:DataType="viewModel:HourGroup">
                                 <TextBlock Text="{Binding Time}"/>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
@@ -47,9 +48,9 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="local:EventAdapter">
+                    <DataTemplate x:DataType="viewModel:EventAdapter">
                         <StackPanel Spacing="20" Width="800" Orientation="Horizontal" Background="{Binding Color}">
-                            <Image Height="100" Width="100" Source="{Binding ImagePath}"/>
+                            <Image Height="100" Width="100" Source="{Binding Event.ImagePath}"/>
                             <StackPanel>
                                 <TextBlock Text="{Binding Event.Abstract}"/>
                                 <TextBlock Text="{Binding Event.Date.Hour}"/>
