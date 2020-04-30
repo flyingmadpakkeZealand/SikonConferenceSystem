@@ -36,6 +36,8 @@ namespace SikonConferenceSystem.View
                 "#33DEF010", ""));
             allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(14), TimeSpan.FromHours(1), 5, "The Eight event", 0, 0),
                 "#33DEF010", ""));
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(13.5), TimeSpan.FromHours(1), 5, "The Test event", 0, 0),
+                "#33DEF010", ""));
 
             SetupHourGroups();
 
