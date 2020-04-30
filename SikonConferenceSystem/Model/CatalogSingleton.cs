@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.AppService;
 using SikonConferenceSystem.Persistency;
 
 namespace SikonConferenceSystem.Model
@@ -79,5 +80,19 @@ namespace SikonConferenceSystem.Model
         {
             _catalog.RemoveAt(index);
         }
+
+        public async Task Reload()
+        {
+            Catalog.Clear();
+            await LoadItems();
+        }
+
+        public async Task Reload(Action action)
+        {
+            Catalog.Clear();
+            _finalActions += action;
+            await LoadItems();
+        }
+
     }
 }
