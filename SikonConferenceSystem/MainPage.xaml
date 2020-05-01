@@ -38,9 +38,11 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="2"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Border Grid.Row="1" Background="Black"></Border>
 
         <Grid Name="Header" Grid.Row="0" Background="White" Canvas.ZIndex="1" Margin="0,0,20,0">
             <Grid.ColumnDefinitions>
@@ -101,7 +103,7 @@
             </StackPanel>-->
         </Grid>
 
-        <ScrollViewer Grid.Row="1" Margin="0,-50,0,0" Padding="0,50,0,0">
+        <ScrollViewer Grid.Row="2" Margin="0,-52,0,0" Padding="0,52,0,0">
             <Grid Background="SlateGray" Name="Content" >
                 <Grid.RowDefinitions>
                     <RowDefinition/>

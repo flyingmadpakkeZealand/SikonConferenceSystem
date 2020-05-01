@@ -40,7 +40,7 @@ namespace SikonConferenceSystem
             AproxFrameHeight = screenHeight - (TopSize + BottomSize + NativeScreenSace);
 
             UserLoginFrame.Navigate(typeof(UserLoginPage));
-            ContentFrame.Navigate(typeof(EventsPage));
+            ContentFrame.Navigate(typeof(SetupEventsPage));
 
             
         }
