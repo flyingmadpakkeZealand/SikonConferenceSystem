@@ -22,6 +22,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -34,6 +35,8 @@
             <RelativePanel>
                 <Image Name="EventImage" Source="../Assets/Square150x150Logo.png" MaxHeight="500" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
                 <StackPanel Spacing="10" Background="White" BorderBrush="Goldenrod" BorderThickness="5" CornerRadius="10" RelativePanel.Below="EventImage" Padding="10,10,10,10" Margin="0,10,0,0" RelativePanel.AlignLeftWith="EventImage" RelativePanel.AlignRightWith="EventImage">
+                    <TextBlock Text="Event Type"></TextBlock>
+                    <TextBlock Text="Room"></TextBlock>
                     <TextBlock Text="Remaining Seats"/>
                     <TextBlock Text="Total Seats"/>
                     <CheckBox IsEnabled="False" Content="Attending Event"></CheckBox>
@@ -65,15 +68,31 @@
         <Border Grid.Row="1" Grid.Column="0" Padding="120,40,120,40">
             <StackPanel>
                 <AutoSuggestBox PlaceholderText="Enter a speaker's name to add them to the event"/>
-                <ListView>
+                <ListView Name="SpeakerView" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical">
-                                <TextBox Style="{StaticResource SpeakerDisplayTxtBox}"/>
-                                <TextBox Style="{StaticResource SpeakerDisplayTxtBox}"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Text="Test" Style="{StaticResource SpeakerDisplayTxtBox}"/>
+                                <TextBox Text="Test" Grid.Column="1" Style="{StaticResource SpeakerDisplayTxtBox}"/>
+                                <Button HorizontalAlignment="Right" Grid.Column="1">
+                                    <SymbolIcon Symbol="Delete"/>
+                                </Button>
+                            </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="MinWidth" Value="0"/>
+                            <Setter Property="MinHeight" Value="0"/>
+                            <Setter Property="Margin" Value="0,0,0,0"/>
+                            <Setter Property="Padding" Value="0,0,0,0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.HeaderTemplate>
                         <DataTemplate>
                             <Grid>
@@ -89,6 +108,12 @@
                 </ListView>
             </StackPanel>
         </Border>
+
+        <Grid Name="TempGrid" Row="2" Column="0" ColumnSpan="2" BorderBrush="Black" BorderThickness="2" Padding="0,0,0,0">
+            <Button Name="TempSaveButton" Content="Save" HorizontalAlignment="Center" Background="White" Margin="0,0,100,0"></Button>
+
+            <Button Name="TempCancelButton" Content="Cancel" HorizontalAlignment="Center" Background="White" Margin="100,0,0,0"></Button>
+        </Grid>
 
 
     </Grid>
