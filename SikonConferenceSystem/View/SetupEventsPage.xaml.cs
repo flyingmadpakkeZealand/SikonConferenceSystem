@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using ModelLibrary;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -43,6 +44,37 @@ namespace SikonConferenceSystem.View
         public SetupEventsPage()
         {
             this.InitializeComponent();
+        }
+
+        private void SpeakersInEventSuggestBox_OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                SpeakersInEventSuggestBox.ItemsSource = SetupEventsPageVm.Handler.SuggestBoxSpeakers(sender.Text);
+            }
+        }
+
+        private void SpeakersInEventSuggestBox_OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            Speaker chosenSpeaker = args.ChosenSuggestion as Speaker;
+            if (chosenSpeaker != null)
+            {
+                SetupEventsPageVm.SpeakersInEvent.Add(chosenSpeaker);
+            }
+            else
+            {
+                bool addedOk = SetupEventsPageVm.Handler.AddUsingText(args.QueryText);
+                if (!addedOk)
+                {
+                    sender.ContextFlyout.ShowAt(sender);
+                }
+            }
+        }
+
+        private void SpeakerViewDeleteButton_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Button deleteButton = sender as Button;
+            deleteButton.Command = SetupEventsPageVm.PressSpeakersInEventDeleteCommand;
         }
     }
 }

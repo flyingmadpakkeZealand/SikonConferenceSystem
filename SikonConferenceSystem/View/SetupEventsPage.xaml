@@ -5,8 +5,14 @@
     xmlns:local="using:SikonConferenceSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModel:SetupEventsPageVM x:Name="SetupEventsPageVm"/>
+    </Page.DataContext>
+
 
     <Page.Resources>
         <Style x:Key="SpeakerDisplayTxtBox" TargetType="TextBox">
@@ -67,8 +73,14 @@
 
         <Border Grid.Row="1" Grid.Column="0" Padding="120,40,120,40">
             <StackPanel>
-                <AutoSuggestBox PlaceholderText="Enter a speaker's name to add them to the event"/>
-                <ListView Name="SpeakerView" SelectionMode="None">
+                <AutoSuggestBox Name="SpeakersInEventSuggestBox" QueryIcon="Add" TextChanged="SpeakersInEventSuggestBox_OnTextChanged" QuerySubmitted="SpeakersInEventSuggestBox_OnQuerySubmitted" PlaceholderText="Enter a speaker's name to add them to the event" TextMemberPath="Name">
+                    <AutoSuggestBox.ContextFlyout>
+                        <Flyout ShowMode="Transient" Placement="Bottom">
+                            <TextBlock Text="Unable to find Speaker, please use the list"/>
+                        </Flyout>
+                    </AutoSuggestBox.ContextFlyout>
+                </AutoSuggestBox>
+                <ListView Name="SpeakerView" ItemsSource="{Binding SpeakersInEvent}" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -76,9 +88,9 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="Test" Style="{StaticResource SpeakerDisplayTxtBox}"/>
-                                <TextBox Text="Test" Grid.Column="1" Style="{StaticResource SpeakerDisplayTxtBox}"/>
-                                <Button HorizontalAlignment="Right" Grid.Column="1">
+                                <TextBox Text="{Binding Name}" Style="{StaticResource SpeakerDisplayTxtBox}"/>
+                                <TextBox Text="{Binding Email}" Grid.Column="1" Style="{StaticResource SpeakerDisplayTxtBox}"/>
+                                <Button Name="SpeakerViewDeleteButton" HorizontalAlignment="Right" CommandParameter="{Binding Id}" Loaded="SpeakerViewDeleteButton_OnLoaded" Grid.Column="1">
                                     <SymbolIcon Symbol="Delete"/>
                                 </Button>
                             </Grid>

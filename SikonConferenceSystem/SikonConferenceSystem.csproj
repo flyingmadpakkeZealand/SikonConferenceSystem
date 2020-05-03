@@ -122,6 +122,7 @@
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Handler\AdminSpeakerHandler.cs" />
+    <Compile Include="Handler\SetupEventsHandler.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -134,6 +135,7 @@
     <Compile Include="ViewModel\AdminSpeakerViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\PlaceHolder.cs" />
+    <Compile Include="ViewModel\SetupEventsPageVM.cs" />
     <Compile Include="View\CreateSpeaker.xaml.cs">
       <DependentUpon>CreateSpeaker.xaml</DependentUpon>
     </Compile>
