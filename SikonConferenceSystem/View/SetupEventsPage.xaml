@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -20,6 +21,18 @@
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="InfoBoxTxtBlockRight" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style x:Key="DurationTxtBox" TargetType="TextBox">
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="MaxLength" Value="2"/>
+            <Setter Property="MaxWidth" Value="40"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
     </Page.Resources>
 
@@ -39,14 +52,45 @@
 
         <Border Padding="40,40,40,40" BorderBrush="Black" BorderThickness="2" Grid.Row="0" Grid.Column="0">
             <RelativePanel>
-                <Image Name="EventImage" Source="../Assets/Square150x150Logo.png" MaxHeight="500" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
-                <StackPanel Spacing="10" Background="White" BorderBrush="Goldenrod" BorderThickness="5" CornerRadius="10" RelativePanel.Below="EventImage" Padding="10,10,10,10" Margin="0,10,0,0" RelativePanel.AlignLeftWith="EventImage" RelativePanel.AlignRightWith="EventImage">
-                    <TextBlock Text="Event Type"></TextBlock>
-                    <TextBlock Text="Room"></TextBlock>
-                    <TextBlock Text="Remaining Seats"/>
-                    <TextBlock Text="Total Seats"/>
-                    <CheckBox IsEnabled="False" Content="Attending Event"></CheckBox>
-                </StackPanel>
+                <Image Name="EventImage" Source="../Assets/Square150x150Logo.png" MinWidth="300" MaxHeight="500" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+                <Grid Background="White" MinWidth="300" BorderBrush="Goldenrod" BorderThickness="5" CornerRadius="10" RelativePanel.Below="EventImage" Padding="10,10,10,10" Margin="0,10,0,0" RelativePanel.AlignLeftWith="EventImage" RelativePanel.AlignRightWith="EventImage">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Event Type" Grid.Row="0" Grid.Column="0"/>
+                    <TextBlock Text="Duration" Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="Room" Grid.Row="2" Grid.Column="0"/>
+                    <TextBlock Text="Remaining Seats" Grid.Row="3" Grid.Column="0"/>
+                    <TextBlock Text="Total Seats" Grid.Row="4" Grid.Column="0"/>
+                    <CheckBox IsEnabled="False" Content="Attending Event" Grid.Row="5" Grid.Column="0"/>
+                    
+                    <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" Background="Black"/>
+
+                    <ComboBox HorizontalAlignment="Right" PlaceholderText="Select Event Type" SelectedValue="{Binding Type, Mode=TwoWay}" ItemsSource="{Binding AllEventTypes}" Grid.Row="0" Grid.Column="2"/>
+                    <StackPanel HorizontalAlignment="Right" Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                        <TextBlock Text="hour(s)"/>
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <TextBox Text="{Binding EventDurationHours, Mode=TwoWay}" Style="{StaticResource DurationTxtBox}"/>
+                        </Border>
+                        <TextBlock Text=", min."/>
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <TextBox Text="{Binding EventDurationMinutes, Mode=TwoWay}" Style="{StaticResource DurationTxtBox}"/>
+                        </Border>
+                    </StackPanel>
+                    <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="2" Grid.Column="2"/>
+                    <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="3" Grid.Column="2"/>
+                    <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="4" Grid.Column="2"/>
+                </Grid>
             </RelativePanel>
         </Border>
 
@@ -56,18 +100,21 @@
                     <RowDefinition Height="80"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBox Grid.Row="0" TextAlignment="Center" FontSize="24" VerticalAlignment="Bottom" Background="White" PlaceholderText="The Event Name Header" MaxLength="50" Margin="0,0,0,10"/>
-                <TextBox AcceptsReturn="True" IsSpellCheckEnabled="True" MaxLength="2000" TextWrapping="Wrap" MaxHeight="500" Background="White" PlaceholderText="Type the description of the event here..." Grid.Row="1" AutomationProperties.Name="multi-line TextBox" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                <TextBox Text="{Binding AbstractHeader, Mode=TwoWay}" Grid.Row="0" TextAlignment="Center" FontSize="24" VerticalAlignment="Bottom" Background="White" PlaceholderText="The Event Name Header" MaxLength="50" Margin="0,0,0,10"/>
+                <TextBox Text="{Binding Abstract, Mode=TwoWay}" AcceptsReturn="True" IsSpellCheckEnabled="True" MaxLength="2000" TextWrapping="Wrap" MaxHeight="500" Background="White" PlaceholderText="Type the description of the event here..." Grid.Row="1" AutomationProperties.Name="multi-line TextBox" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
             </Grid>
         </Border>
 
         <Border Grid.Row="1" Grid.Column="1" Padding="120,40,120,40">
             <StackPanel Spacing="20">
-                <FlipView Height="80" Background="White" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top">
-                    <TextBlock Text="Day 1" TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
-                    <TextBlock Text="Day 2" TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
+                <FlipView Height="80" SelectedIndex="{Binding SelectedDay, Mode=TwoWay}" ItemsSource="{Binding AllEventDays}" Background="White" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top">
+                    <FlipView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
+                        </DataTemplate>
+                    </FlipView.ItemTemplate>
                 </FlipView>
-                <TimePicker FontSize="24" ClockIdentifier="24HourClock" MinuteIncrement="5" Background="White" HorizontalAlignment="Center"/>
+                <TimePicker Time="{Binding EventDateHours, Mode=TwoWay}" FontSize="24" ClockIdentifier="24HourClock" MinuteIncrement="5" Background="White" HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
 

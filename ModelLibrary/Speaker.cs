@@ -7,10 +7,12 @@ namespace ModelLibrary
     public class Speaker : User
     {
         public string Bio { get; set; }
+        public string Occupation { get; set; }
 
-        public Speaker(string name, string phoneNumber, string email, string password, string bio) : base(name, phoneNumber, email, password)
+        public Speaker(string name, string phoneNumber, string email, string password, string bio, string occupation) : base(name, phoneNumber, email, password)
         {
             Bio = bio;
+            Occupation = occupation;
         }
 
         public Speaker()

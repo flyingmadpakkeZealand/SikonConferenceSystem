@@ -27,7 +27,7 @@ namespace SikonConferenceSystem.Handler
             string speakerPhoneNumber = _adminSpeakerViewModel.NewSpeaker.PhoneNumber;
             string speakerPassword = _adminSpeakerViewModel.NewSpeaker.Password;
 
-            Speaker aSpeaker = new Speaker(speakerName,speakerPhoneNumber,speakerEmail,speakerPassword,"");
+            Speaker aSpeaker = new Speaker(speakerName,speakerPhoneNumber,speakerEmail,speakerPassword,"", "");
             Persistency.Consumer<Speaker> AdminSpeakerFacade = new Persistency.Consumer<Speaker>("http://localhost:61467/api/Speakers");
             bool ok = await AdminSpeakerFacade.PostAsync(aSpeaker);
             ClearSpeaker();
@@ -55,7 +55,7 @@ namespace SikonConferenceSystem.Handler
             string speakerPassword = _adminSpeakerViewModel.NewSpeaker.Password;
             int speakerID = _adminSpeakerViewModel.NewSpeaker.Id;
 
-            Speaker aSpeaker = new Speaker(speakerName, speakerPhoneNumber, speakerEmail, speakerPassword, "");
+            Speaker aSpeaker = new Speaker(speakerName, speakerPhoneNumber, speakerEmail, speakerPassword, "", "");
             Persistency.Consumer<Speaker> AdminSpeakerFacade = new Persistency.Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
             bool ok = await AdminSpeakerFacade.PutAsync(aSpeaker, new[] { (speakerID) });
             ClearSpeaker();
@@ -72,7 +72,7 @@ namespace SikonConferenceSystem.Handler
             string speakerPassword = "";
 
 
-            Speaker aspeaker = new Speaker(speakerName,speakerEmail,speakerPhoneNumber,speakerPassword,"");
+            Speaker aspeaker = new Speaker(speakerName,speakerEmail,speakerPhoneNumber,speakerPassword,"", "");
 
             _adminSpeakerViewModel.NewSpeaker = aspeaker;
         }

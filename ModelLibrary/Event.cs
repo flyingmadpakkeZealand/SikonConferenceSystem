@@ -6,6 +6,13 @@ namespace ModelLibrary
 {
     public class Event
     {
+        public enum EventType
+        {
+            Workshop,
+            MediumEvent,
+            BigEvent
+        }
+
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
         public float Rating { get; set; }
@@ -13,8 +20,11 @@ namespace ModelLibrary
         public int EventID { get; set; }
         public int RoomNr { get; set; }
         public string ImagePath { get; set; }
+        public List<Speaker> SpeakersInEvent { get; set; }
+        public EventType Type { get; set; }
 
-        public Event(DateTime date, TimeSpan duration, float rating, string @abstract, int eventId, int roomNr, string imagePath)
+        public Event(DateTime date, TimeSpan duration, float rating, string @abstract, int eventId, int roomNr,
+            string imagePath, List<Speaker> speakersInEvent, EventType type)
         {
             Date = date;
             Duration = duration;
@@ -23,6 +33,8 @@ namespace ModelLibrary
             EventID = eventId;
             RoomNr = roomNr;
             ImagePath = imagePath;
+            SpeakersInEvent = speakersInEvent;
+            Type = type;
         }
 
         public Event()

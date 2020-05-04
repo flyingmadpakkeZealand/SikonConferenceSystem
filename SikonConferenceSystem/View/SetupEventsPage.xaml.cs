@@ -32,6 +32,7 @@ namespace SikonConferenceSystem.View
                 {
                     BitmapImage bitmap = new BitmapImage(new Uri(value));
                     EventImage.Source = bitmap;
+                    SetupEventsPageVm.ImagePath = value;
                 }
                 catch (FormatException fe)
                 {
