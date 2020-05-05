@@ -58,14 +58,34 @@ namespace RestAPISCS.DatabaseUtility
         public static void FillEvent(Event sikonEvent, SqlDataReader reader)
         {
             int roomNr = reader.GetInt32(reader.GetOrdinal("RoomNr"));
+            int eventId = reader.GetInt32(reader.GetOrdinal("EventId"));
 
-
-            sikonEvent.EventID = reader.GetInt32(reader.GetOrdinal("EventId"));
+            sikonEvent.EventID = eventId;
             sikonEvent.Date = reader.GetDateTime(reader.GetOrdinal("Date"));
-            sikonEvent.Duration = reader.GetTimeSpan(reader.GetOrdinal("Time"));
+            sikonEvent.Duration = reader.GetTimeSpan(reader.GetOrdinal("Duration"));
             sikonEvent.Rating = reader.GetFloat(reader.GetOrdinal("Rating"));
-            sikonEvent.Abstract = reader.GetString(reader.GetOrdinal("Abstact"));
+            sikonEvent.Abstract = reader.GetString(reader.GetOrdinal("Abstract"));
             sikonEvent.RoomNr = roomNr;
+            sikonEvent.ImagePath = reader.GetString(reader.GetOrdinal("ImagePath"));
+
+            string typeString = reader.GetString(reader.GetOrdinal("Type"));
+            sikonEvent.Type = (Event.EventType) Enum.Parse(typeof(Event.EventType), typeString);
+
+            var fillInt = CreateFillSimpleType<int>("SpeakerId");
+            IEnumerable<SimpleType<int>> speakerIds = DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "SpeakersInEvent")
+                .GetSelection(fillInt, EventsController.PrimaryKeys(eventId));
+
+            List<Speaker> speakersInEvent = new List<Speaker>();
+
+            //Works but idk how efficient it is to get certain speakers, one at a time...
+            foreach (SimpleType<int> simpleType in speakerIds)
+            {
+                Speaker speaker = DataBases.Access<Speaker>(BaseNames.SikonDatabase, "Speaker")
+                    .GetOne(FillSpeaker, SpeakersController.PrimaryKeys(simpleType.Variable));
+                speakersInEvent.Add(speaker);
+            }
+
+            sikonEvent.SpeakersInEvent = speakersInEvent;
         }
 
 
@@ -77,5 +97,18 @@ namespace RestAPISCS.DatabaseUtility
             booking.BookingID = reader.GetInt32(reader.GetOrdinal("BookingId"));
             booking.BookingDate = reader.GetDateTime(reader.GetOrdinal("BookingDate"));
         }
+
+        public static Action<SimpleType<T>, SqlDataReader> CreateFillSimpleType<T>(string columnName)
+        {
+            return (simpleType, reader) =>
+            {
+                simpleType.Variable = reader.GetFieldValue<T>(reader.GetOrdinal(columnName));
+            };
+        }
+    }
+
+    public class SimpleType<T>
+    {
+        public T Variable { get; set; }
     }
 }

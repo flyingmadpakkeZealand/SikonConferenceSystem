@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -45,6 +46,7 @@ namespace SikonConferenceSystem.View
         public SetupEventsPage()
         {
             this.InitializeComponent();
+            SetupEventsPageVm.Handler.TriggerOverrideDialogOnSaveEvent = DisplayOverrideConfirmation;
         }
 
         private void SpeakersInEventSuggestBox_OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -84,6 +86,27 @@ namespace SikonConferenceSystem.View
             {
                 SetImagePath = SetupEventsPageVm.ImagePath;
             }
+        }
+
+        private async Task<bool> DisplayOverrideConfirmation()
+        {
+            ContentDialog overrideEventDialog = new ContentDialog()
+            {
+                Title = "Confirm override",
+                Content = "This event already exist, do you want to override it?",
+                PrimaryButtonText = "Override",
+                SecondaryButtonText = "Cancel",
+                DefaultButton = ContentDialogButton.Primary
+            };
+
+            ContentDialogResult result = await overrideEventDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

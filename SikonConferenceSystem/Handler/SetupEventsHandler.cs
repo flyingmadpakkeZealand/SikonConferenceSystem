@@ -5,12 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ModelLibrary;
+using SikonConferenceSystem.Persistency;
 using SikonConferenceSystem.ViewModel;
 
 namespace SikonConferenceSystem.Handler
 {
     public class SetupEventsHandler
     {
+        public Func<Task<bool>> TriggerOverrideDialogOnSaveEvent { get; set; }
+
         private SetupEventsPageVM _setupEventsPageVm;
 
         public SetupEventsHandler(SetupEventsPageVM setupEventsPageVM)
@@ -18,7 +21,7 @@ namespace SikonConferenceSystem.Handler
             _setupEventsPageVm = setupEventsPageVM;
         }
 
-        public void SaveEvent()
+        public async void SaveEvent()
         {
             SetupEventsPageVM Vm = _setupEventsPageVm;
 
@@ -31,6 +34,18 @@ namespace SikonConferenceSystem.Handler
             Vm.NewEvent.Date = Vm.NewEvent.Date.Add(Vm.EventDateHours);
 
             Vm.NewEvent.Abstract = UnifyAbstract();
+
+            Consumer<Event> consumer = new Consumer<Event>(ConsumerCatalog.GetUrl<Event>());
+            bool postOk = await consumer.PostAsync(Vm.NewEvent);
+
+            if (!postOk && TriggerOverrideDialogOnSaveEvent != null)
+            {
+                bool confirmOverride = await TriggerOverrideDialogOnSaveEvent();
+                if (confirmOverride)
+                {
+                    bool overrideOk = await consumer.PutAsync(Vm.NewEvent, new[] { Vm.NewEvent.EventID }); 
+                }
+            }
         }
 
         private string UnifyAbstract()

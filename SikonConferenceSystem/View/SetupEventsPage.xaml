@@ -169,7 +169,7 @@
         </Border>
 
         <Grid Name="TempGrid" Row="2" Column="0" ColumnSpan="2" BorderBrush="Black" BorderThickness="2" Padding="0,0,0,0">
-            <Button Name="TempSaveButton" Content="Save" HorizontalAlignment="Center" Background="White" Margin="0,0,100,0"></Button>
+            <Button Name="TempSaveButton" Command="{Binding PressSaveCommand}" Content="Save" HorizontalAlignment="Center" Background="White" Margin="0,0,100,0"></Button>
 
             <Button Name="TempCancelButton" Content="Cancel" HorizontalAlignment="Center" Background="White" Margin="100,0,0,0"></Button>
         </Grid>
