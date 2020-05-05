@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ModelLibrary;
+using SikonConferenceSystem.Handler;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,6 +38,28 @@ namespace SikonConferenceSystem.View
             else
             {
                 passwordBox1.PasswordRevealMode = PasswordRevealMode.Hidden;
+            }
+        }
+
+        private async void Searchbox_OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                sender.ItemsSource = await AdminSpeakerViewModel.AdminSpeakerHandler.FilterBoxAsync(sender.Text);
+            }
+        }
+
+        private async void Searchbox_OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            Speaker chosenSpeaker = args.ChosenSuggestion as Speaker;
+            if (chosenSpeaker != null)
+            {
+                AdminSpeakerViewModel.NewSpeaker = chosenSpeaker;
+            }
+
+            else
+            {
+                await AdminSpeakerViewModel.AdminSpeakerHandler.SearchResultAsync(args.QueryText);
             }
         }
     }
