@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="SikonConferenceSystem.View.CreateRooms"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SikonConferenceSystem.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModel:AdminRoomViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Rooms" Style="{StaticResource SubHeader}"/>
+                <ListView SelectedItem="{Binding NewRoom, Mode=TwoWay}" SelectedIndex="{Binding NewRoom, Mode=TwoWay}" ItemsSource="{Binding AdminRoomSingleton.Catalog}" Width="300"></ListView>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="600">
+                <TextBlock Text="RoomNr" FontSize="24"/>
+                <TextBox Text="{Binding TransitonRoomNr, Mode=TwoWay}" PlaceholderText="RoomnNr" FontSize="36"/>
+                <TextBlock Text="MaxPersons" FontSize="24"/>
+                <TextBox Text="{Binding TransitonMaxPerson, Mode=TwoWay}" PlaceholderText="MaxPersons" FontSize="36"/>
+                <TextBlock Text="AutistSeats" FontSize="24"/>
+                <TextBox Text="{Binding TransitonAutistSeats, Mode=TwoWay}" PlaceholderText="AutistSeats" FontSize="36"/>
+
+
+                <StackPanel Orientation="Horizontal" Spacing="50" Margin="0,50,0,0">
+                    <Button Content="Create" Command="{Binding CreateRoomCommand}" Style="{StaticResource DefaultButton}"/>
+                    <Button Content="Update" Command="{Binding UpdateRoomCommand}" Style="{StaticResource DefaultButton}"/>
+                    <Button Content="Delete" Command="{Binding DeleteRoomCommand}" Style="{StaticResource DefaultButton}"/>
+                    <Button Content="Clear" Command="{Binding ClearRoomCommand}" Style="{StaticResource DefaultButton}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

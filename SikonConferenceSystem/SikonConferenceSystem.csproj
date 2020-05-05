@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Handler\AdminRoomHandler.cs" />
     <Compile Include="Handler\AdminSpeakerHandler.cs" />
     <Compile Include="Handler\BookingEventHandler.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -132,12 +133,16 @@
     <Compile Include="Persistency\Consumer.cs" />
     <Compile Include="Persistency\ConsumerCatalog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AdminRoomViewModel.cs" />
     <Compile Include="ViewModel\AdminSpeakerViewModel.cs" />
     <Compile Include="ViewModel\BookingEventViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\PlaceHolder.cs" />
     <Compile Include="View\BookingEventPage.xaml.cs">
       <DependentUpon>BookingEventPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CreateRooms.xaml.cs">
+      <DependentUpon>CreateRooms.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CreateSpeaker.xaml.cs">
       <DependentUpon>CreateSpeaker.xaml</DependentUpon>
@@ -179,6 +184,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\BookingEventPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreateRooms.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
