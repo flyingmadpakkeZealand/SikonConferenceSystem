@@ -9,10 +9,10 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <viewModel:AdminSpeakerViewModel></viewModel:AdminSpeakerViewModel>
+        <viewModel:AdminSpeakerViewModel x:Name="AdminSpeakerViewModel"></viewModel:AdminSpeakerViewModel>
     </Page.DataContext>
     <Grid>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Spacing="100">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Speakers" FontSize="36"></TextBlock>
                 <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" SelectedIndex="{Binding SelectedSpeakerIndex, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300"></ListView>
@@ -37,6 +37,10 @@
                 <Button Content="Delete" Command ="{Binding DeleteSpeakerCommand}" FontSize="24"></Button>
                 <Button Content="Clear" Command="{Binding ClearSpeakerCommand}" FontSize="24"></Button>
             </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Search speaker" FontSize="36"></TextBlock>
+                <AutoSuggestBox QueryIcon="Find" TextMemberPath ="Name" Name="Searchbox" TextChanged="Searchbox_OnTextChanged" PlaceholderText="Search" QuerySubmitted="Searchbox_OnQuerySubmitted"></AutoSuggestBox>
             </StackPanel>
         </StackPanel>
 
