@@ -77,5 +77,13 @@ namespace SikonConferenceSystem.View
             Button deleteButton = sender as Button;
             deleteButton.Command = SetupEventsPageVm.PressSpeakersInEventDeleteCommand;
         }
+
+        private void EventImage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (SetupEventsPageVm.ImagePath != null)
+            {
+                SetImagePath = SetupEventsPageVm.ImagePath;
+            }
+        }
     }
 }
