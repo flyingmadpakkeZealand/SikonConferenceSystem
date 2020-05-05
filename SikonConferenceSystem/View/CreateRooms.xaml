@@ -13,10 +13,10 @@
         <viewModel:AdminRoomViewModel/>
     </Page.DataContext>
     <Grid>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Spacing="100">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Rooms" Style="{StaticResource SubHeader}"/>
-                <ListView SelectedItem="{Binding NewRoom, Mode=TwoWay}" SelectedIndex="{Binding NewRoom, Mode=TwoWay}" ItemsSource="{Binding AdminRoomSingleton.Catalog}" Width="300"></ListView>
+                <ListView SelectedItem="{Binding NewRoom, Mode=TwoWay}" SelectedIndex="{Binding SelectedRoomIndex, Mode=TwoWay}" ItemsSource="{Binding AdminRoomSingleton.Catalog}" Width="300"></ListView>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="600">
                 <TextBlock Text="RoomNr" FontSize="24"/>
