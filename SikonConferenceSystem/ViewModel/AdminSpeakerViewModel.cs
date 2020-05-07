@@ -37,7 +37,7 @@ namespace SikonConferenceSystem.ViewModel
 
         private bool CheckforBlank()
         {
-            if (NewSpeaker.PhoneNumber != "" && NewSpeaker.Email != "")
+            if ( NewSpeaker.Email != "" || NewSpeaker.PhoneNumber != "")
             {
                 return true;
             }
@@ -49,7 +49,7 @@ namespace SikonConferenceSystem.ViewModel
 
         private bool CheckData()
         {
-            if (NewSpeaker.Password.Length > 7 && NewSpeaker.PhoneNumber.Length == 8 && NewSpeaker.Email.Contains("@"))
+            if ((NewSpeaker.Password.Length > 7 && NewSpeaker.PhoneNumber.Length == 8) || (NewSpeaker.Password.Length > 7 && NewSpeaker.Email.Contains("@")))
             {
                 return true;
             }
