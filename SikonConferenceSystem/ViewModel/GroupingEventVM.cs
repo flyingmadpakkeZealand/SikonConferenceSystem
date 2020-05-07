@@ -20,23 +20,23 @@ namespace SikonConferenceSystem.ViewModel
 
             List<EventAdapter> allEvents = new List<EventAdapter>();
             
-            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(11), TimeSpan.FromHours(1), 5, "The first event", 0, 0, ""),
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(11), TimeSpan.FromHours(1), 5, "The first event", 0, 0, "", null, Event.EventType.Workshop),
                 "#33DEF010"));
-            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(11), TimeSpan.FromHours(2), 5, "The second event", 0, 0, ""),
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(11), TimeSpan.FromHours(2), 5, "The second event", 0, 0, "", null, Event.EventType.BigEvent),
                 "#33EA1616"));
-            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(12), TimeSpan.FromHours(1), 5, "The Third event", 0, 0, ""),
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(12), TimeSpan.FromHours(1), 5, "The Third event", 0, 0, "", null, Event.EventType.Workshop),
                 "#33DEF010"));
-            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(12), TimeSpan.FromHours(1), 5, "The Fourth event", 0, 0, ""),
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(12), TimeSpan.FromHours(1), 5, "The Fourth event", 0, 0, "", null, Event.EventType.Workshop),
                 "#33DEF010"));
-            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(13), TimeSpan.FromHours(2), 5, "The Fifth event", 0, 0, ""),
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(13), TimeSpan.FromHours(2), 5, "The Fifth event", 0, 0, "", null, Event.EventType.BigEvent),
                 "#33EA1616"));
-            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(13), TimeSpan.FromHours(1), 5, "The Sixth event", 0, 0, ""),
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(13), TimeSpan.FromHours(1), 5, "The Sixth event", 0, 0, "", null, Event.EventType.Workshop),
                 "#33DEF010"));
-            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(14), TimeSpan.FromHours(1), 5, "The Seventh event", 0, 0, ""),
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(14), TimeSpan.FromHours(1), 5, "The Seventh event", 0, 0, "", null, Event.EventType.Workshop),
                 "#33DEF010"));
-            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(14), TimeSpan.FromHours(1), 5, "The Eight event", 0, 0, ""),
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(14), TimeSpan.FromHours(1), 5, "The Eight event", 0, 0, "", null, Event.EventType.Workshop),
                 "#33DEF010"));
-            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(13.5), TimeSpan.FromHours(1), 5, "The Test event", 0, 0, ""),
+            allEvents.Add(new EventAdapter(new Event(DateTime.Today.AddHours(13.5), TimeSpan.FromHours(1), 5, "The Test event", 0, 0, "", null, Event.EventType.Workshop),
                 "#33DEF010"));
 
             SetupHourGroups();

@@ -46,8 +46,20 @@ namespace RestAPISCS.DatabaseUtility
             lookupDictionary.Add("Duration", sikonEvent.Duration);
             lookupDictionary.Add("Rating", sikonEvent.Rating);
             lookupDictionary.Add("Abstract", sikonEvent.Abstract);
-            lookupDictionary.Add("EventID", sikonEvent.EventID);
+            lookupDictionary.Add("EventId", sikonEvent.EventID);
             lookupDictionary.Add("RoomNr", sikonEvent.RoomNr);
+            lookupDictionary.Add("ImagePath", sikonEvent.ImagePath);
+            lookupDictionary.Add("Type", sikonEvent.Type.ToString());
+
+            return lookupDictionary;
+        }
+
+        public static Dictionary<string, object> ExtractSpeakersInEvent(int eventId, int speakerId)
+        {
+            Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
+
+            lookupDictionary.Add("EventId", eventId);
+            lookupDictionary.Add("SpeakerId", speakerId);
 
             return lookupDictionary;
         }
