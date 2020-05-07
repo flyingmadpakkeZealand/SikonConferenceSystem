@@ -12,7 +12,7 @@
     <Page.DataContext>
         <viewModel:AdminRoomViewModel/>
     </Page.DataContext>
-    <Grid>
+    <Grid Background="SlateGray">
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Rooms" Style="{StaticResource SubHeader}"/>
@@ -20,11 +20,11 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="600">
                 <TextBlock Text="RoomNr" FontSize="24"/>
-                <TextBox Text="{Binding TransitonRoomNr, Mode=TwoWay}" PlaceholderText="RoomnNr" FontSize="36"/>
+                <TextBox Background="White" Text="{Binding TransitonRoomNr, Mode=TwoWay}" PlaceholderText="RoomnNr" FontSize="36"/>
                 <TextBlock Text="MaxPersons" FontSize="24"/>
-                <TextBox Text="{Binding TransitonMaxPerson, Mode=TwoWay}" PlaceholderText="MaxPersons" FontSize="36"/>
+                <TextBox Background="White" Text="{Binding TransitonMaxPerson, Mode=TwoWay}" PlaceholderText="MaxPersons" FontSize="36"/>
                 <TextBlock Text="AutistSeats" FontSize="24"/>
-                <TextBox Text="{Binding TransitonAutistSeats, Mode=TwoWay}" PlaceholderText="AutistSeats" FontSize="36"/>
+                <TextBox Background="White" Text="{Binding TransitonAutistSeats, Mode=TwoWay}" PlaceholderText="AutistSeats" FontSize="36"/>
 
 
                 <StackPanel Orientation="Horizontal" Spacing="50" Margin="0,50,0,0">
