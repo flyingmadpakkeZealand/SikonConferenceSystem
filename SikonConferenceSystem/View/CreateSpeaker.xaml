@@ -11,36 +11,50 @@
     <Page.DataContext>
         <viewModel:AdminSpeakerViewModel x:Name="AdminSpeakerViewModel"></viewModel:AdminSpeakerViewModel>
     </Page.DataContext>
-    <Grid>
+    
+
+
+
+    <Grid Background="SlateGray">
         <StackPanel Orientation="Horizontal" Spacing="100">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Speakers" FontSize="36"></TextBlock>
-                <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" SelectedIndex="{Binding SelectedSpeakerIndex, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300"></ListView>
+                <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" SelectedIndex="{Binding SelectedSpeakerIndex, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" Margin="0,20,0,20">
+                                <TextBlock FontSize="24" Text="{Binding Id}" />
+                                <TextBlock FontSize="24" Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="600">
                 <TextBlock Text="Name" FontSize="24"></TextBlock>
-                <TextBox Text="{Binding TransitionName, Mode=TwoWay}" PlaceholderText="Name" FontSize="36"></TextBox>
+                <TextBox Background="White" Text="{Binding TransitionName, Mode=TwoWay}" PlaceholderText="Name" FontSize="36"></TextBox>
                 <TextBlock Text="Phonenumber" FontSize="24"></TextBlock>
-                <TextBox Text="{Binding TransitionPhoneNumber, Mode=TwoWay}"  PlaceholderText="Phonenumber" FontSize="36"></TextBox>
+                <TextBox Background="White" Text="{Binding TransitionPhoneNumber, Mode=TwoWay}"  PlaceholderText="Phonenumber" FontSize="36"></TextBox>
                 <TextBlock Text="Email" FontSize="24"></TextBlock>
-                <TextBox Text="{Binding TransitionEmail, Mode=TwoWay}" PlaceholderText="Email" FontSize="36"></TextBox>
+                <TextBox Background="White" Text="{Binding TransitionEmail, Mode=TwoWay}" PlaceholderText="Email" FontSize="36"></TextBox>
                 <TextBlock Text="Password" FontSize="24"></TextBlock>
-                
-                <PasswordBox Width="500" Name ="passwordBox1" Password="{Binding TransitionPassword, Mode=TwoWay}"  PlaceholderText="Password" FontSize="36" PasswordRevealMode="Hidden"/>
+
+                <PasswordBox Background="White" Width="500" Name ="passwordBox1" Password="{Binding TransitionPassword, Mode=TwoWay}"  PlaceholderText="Password" FontSize="36" PasswordRevealMode="Hidden"/>
                 <CheckBox Name="revealModeCheckBox" Content="Show password"
                           IsChecked="False" 
                           Checked="CheckBox_Changed" Unchecked="CheckBox_Changed" FontSize="24"/>
                 
                 <StackPanel Orientation="Horizontal" Spacing="50" Margin="0,50,0,0">
-                <Button Content="Create" Command ="{Binding CreateSpeakerCommand}" FontSize="24"></Button>
-                <Button Content="Update" Command ="{Binding UpdateSpeakerCommand}" FontSize="24"></Button>
-                <Button Content="Delete" Command ="{Binding DeleteSpeakerCommand}" FontSize="24"></Button>
-                <Button Content="Clear" Command="{Binding ClearSpeakerCommand}" FontSize="24"></Button>
+                    <Button Background="White" Content="Create" Command ="{Binding CreateSpeakerCommand}" FontSize="24"></Button>
+                    <Button Background="White" Content="Update" Command ="{Binding UpdateSpeakerCommand}" FontSize="24"></Button>
+                    <Button Background="White" Content="Delete" Command ="{Binding DeleteSpeakerCommand}" FontSize="24"></Button>
+                    <Button Background="White" Content="Clear" Command="{Binding ClearSpeakerCommand}" FontSize="24"></Button>
             </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Search speaker" FontSize="36"></TextBlock>
-                <AutoSuggestBox QueryIcon="Find" TextMemberPath ="Name" Name="Searchbox" TextChanged="Searchbox_OnTextChanged" PlaceholderText="Search" QuerySubmitted="Searchbox_OnQuerySubmitted"></AutoSuggestBox>
+                <AutoSuggestBox Background="White" QueryIcon="Find" TextMemberPath ="Name" Name="Searchbox" TextChanged="Searchbox_OnTextChanged" PlaceholderText="Search" QuerySubmitted="Searchbox_OnQuerySubmitted"></AutoSuggestBox>
             </StackPanel>
         </StackPanel>
 

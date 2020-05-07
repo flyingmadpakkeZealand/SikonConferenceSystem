@@ -139,6 +139,7 @@
     <Compile Include="ViewModel\AdminRoomViewModel.cs" />
     <Compile Include="ViewModel\AdminSpeakerViewModel.cs" />
     <Compile Include="ViewModel\BookingEventViewModel.cs" />
+    <Compile Include="ViewModel\DetailedEventViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\PlaceHolder.cs" />
     <Compile Include="ViewModel\SetupEventsPageVM.cs" />
