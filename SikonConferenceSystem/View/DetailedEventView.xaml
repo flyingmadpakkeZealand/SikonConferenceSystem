@@ -5,8 +5,10 @@
     xmlns:local="using:SikonConferenceSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
 
     <Page.Resources>
         <Style x:Key="SpeakerDisplayTxtBox" TargetType="TextBox">
@@ -81,8 +83,8 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" Text="{Binding}" Style="{StaticResource SpeakerDisplayTxtBox}"/>
-                                <TextBox Grid.Column="1" Text="{Binding}" Style="{StaticResource SpeakerDisplayTxtBox}"/>
+                                <TextBox Grid.Column="0" Text="Name"  Style="{StaticResource SpeakerDisplayTxtBox}"/>
+                                <TextBox Grid.Column="1" Text="Occupation" Style="{StaticResource SpeakerDisplayTxtBox}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
