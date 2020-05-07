@@ -61,11 +61,17 @@ namespace SikonConferenceSystem.ViewModel
             get { return _selectedDayIndex; }
             set
             {
+                foreach (HourGroup hourGroup in _HourGroupsByDate[value])
+                {
+                    foreach (EventAdapter @event in hourGroup.Events)
+                    {
+                        @event.InformDayChanged();
+                    }
+                }
                 HourGroups = _HourGroupsByDate[value];
                 _selectedDayIndex = value;
             }
         }
-
 
         private int _hourGroupIterations;
         public EventsPageVM()
@@ -229,6 +235,11 @@ namespace SikonConferenceSystem.ViewModel
         public string Color { get; set; }
         public string FormattedDescription { get; set; }
 
+        public string FormattedDuration
+        {
+            get { return FormatDuration(); }
+        }
+
         private bool _formatOccurred;
 
         public EventAdapter(Event @event)
@@ -261,7 +272,7 @@ namespace SikonConferenceSystem.ViewModel
             return pureAbstract.Substring(0, headerLength);
         }
 
-        public string FormattedDuration()
+        private string FormatDuration()
         {
             string result;
             if (!_formatOccurred)
@@ -275,6 +286,11 @@ namespace SikonConferenceSystem.ViewModel
 
             _formatOccurred = true;
             return result;
+        }
+
+        public void InformDayChanged()
+        {
+            _formatOccurred = false;
         }
     }
 }

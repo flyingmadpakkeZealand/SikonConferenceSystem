@@ -113,7 +113,7 @@
                             <StackPanel>
                                 <TextBlock Text="{Binding Event.Type}"/>
                                 <TextBlock Text="{Binding FormattedDescription}"/>
-                                <TextBlock Name="DurationTxt" Loaded="DurationTxt_OnLoaded"/>
+                                <TextBlock Text="{Binding FormattedDuration}"/>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
