@@ -11,7 +11,7 @@
     <Page.DataContext>
         <viewModel:AdminSpeakerViewModel x:Name="AdminSpeakerViewModel"></viewModel:AdminSpeakerViewModel>
     </Page.DataContext>
-
+    
 
 
 
@@ -19,7 +19,17 @@
         <StackPanel Orientation="Horizontal" Spacing="100">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Speakers" FontSize="36"></TextBlock>
-                <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" SelectedIndex="{Binding SelectedSpeakerIndex, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300"></ListView>
+                <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" SelectedIndex="{Binding SelectedSpeakerIndex, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" Margin="0,20,0,20">
+                                <TextBlock FontSize="24" Text="{Binding Id}" />
+                                <TextBlock FontSize="24" Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="600">
                 <TextBlock Text="Name" FontSize="24"></TextBlock>
