@@ -15,7 +15,10 @@ namespace RestAPISCS.Controllers
     {
         private ManageGenericWithLambda<Event> eventManager = DataBases.Access<Event>(BaseNames.SikonDatabase, "Event");
 
-        private static Dictionary<string, object> PrimaryKeys(int eventId)
+        private ManageGenericWithLambda<SimpleType<int>> speakersInEventManager =
+            DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "SpeakersInEvent");
+
+        public static Dictionary<string, object> PrimaryKeys(int eventId)
         {
             Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
             lookupDictionary.Add("EventId", eventId);
@@ -29,28 +32,55 @@ namespace RestAPISCS.Controllers
         }
 
         // GET: api/Events/5
-        public Event Get(int eventId)
+        public Event Get(int id)
         {
-            return eventManager.GetOne(Fillables.FillEvent, PrimaryKeys(eventId));
+            return eventManager.GetOne(Fillables.FillEvent, PrimaryKeys(id));
         }
 
         // POST: api/Events
         public bool Post([FromBody]Event sikonEvent)
         {
-            return eventManager.Post(Extractables.ExtractEvent(sikonEvent));
-            
+            bool eventOk = eventManager.Post(Extractables.ExtractEvent(sikonEvent));
+
+            bool speakersInEventOk = false;
+            if (eventOk)
+            {
+                speakersInEventOk = true;
+                foreach (Speaker speaker in sikonEvent.SpeakersInEvent)
+                {
+                    speakersInEventOk = speakersInEventManager.Post(Extractables.ExtractSpeakersInEvent(sikonEvent.EventID, speaker.Id));
+                }
+            }
+
+            return eventOk && speakersInEventOk;
         }
 
         // PUT: api/Events/5
-        public bool Put(int eventId, [FromBody]Event sikonEvent)
+        public bool Put(int id, [FromBody]Event sikonEvent)
         {
-            return eventManager.Put(Extractables.ExtractEvent(sikonEvent), PrimaryKeys(eventId));
+            bool eventOk = eventManager.Put(Extractables.ExtractEvent(sikonEvent), PrimaryKeys(id));
+
+            bool speakersInEventOk = false;
+            if (eventOk)
+            {
+                speakersInEventManager.Delete(PrimaryKeys(id));
+
+                speakersInEventOk = true;
+                foreach (Speaker speaker in sikonEvent.SpeakersInEvent)
+                {
+                    speakersInEventOk = speakersInEventManager.Post(Extractables.ExtractSpeakersInEvent(sikonEvent.EventID, speaker.Id));
+                }
+            }
+
+            return eventOk && speakersInEventOk;
         }
 
         // DELETE: api/Events/5
-        public bool Delete(int eventId)
+        public bool Delete(int id)
         {
-            return eventManager.Delete(PrimaryKeys(eventId));
+            bool eventOk = eventManager.Delete(PrimaryKeys(id));
+
+            return eventOk;
         }
 
         //Der mangler CheckNoDuplicate og RetrieveId
