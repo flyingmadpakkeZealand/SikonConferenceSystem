@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -76,5 +77,46 @@ namespace SikonConferenceSystem.Handler
 
             _adminSpeakerViewModel.NewSpeaker = aspeaker;
         }
+
+        public async Task<object> FilterBoxAsync(string SearchText)
+        {
+            ObservableCollection<Speaker> tempList = _adminSpeakerViewModel.AdminSpeakerSingleton.Catalog;
+            ObservableCollection<Speaker> filteredSpeakers;
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                var query = from speaker in tempList
+                    where speaker.Name.Contains(SearchText, StringComparison.CurrentCultureIgnoreCase)
+                    select speaker;
+                filteredSpeakers = new ObservableCollection<Speaker>(query);
+            }
+            else
+            {
+                filteredSpeakers = tempList;
+            }
+
+            if (filteredSpeakers.Count==0)
+            {
+                return new string[] {"No results"};
+            }
+            return filteredSpeakers;
+        }
+
+        public async Task SearchResultAsync(string SearchText)
+        {
+            ObservableCollection<Speaker> tempList = _adminSpeakerViewModel.AdminSpeakerSingleton.Catalog;
+            ObservableCollection<Speaker> filteredSpeakers;
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                var query = from speaker in tempList
+                    where speaker.Name.Contains(SearchText, StringComparison.CurrentCultureIgnoreCase)
+                    select speaker;
+                filteredSpeakers = new ObservableCollection<Speaker>(query);
+                if (filteredSpeakers.Count == 1)
+                {
+                    _adminSpeakerViewModel.NewSpeaker = filteredSpeakers[0];
+                }
+            }
+        }
+
     }
 }

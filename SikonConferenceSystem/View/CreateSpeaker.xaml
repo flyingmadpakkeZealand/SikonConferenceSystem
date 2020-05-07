@@ -9,24 +9,24 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <viewModel:AdminSpeakerViewModel></viewModel:AdminSpeakerViewModel>
+        <viewModel:AdminSpeakerViewModel x:Name="AdminSpeakerViewModel"></viewModel:AdminSpeakerViewModel>
     </Page.DataContext>
     <Grid>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Spacing="100">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Speakers" FontSize="36"></TextBlock>
                 <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" SelectedIndex="{Binding SelectedSpeakerIndex, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300"></ListView>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="600">
                 <TextBlock Text="Name" FontSize="24"></TextBlock>
-                <TextBox Text="{Binding NewSpeaker.Name, Mode=TwoWay}" PlaceholderText="Name" FontSize="36"></TextBox>
+                <TextBox Text="{Binding TransitionName, Mode=TwoWay}" PlaceholderText="Name" FontSize="36"></TextBox>
                 <TextBlock Text="Phonenumber" FontSize="24"></TextBlock>
-                <TextBox Text="{Binding NewSpeaker.PhoneNumber, Mode=TwoWay}"  PlaceholderText="Phonenumber" FontSize="36"></TextBox>
+                <TextBox Text="{Binding TransitionPhoneNumber, Mode=TwoWay}"  PlaceholderText="Phonenumber" FontSize="36"></TextBox>
                 <TextBlock Text="Email" FontSize="24"></TextBlock>
-                <TextBox Text="{Binding NewSpeaker.Email, Mode=TwoWay}" PlaceholderText="Email" FontSize="36"></TextBox>
+                <TextBox Text="{Binding TransitionEmail, Mode=TwoWay}" PlaceholderText="Email" FontSize="36"></TextBox>
                 <TextBlock Text="Password" FontSize="24"></TextBlock>
                 
-                <PasswordBox Width="500" Name ="passwordBox1" Password="{Binding NewSpeaker.Password, Mode=TwoWay}"  PlaceholderText="Password" FontSize="36" PasswordRevealMode="Hidden"/>
+                <PasswordBox Width="500" Name ="passwordBox1" Password="{Binding TransitionPassword, Mode=TwoWay}"  PlaceholderText="Password" FontSize="36" PasswordRevealMode="Hidden"/>
                 <CheckBox Name="revealModeCheckBox" Content="Show password"
                           IsChecked="False" 
                           Checked="CheckBox_Changed" Unchecked="CheckBox_Changed" FontSize="24"/>
@@ -37,6 +37,10 @@
                 <Button Content="Delete" Command ="{Binding DeleteSpeakerCommand}" FontSize="24"></Button>
                 <Button Content="Clear" Command="{Binding ClearSpeakerCommand}" FontSize="24"></Button>
             </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Search speaker" FontSize="36"></TextBlock>
+                <AutoSuggestBox QueryIcon="Find" TextMemberPath ="Name" Name="Searchbox" TextChanged="Searchbox_OnTextChanged" PlaceholderText="Search" QuerySubmitted="Searchbox_OnQuerySubmitted"></AutoSuggestBox>
             </StackPanel>
         </StackPanel>
 
