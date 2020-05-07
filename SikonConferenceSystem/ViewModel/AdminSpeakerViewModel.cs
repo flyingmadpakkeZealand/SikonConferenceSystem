@@ -27,7 +27,7 @@ namespace SikonConferenceSystem.ViewModel
         public AdminSpeakerViewModel()
         {
             AdminSpeakerSingleton = CatalogSingleton<Speaker>.Instance;
-            _newSpeaker = new Speaker("","","","","");
+            _newSpeaker = new Speaker("","","","","","");
             AdminSpeakerHandler = new AdminSpeakerHandler(this);
             CreateSpeakerCommand = new RelayCommand(AdminSpeakerHandler.CreateSpeaker, (() => CheckforBlank() && CheckData()));
             DeleteSpeakerCommand = new RelayCommand(AdminSpeakerHandler.DeleteSpeaker, (() => CheckforBlank()));
