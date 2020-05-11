@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace SikonConferenceSystem.Common
-{ //Initial Commit. //Initial Commit - CreateEvents_Draft
+{ //Initial Commit. //Initial Commit - CreateEvents_Draft. //Initial Commit - ProfilesTab_Draft.
     public class NavigationService
     {
         private readonly Frame _frame;
