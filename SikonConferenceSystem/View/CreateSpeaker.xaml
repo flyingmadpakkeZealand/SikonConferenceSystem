@@ -18,7 +18,7 @@
     <Grid Background="SlateGray">
         <StackPanel Orientation="Horizontal" Spacing="100">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Speakers" FontSize="36"></TextBlock>
+                <TextBlock HorizontalTextAlignment="Center" Text="Speakers" FontSize="36" Margin="0,50,0,50"></TextBlock>
                 <ListView SelectedItem="{Binding NewSpeaker, Mode=TwoWay}" SelectedIndex="{Binding SelectedSpeakerIndex, Mode=TwoWay}" ItemsSource="{Binding AdminSpeakerSingleton.Catalog}" Width="300">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -53,7 +53,7 @@
             </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Search speaker" FontSize="36"></TextBlock>
+                <TextBlock HorizontalTextAlignment="Center" Text="Search speaker" FontSize="36" Margin="0,50,0,20"></TextBlock>
                 <AutoSuggestBox Background="White" QueryIcon="Find" TextMemberPath ="Name" Name="Searchbox" TextChanged="Searchbox_OnTextChanged" PlaceholderText="Search" QuerySubmitted="Searchbox_OnQuerySubmitted"></AutoSuggestBox>
             </StackPanel>
         </StackPanel>

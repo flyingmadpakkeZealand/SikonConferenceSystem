@@ -15,7 +15,7 @@
     <Grid Background="SlateGray">
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Rooms" Style="{StaticResource SubHeader}"/>
+                <TextBlock HorizontalTextAlignment="Center" Text="Rooms" Style="{StaticResource SubHeader}" Margin="0,50,0,50"/>
                 <ListView SelectedItem="{Binding NewRoom, Mode=TwoWay}" SelectedIndex="{Binding NewRoom, Mode=TwoWay}" ItemsSource="{Binding AdminRoomSingleton.Catalog}" Width="300">
                     <ListView.ItemTemplate>
                         <DataTemplate>
