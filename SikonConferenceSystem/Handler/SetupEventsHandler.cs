@@ -59,28 +59,29 @@ namespace SikonConferenceSystem.Handler
 
         public void LoadEvent(Event eventToLoad)
         {
-            SetupEventsPageVM Vm = _setupEventsPageVm;
+            new LoadEventsHandler(_setupEventsPageVm).LoadEvent(eventToLoad);
+            //SetupEventsPageVM Vm = _setupEventsPageVm;
 
-            Vm.EventDuration = eventToLoad.Duration;
-            Vm.ImagePath = eventToLoad.ImagePath;
-            Vm.SpeakersInEvent = new ObservableCollection<Speaker>(eventToLoad.SpeakersInEvent);
-            Vm.Type = eventToLoad.Type;
+            //Vm.EventDuration = eventToLoad.Duration;
+            //Vm.ImagePath = eventToLoad.ImagePath;
+            //Vm.SpeakersInEvent = new ObservableCollection<Speaker>(eventToLoad.SpeakersInEvent);
+            //Vm.Type = eventToLoad.Type;
 
-            Vm.EventDate = eventToLoad.Date.Subtract(TimeSpan.FromHours(eventToLoad.Date.Hour));
-            Vm.EventDateHours = eventToLoad.Date.TimeOfDay;
+            //Vm.EventDate = eventToLoad.Date.Subtract(TimeSpan.FromHours(eventToLoad.Date.Hour));
+            //Vm.EventDateHours = eventToLoad.Date.TimeOfDay;
 
-            FormatAbstract(eventToLoad.Abstract);
+            //FormatAbstract(eventToLoad.Abstract);
         }
 
-        private void FormatAbstract(string eventAbstract)
-        {
-            string indexString = eventAbstract.Split(';', 2)[0];
-            string pureAbstract = eventAbstract.Remove(0, indexString.Length + 1);
-            int headerLength = Convert.ToInt32(indexString);
+        //private void FormatAbstract(string eventAbstract)
+        //{
+        //    string indexString = eventAbstract.Split(';', 2)[0];
+        //    string pureAbstract = eventAbstract.Remove(0, indexString.Length + 1);
+        //    int headerLength = Convert.ToInt32(indexString);
 
-            _setupEventsPageVm.AbstractHeader = pureAbstract.Substring(0, headerLength);
-            _setupEventsPageVm.Abstract = pureAbstract.Substring(headerLength);
-        }
+        //    _setupEventsPageVm.AbstractHeader = pureAbstract.Substring(0, headerLength);
+        //    _setupEventsPageVm.Abstract = pureAbstract.Substring(headerLength);
+        //}
 
         //Something more efficient? Async?
         public object SuggestBoxSpeakers(string text)
