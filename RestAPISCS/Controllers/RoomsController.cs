@@ -29,9 +29,9 @@ namespace RestAPISCS.Controllers
         }
 
         // GET: api/Rooms/5
-        public Room Get(int roomNr)
+        public Room Get(int id)
         {
-            return roomManager.GetOne(Fillables.FillRoom, PrimaryKeys(roomNr));
+            return roomManager.GetOne(Fillables.FillRoom, PrimaryKeys(id));
         }
 
         // POST: api/Rooms
@@ -41,15 +41,15 @@ namespace RestAPISCS.Controllers
         }
 
         // PUT: api/Rooms/5
-        public bool Put(int roomNr, [FromBody]Room room)
+        public bool Put(int id, [FromBody]Room room)
         {
-            return roomManager.Put(Extractables.ExtractRoom(room), PrimaryKeys(roomNr));
+            return roomManager.Put(Extractables.ExtractRoom(room), PrimaryKeys(id));
         }
 
         // DELETE: api/Rooms/5
-        public bool Delete(int roomNr)
+        public bool Delete(int id)
         {
-            return roomManager.Delete(PrimaryKeys(roomNr));
+            return roomManager.Delete(PrimaryKeys(id));
         }
 
         //Der mangler CheckNoDuplicate og RetrieveId

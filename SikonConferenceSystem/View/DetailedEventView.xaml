@@ -5,20 +5,95 @@
     xmlns:local="using:SikonConferenceSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <StackPanel Orientation="Horizontal" Background="SlateGray">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="DetailedEvent" Style="{StaticResource SubHeader}"/>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Event" FontSize="500"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Tilmeld dig" Style="{StaticResource DefaultButton}" Background="LightBlue"/>
-                </StackPanel>
+
+    <Page.Resources>
+        <Style x:Key="SpeakerDisplayTxtBox" TargetType="TextBox">
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="InfoBoxTxtBlockRight" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style x:Key="DurationTxtBox" TargetType="TextBox">
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="MaxLength" Value="2"/>
+            <Setter Property="MaxWidth" Value="40"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Page.Resources>
+
+
+    <Grid MinWidth="1000" Background="SlateGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Padding="40,40,40,40" BorderBrush="Black"  BorderThickness="2" Grid.Row="0" Grid.Column="0">
+            <RelativePanel>
+                <Image Name ="DetailedEvent" Source="../Assets/Square150x150Logo.png" MinWidth="300" MinHeight="500" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+
+            </RelativePanel>
+        </Border>
+
+        <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Padding="40,40,40,40">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Row="0" TextAlignment="Center" FontSize="24" VerticalAlignment="Bottom" Background="White" MaxLength="50" Margin="0,0,0,10"/>
+                <TextBox MaxLength="2000" TextWrapping="Wrap" MaxHeight="500" Background="White" Grid.Row="1" Margin="0,2,0,-2"></TextBox>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" Padding="120,40,120,40">
+            <StackPanel Spacing="20">
+                <FlipView Height="80" Background="White" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top">
+                    <FlipView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
+                        </DataTemplate>
+                    </FlipView.ItemTemplate>
+                </FlipView>
             </StackPanel>
-        </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="0" Padding="120,40,120,40">
+            <StackPanel>
+                <ListView Name="SpeakerView">
+                    <ListView.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="Name"  Style="{StaticResource SpeakerDisplayTxtBox}"/>
+                                <TextBox Grid.Column="1" Text="Occupation" Style="{StaticResource SpeakerDisplayTxtBox}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.HeaderTemplate>
+                </ListView>
+            </StackPanel>
+        </Border>
+
+        <Grid Name="BookGrid" Row="2" Column="0" ColumnSpan="2" BorderBrush="Black" BorderThickness="2" Padding="0,0,0,0">
+            <Button Name="BookGridButton" Content="Book" HorizontalAlignment="Center" Background="White" Margin="50,0,50,0"/>
+        </Grid>
     </Grid>
 </Page>

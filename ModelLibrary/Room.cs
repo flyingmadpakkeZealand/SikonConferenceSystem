@@ -22,5 +22,9 @@ namespace ModelLibrary
             
         }
 
+        public override string ToString()
+        {
+            return $"RoomNr: {RoomNr}\nMaxPersons: {RoomMaxPersons}\nAutistSeats: {AutistSeats}";
+        }
     }
 }
