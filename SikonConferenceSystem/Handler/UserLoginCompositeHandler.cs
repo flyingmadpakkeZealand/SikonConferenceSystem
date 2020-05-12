@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ModelLibrary;
+using SikonConferenceSystem.Persistency;
 using SikonConferenceSystem.ViewModel;
 
 namespace SikonConferenceSystem.Handler
@@ -19,8 +21,10 @@ namespace SikonConferenceSystem.Handler
             _userLoginMenusCompositeVm = userLoginMenusCompositeVm;
         }
 
-        public void Login()
+        public async void Login()
         {
+            //Consumer<Tuple<User, Speaker, Admin>> consumer = new Consumer<Tuple<User, Speaker, Admin>>(ConsumerCatalog.GetUrl<Tuple<User, Speaker, Admin>>()); 
+            //Tuple<User, Speaker, Admin> loginDetails = await consumer.GetOneAsync()
             NavigateToProfileMenuOnLogin?.Invoke();
         }
     }

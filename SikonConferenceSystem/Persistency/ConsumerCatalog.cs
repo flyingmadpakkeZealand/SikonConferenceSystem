@@ -16,7 +16,8 @@ namespace SikonConferenceSystem.Persistency
             {typeof(Speaker), "http://localhost:61467/api/Speakers" },
             {typeof(Event), "http://localhost:61467/api/Events" },
             {typeof(Booking), "http://localhost:61467/api/Bookings" },
-            {typeof(Room), "http://localhost:61467/api/Rooms" }
+            {typeof(Room), "http://localhost:61467/api/Rooms" },
+            {typeof(Tuple<User, Speaker, Admin>), "http://localhost:61467/api/Logins" }
         };
 
         public static string GetUrl<T>()
