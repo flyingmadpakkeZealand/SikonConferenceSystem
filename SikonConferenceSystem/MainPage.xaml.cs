@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using SikonConferenceSystem.Common;
 using SikonConferenceSystem.View;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -36,11 +37,13 @@ namespace SikonConferenceSystem
         {
             this.InitializeComponent();
 
+            MainPageViewModel.NavigationService = new NavigationService(ContentFrame);
             var screenHeight = DisplayInformation.GetForCurrentView().ScreenHeightInRawPixels;
             AproxFrameHeight = screenHeight - (TopSize + BottomSize + NativeScreenSace);
 
             UserLoginFrame.Navigate(typeof(UserLoginMenu));
             ContentFrame.Navigate(typeof(EventsPage));
         }
+
     }
 }

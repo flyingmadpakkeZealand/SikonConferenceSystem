@@ -9,6 +9,9 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.DataContext>
+        <viewModel:MainPageViewModel x:Name="MainPageViewModel"></viewModel:MainPageViewModel>
+    </Page.DataContext>
     
 
     <Page.Resources>
