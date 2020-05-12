@@ -135,6 +135,11 @@
     </Compile>
     <Compile Include="Model\CatalogSingleton.cs" />
     <Compile Include="Model\PlaceHolder.cs" />
+    <Compile Include="Persistency\CommonConsumer.cs" />
+    <Compile Include="Persistency\CommonConsumerFactory.cs" />
+    <Compile Include="Persistency\ConsumerBase.cs" />
+    <Compile Include="Persistency\ConsumerStringIds.cs" />
+    <Compile Include="Persistency\Interfaces\IConsumer.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Persistency\Consumer.cs" />
     <Compile Include="Persistency\ConsumerCatalog.cs" />

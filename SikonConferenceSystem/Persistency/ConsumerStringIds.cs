@@ -4,21 +4,20 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using SikonConferenceSystem.Persistency.Interfaces;
 
 namespace SikonConferenceSystem.Persistency
 {
-    public class Consumer<T> : ConsumerBase<T, int>, IConsumer<T, int>
+    public class ConsumerStringIds<T> : ConsumerBase<T, string>, IConsumer<T, string>
     {
         private string URL;
 
-        public Consumer(string url)
+        public ConsumerStringIds(string url)
         {
             URL = url;
         }
 
-        public Consumer()
+        public ConsumerStringIds()
         {
             URL = ConsumerCatalog.GetUrl<T>();
         }
@@ -31,7 +30,7 @@ namespace SikonConferenceSystem.Persistency
             }
         }
 
-        public async Task<T> GetOneAsync(int[] ids)
+        public async Task<T> GetOneAsync(string[] ids)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -48,7 +47,7 @@ namespace SikonConferenceSystem.Persistency
             }
         }
 
-        public async Task<bool> PutAsync(T item, int[] ids)
+        public async Task<bool> PutAsync(T item, string[] ids)
         {
             StringContent content = EncodeContent(item);
             using (HttpClient client = new HttpClient())
@@ -57,11 +56,11 @@ namespace SikonConferenceSystem.Persistency
             }
         }
 
-        public async Task<bool> DeleteAsync(int[] ids)
+        public async Task<bool> DeleteAsync(string[] ids)
         {
             using (HttpClient client = new HttpClient())
             {
-                return await HandleHTTPResponseAsync<bool>(()=>client.DeleteAsync(URL + RouteIds(ids)));
+                return await HandleHTTPResponseAsync<bool>(() => client.DeleteAsync(URL + RouteIds(ids)));
             }
         }
     }
