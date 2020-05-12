@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SikonConferenceSystem.View;
 using SikonConferenceSystem.ViewModel;
 
 namespace SikonConferenceSystem.Handler
@@ -15,5 +16,6 @@ namespace SikonConferenceSystem.Handler
         {
             _eventsPageVm = eventsPageVm;
         }
+
     }
 }

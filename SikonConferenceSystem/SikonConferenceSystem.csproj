@@ -124,6 +124,7 @@
     <Compile Include="Converter\BoolToVisibility.cs" />
     <Compile Include="Handler\AdminRoomHandler.cs" />
     <Compile Include="Handler\AdminSpeakerHandler.cs" />
+    <Compile Include="Handler\DetailedEventHandler.cs" />
     <Compile Include="Handler\EventsHandler.cs" />
     <Compile Include="Handler\Interfaces\ILoadEvent.cs" />
     <Compile Include="Handler\LoadEventsHandler.cs" />
