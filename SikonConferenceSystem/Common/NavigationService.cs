@@ -8,7 +8,7 @@ using SikonConferenceSystem.View;
 using SikonConferenceSystem.ViewModel;
 
 namespace SikonConferenceSystem.Common
-{ //Initial Commit. //Initial Commit - CreateEvents_Draft
+{ //Initial Commit. //Initial Commit - CreateEvents_Draft. //Initial Commit - ProfilesTab_Draft.
     public class NavigationService
     {
         private readonly Frame _frame;

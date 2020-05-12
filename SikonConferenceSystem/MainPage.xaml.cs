@@ -41,10 +41,8 @@ namespace SikonConferenceSystem
             var screenHeight = DisplayInformation.GetForCurrentView().ScreenHeightInRawPixels;
             AproxFrameHeight = screenHeight - (TopSize + BottomSize + NativeScreenSace);
 
-            UserLoginFrame.Navigate(typeof(UserLoginPage));
-            ContentFrame.Navigate(typeof(SetupEventsPage));
-
-            
+            UserLoginFrame.Navigate(typeof(UserLoginMenu));
+            ContentFrame.Navigate(typeof(EventsPage));
         }
 
     }
