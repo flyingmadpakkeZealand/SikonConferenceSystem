@@ -131,6 +131,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\CatalogSingleton.cs" />
+    <Compile Include="Model\Messages.cs" />
     <Compile Include="Model\PlaceHolder.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Persistency\Consumer.cs" />

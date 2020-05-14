@@ -16,12 +16,12 @@
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
                 <TextBlock HorizontalTextAlignment="Center" Text="Rooms" Style="{StaticResource SubHeader}" Margin="0,50,0,50"/>
-                <ListView SelectedItem="{Binding NewRoom, Mode=TwoWay}" SelectedIndex="{Binding NewRoom, Mode=TwoWay}" ItemsSource="{Binding AdminRoomSingleton.Catalog}" Width="300">
+                <ListView MaxHeight="800" SelectedItem="{Binding NewRoom, Mode=TwoWay}" SelectedIndex="{Binding NewRoom, Mode=TwoWay}" ItemsSource="{Binding AdminRoomSingleton.Catalog}" Width="300">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Margin="0,20,0,20">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="24" Text="Room nr:" />
+                                    <TextBlock FontSize="24" Text="Room nr: " />
                                     <TextBlock FontSize="24" Text="{Binding RoomNr}" />
                                 </StackPanel>
                             </StackPanel>
