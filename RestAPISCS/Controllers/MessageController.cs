@@ -3,12 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
+using DBUtility;
+using ModelLibrary;
+using RestAPISCS.App_Start;
 
 namespace RestAPISCS.Controllers
 {
     public class MessageController : ApiController
     {
+        private ManageGenericWithLambda<Booking> MessageManager =
+            DataBases.Access<Booking>(BaseNames.SikonDatabase, "Booking");
+        public void MessageEventCanceled(int EventID)
+        {
+            
+        }
+
         // GET: api/Message
         public IEnumerable<string> Get()
         {
@@ -16,24 +27,27 @@ namespace RestAPISCS.Controllers
         }
 
         // GET: api/Message/5
-        public string Get(int id)
+        public bool Get(int id)
         {
-            return "value";
+            return false;
         }
 
         // POST: api/Message
-        public void Post([FromBody]string value)
+        public bool Post([FromBody]string value)
         {
+            return false;
         }
 
         // PUT: api/Message/5
-        public void Put(int id, [FromBody]string value)
+        public bool Put(int id, [FromBody]string value)
         {
+            return false;
         }
 
         // DELETE: api/Message/5
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            return false;
         }
     }
 }
