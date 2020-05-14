@@ -92,6 +92,7 @@
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
