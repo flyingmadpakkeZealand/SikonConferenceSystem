@@ -81,12 +81,13 @@
                         </DataTemplate>
                     </FlipView.ItemTemplate>
                 </FlipView>
+                <TimePicker Time="{Binding EventDateHours}" FontSize="24" ClockIdentifier="24HourClock" MinuteIncrement="5" Background="White" HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="1" Grid.Column="0" Padding="120,40,120,40">
             <StackPanel>
-                <ListView Name="SpeakerView">
+                <ListView Name="SpeakerView" ItemsSource="{Binding SpeakersInEvent}">
                     <ListView.HeaderTemplate>
                         <DataTemplate>
                             <Grid>

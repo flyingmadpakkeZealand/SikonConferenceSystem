@@ -32,6 +32,8 @@ namespace SikonConferenceSystem.View
             MaxHeightForGrid = MainPage.AproxFrameHeight;
             this.InitializeComponent();
             //TestCVS.Source = CreateGroups2();
+
+            
         }
     }
 }
