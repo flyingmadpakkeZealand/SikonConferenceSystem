@@ -4,10 +4,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using ModelLibrary;
 using SikonConferenceSystem.Annotations;
+using SikonConferenceSystem.Common;
 using SikonConferenceSystem.Handler;
 using SikonConferenceSystem.Model;
+using SikonConferenceSystem.View;
 
 namespace SikonConferenceSystem.ViewModel
 {
@@ -119,8 +122,16 @@ namespace SikonConferenceSystem.ViewModel
                 SetupEventsList();
             }
 
-
+            
         }
+
+        private RelayCommand _goToEventCommand;
+
+        public ICommand GotoEventCommand
+        {
+            get { return _goToEventCommand; }
+        }
+
 
         private void SetupEventsList()
         {

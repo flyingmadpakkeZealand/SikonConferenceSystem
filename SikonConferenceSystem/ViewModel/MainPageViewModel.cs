@@ -14,14 +14,33 @@ namespace SikonConferenceSystem.ViewModel
 {
     public class MainPageViewModel: INotifyPropertyChanged
     {
+        private NavigationService _navigationService;
 
-        //private readonly NavigationService _navigationService;
+        public NavigationService NavigationService
+        {
+            get { return _navigationService; }
+            set
+            {
+                _navigationService = value;
+                _instanceNav = _navigationService;
+            }
+        }
+        
 
-        //private static MainPageViewModel _instance;
-        //public static MainPageViewModel Instance
-        //{ get { return _instance; } }
+        private static NavigationService _instanceNav;
+        public static NavigationService InstanceNav
+        { get { return _instanceNav; } }
 
 
+        public MainPageViewModel(/*NavigationService navService*/)
+        {
+            //_navigationService = navService;
+            NavToPageCommand = new RelayCommand(NavigateToPage);
+        }
+        public void NavigateToPage(object pageType)
+        {
+            _navigationService.Navigate((Type)pageType);
+        }
 
         public ICommand NavToPageCommand { get; set; }
         public ICommand NavBackCommand { get; set; }

@@ -124,15 +124,24 @@
     <Compile Include="Converter\BoolToVisibility.cs" />
     <Compile Include="Handler\AdminRoomHandler.cs" />
     <Compile Include="Handler\AdminSpeakerHandler.cs" />
+    <Compile Include="Handler\DetailedEventHandler.cs" />
     <Compile Include="Handler\EventsHandler.cs" />
+    <Compile Include="Handler\Interfaces\ILoadEvent.cs" />
+    <Compile Include="Handler\LoadEventsHandler.cs" />
     <Compile Include="Handler\SetupEventsHandler.cs" />
     <Compile Include="Handler\BookingEventHandler.cs" />
+    <Compile Include="Handler\UserLoginCompositeHandler.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\CatalogSingleton.cs" />
     <Compile Include="Model\Messages.cs" />
     <Compile Include="Model\PlaceHolder.cs" />
+    <Compile Include="Persistency\CommonConsumer.cs" />
+    <Compile Include="Persistency\CommonConsumerFactory.cs" />
+    <Compile Include="Persistency\ConsumerBase.cs" />
+    <Compile Include="Persistency\ConsumerStringIds.cs" />
+    <Compile Include="Persistency\Interfaces\IConsumer.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Persistency\Consumer.cs" />
     <Compile Include="Persistency\ConsumerCatalog.cs" />
@@ -141,9 +150,11 @@
     <Compile Include="ViewModel\AdminSpeakerViewModel.cs" />
     <Compile Include="ViewModel\BookingEventViewModel.cs" />
     <Compile Include="ViewModel\DetailedEventViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\IFormattedEventViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\PlaceHolder.cs" />
     <Compile Include="ViewModel\SetupEventsPageVM.cs" />
+    <Compile Include="ViewModel\UserLoginMenusCompositeVM.cs" />
     <Compile Include="View\BookingEventPage.xaml.cs">
       <DependentUpon>BookingEventPage.xaml</DependentUpon>
     </Compile>
@@ -164,8 +175,11 @@
     <Compile Include="View\SetupEventsPage.xaml.cs">
       <DependentUpon>SetupEventsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserLoginPage.xaml.cs">
-      <DependentUpon>UserLoginPage.xaml</DependentUpon>
+    <Compile Include="View\UserLoginMenu.xaml.cs">
+      <DependentUpon>UserLoginMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserLoginProfileMenu.xaml.cs">
+      <DependentUpon>UserLoginProfileMenu.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -213,7 +227,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserLoginPage.xaml">
+    <Page Include="View\UserLoginMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserLoginProfileMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

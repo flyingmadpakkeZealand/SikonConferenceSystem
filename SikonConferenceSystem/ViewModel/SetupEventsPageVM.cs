@@ -9,10 +9,11 @@ using ModelLibrary;
 using SikonConferenceSystem.Common;
 using SikonConferenceSystem.Handler;
 using SikonConferenceSystem.Model;
+using SikonConferenceSystem.ViewModel.Interfaces;
 
 namespace SikonConferenceSystem.ViewModel
 {
-    public class SetupEventsPageVM
+    public class SetupEventsPageVM : IFormattedEventViewModel
     {
         //Mockup values. You choose dates by going through a collection of valid dates based on the BaseDateTime and eventDuration.
         public static readonly DateTime BaseDateTime = DateTime.Today;
