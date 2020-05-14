@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Services.Description;
 using DBUtility;
 using RestAPISCS.App_Start;
 using RestAPISCS.DatabaseUtility;
+using Message = ModelLibrary.Message;
 
 namespace RestAPISCS.Controllers
 {
@@ -41,8 +43,17 @@ namespace RestAPISCS.Controllers
         }
 
         // POST: api/Messages
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Message message)
         {
+            //string content = message.ToString();
+            //string[] splitContent = content.Split(new [] {','},2);
+            //string idString = splitContent[0].Remove(0, splitContent[0].IndexOf(":")+2);
+            //string messageString = splitContent[1].Remove(0, splitContent[1].IndexOf(":")+2);
+            //messageString = messageString.TrimEnd(new char[]{'}', '\r', '\n'}).Trim('"');
+            //MessagesManager.Post(Extractables.ExtractMessage(Convert.ToInt32(idString), messageString));
+
+            MessagesManager.Post(Extractables.ExtractMessage(message));
+
         }
 
         // PUT: api/Messages/5

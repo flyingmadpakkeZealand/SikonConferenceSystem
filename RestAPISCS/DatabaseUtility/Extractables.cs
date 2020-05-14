@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using DBUtility;
 using ModelLibrary;
 using RestAPISCS.App_Start;
 using RestAPISCS.Controllers;
+using Message = ModelLibrary.Message;
 
 namespace RestAPISCS.DatabaseUtility
 {
@@ -80,6 +82,16 @@ namespace RestAPISCS.DatabaseUtility
             lookupDictionary.Add("BookingId", booking.BookingID);
             lookupDictionary.Add("BookingDate", booking.BookingDate);
             lookupDictionary.Add("Id", booking.Id);
+
+            return lookupDictionary;
+        }
+
+
+        public static Dictionary<string, object> ExtractMessage(Message message)
+        {
+            Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
+            lookupDictionary.Add("Id", message.Id);
+            lookupDictionary.Add("Message", message.textMessage);
 
             return lookupDictionary;
         }

@@ -29,7 +29,7 @@ namespace SikonConferenceSystem.Handler
             string speakerPassword = _adminSpeakerViewModel.NewSpeaker.Password;
 
             Speaker aSpeaker = new Speaker(speakerName,speakerPhoneNumber,speakerEmail,speakerPassword,"", "");
-            Persistency.Consumer<Speaker> AdminSpeakerFacade = new Persistency.Consumer<Speaker>("http://localhost:61467/api/Speakers");
+            Consumer<Speaker> AdminSpeakerFacade = new Consumer<Speaker>("http://localhost:61467/api/Speakers");
             bool ok = await AdminSpeakerFacade.PostAsync(aSpeaker);
             ClearSpeaker();
             _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.CreateSpeakerCommand).RaiseCanExecuteChanged);
@@ -41,7 +41,7 @@ namespace SikonConferenceSystem.Handler
         {
             int speakerID = _adminSpeakerViewModel.NewSpeaker.Id;
             
-            Persistency.Consumer<Speaker> AdminSpeakerFacade = new Persistency.Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
+            Consumer<Speaker> AdminSpeakerFacade = new Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
             bool ok = await AdminSpeakerFacade.DeleteAsync(new[] {(speakerID)});
             ClearSpeaker();
             _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.DeleteSpeakerCommand).RaiseCanExecuteChanged);
@@ -57,7 +57,7 @@ namespace SikonConferenceSystem.Handler
             int speakerID = _adminSpeakerViewModel.NewSpeaker.Id;
 
             Speaker aSpeaker = new Speaker(speakerName, speakerPhoneNumber, speakerEmail, speakerPassword, "", "");
-            Persistency.Consumer<Speaker> AdminSpeakerFacade = new Persistency.Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
+            Consumer<Speaker> AdminSpeakerFacade = new Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
             bool ok = await AdminSpeakerFacade.PutAsync(aSpeaker, new[] { (speakerID) });
             ClearSpeaker();
             _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.UpdateSpeakerCommand).RaiseCanExecuteChanged);
