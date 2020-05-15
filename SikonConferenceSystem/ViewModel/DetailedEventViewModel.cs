@@ -27,7 +27,7 @@ namespace SikonConferenceSystem.ViewModel
             get { return _newEvent; }
         }
 
-        public DetailedEventHandler _handler { get; set; }
+        private DetailedEventHandler _handler;
 
         public DetailedEventHandler Handler
         {
@@ -35,19 +35,16 @@ namespace SikonConferenceSystem.ViewModel
         }
 
 
-        public CatalogSingleton<Speaker> SpeakerCatalog { get; set; }
-        public CatalogSingleton<Event> EventCatalog { get; set; }
 
         public DetailedEventViewModel()
         {
-            SpeakerCatalog=CatalogSingleton<Speaker>.Instance;
+
 
             _newEvent = new Event();
 
-            _eventDurationHours = NewEvent.Duration.Hours;
-            _eventDurationMinutes = NewEvent.Duration.Minutes;
+            
             SelectedTypeIndex = (int) Type;
-
+            _handler= new DetailedEventHandler(this);
             
         }
 
@@ -61,28 +58,29 @@ namespace SikonConferenceSystem.ViewModel
         public DateTime EventDate { get; set; }
         public TimeSpan EventDateHours { get; set; }
         public int SelectedTypeIndex;
-        private List<string> _allEventDays;
-        public List<string> AllEventsDays
-        {
-            get { return _allEventDays; }
-        }
+        //private List<string> _allEventDays;
+        //public List<string> AllEventsDays
+        //{
+        //    get { return _allEventDays; }
+        //}
 
-        private int _selectedDay;
-        public int SelectedDay
-        {
-            get { return _selectedDay; }
-        }
-        private int _eventDurationHours;
-        public int EventDurationHours
-        {
-            get { return _eventDurationHours; }
-        }
 
-        private int _eventDurationMinutes;
-        public int EventDurationMinutes
-        {
-            get { return _eventDurationMinutes; }
-        }
+        //private string _selectedDay;
+        //public string SelectedDay
+        //{
+        //    get { return _selectedDay; }
+        //}
+        //private int _eventDurationHours;
+        //public int EventDurationHours
+        //{
+        //    get { return _eventDurationHours; }
+        //}
+
+        //private int _eventDurationMinutes;
+        //public int EventDurationMinutes
+        //{
+        //    get { return _eventDurationMinutes; }
+        //}
 
 
         public static Event EventToLoad;

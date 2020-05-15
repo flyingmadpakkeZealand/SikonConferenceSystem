@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ModelLibrary;
 using SikonConferenceSystem.Common;
+using SikonConferenceSystem.Persistency;
 using SikonConferenceSystem.ViewModel;
 
 namespace SikonConferenceSystem.Handler
@@ -23,7 +24,7 @@ namespace SikonConferenceSystem.Handler
             int maxPersons = _adminRoomViewModel.NewRoom.RoomMaxPersons;
             int autistSeats = _adminRoomViewModel.NewRoom.AutistSeats;
             Room aRoom=new Room(roomNr,maxPersons,autistSeats);
-            Persistency.Consumer<Room> adminRoomFacade = new Persistency.Consumer<Room>("http://localhost:61467/api/Rooms");
+            Consumer<Room> adminRoomFacade = new Persistency.Consumer<Room>("http://localhost:61467/api/Rooms");
             bool ok = await adminRoomFacade.PostAsync(aRoom);
             ClearRoom();
             _adminRoomViewModel.AdminRoomSingleton.Reload(((RelayCommand)_adminRoomViewModel.CreateRoomCommand).RaiseCanExecuteChanged);
@@ -32,7 +33,7 @@ namespace SikonConferenceSystem.Handler
         public async void DeleteRoom()
         {
             int roomNr = _adminRoomViewModel.NewRoom.RoomNr;
-            Persistency.Consumer<Room> adminRoomFacade = new Persistency.Consumer<Room>("http://localhost:61467/api/Rooms");
+            Consumer<Room> adminRoomFacade = new Persistency.Consumer<Room>("http://localhost:61467/api/Rooms");
             bool ok = await adminRoomFacade.DeleteAsync(new[] {(roomNr)});
             ClearRoom();
             _adminRoomViewModel.AdminRoomSingleton.Reload(((RelayCommand)_adminRoomViewModel.DeleteRoomCommand).RaiseCanExecuteChanged);
@@ -44,7 +45,7 @@ namespace SikonConferenceSystem.Handler
             int maxPersons = _adminRoomViewModel.NewRoom.RoomMaxPersons;
             int autistSeats = _adminRoomViewModel.NewRoom.AutistSeats;
             Room aRoom = new Room(roomNr, maxPersons, autistSeats);
-            Persistency.Consumer<Room> adminRoomFacade = new Persistency.Consumer<Room>("http://localhost:61467/api/Rooms");
+            Consumer<Room> adminRoomFacade = new Persistency.Consumer<Room>("http://localhost:61467/api/Rooms");
             bool ok = await adminRoomFacade.PutAsync(aRoom, new[] {(roomNr)});
             ClearRoom();
             _adminRoomViewModel.AdminRoomSingleton.Reload(((RelayCommand)_adminRoomViewModel.UpdateRoomCommand).RaiseCanExecuteChanged);

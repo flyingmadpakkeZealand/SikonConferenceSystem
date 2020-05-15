@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ModelLibrary;
+using SikonConferenceSystem.ViewModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,6 +32,7 @@ namespace SikonConferenceSystem.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Event eEvent = e.Parameter as Event;
+            DetailedEventViewModel.Handler.LoadEvent(eEvent);
             base.OnNavigatedTo(e);
         }
 

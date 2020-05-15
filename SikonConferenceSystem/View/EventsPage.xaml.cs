@@ -35,5 +35,13 @@ namespace SikonConferenceSystem.View
 
             
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                Frame.Navigate(typeof(DetailedEventView), button.CommandParameter); 
+            }
+        }
     }
 }
