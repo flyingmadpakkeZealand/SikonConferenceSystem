@@ -56,6 +56,10 @@ namespace SikonConferenceSystem.ViewModel
         public ObservableCollection<string> EventDays { get; set; }
 
         private List<ObservableCollection<HourGroup>> _HourGroupsByDate;
+        public List<ObservableCollection<HourGroup>> HourGroupsByDate
+        {
+            get { return _HourGroupsByDate; }
+        }
 
         private int _selectedDayIndex;
 

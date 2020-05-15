@@ -45,6 +45,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- Testing Toolbar button, not sure it should be here or like this, but it's 100% guaranteed attached to the top bar and will stay in place !-->
+        <Button Name="ToolBar" Content="ToolBar" Grid.Row="0" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.RowSpan="3" Margin="0,52,0,0" Canvas.ZIndex="1">
+            <Button.Flyout>
+                <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                    <MenuFlyoutItem Text="Edit My Events" Click="MenuFlyoutItem_OnClick"/>
+                </MenuFlyout>
+            </Button.Flyout>
+        </Button>
+
+
         <Border Grid.Row="1" Background="Black"></Border>
 
         <Grid Name="Header" Grid.Row="0" Background="White" Canvas.ZIndex="1" Margin="0,0,20,0">

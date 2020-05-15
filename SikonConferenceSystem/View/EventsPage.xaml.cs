@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ModelLibrary;
+using SikonConferenceSystem.Common;
 using SikonConferenceSystem.ViewModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -42,6 +43,21 @@ namespace SikonConferenceSystem.View
             {
                 Frame.Navigate(typeof(DetailedEventView), button.CommandParameter); 
             }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is SpecialCase specialCase)
+            {
+                switch (specialCase)
+                {
+                    case SpecialCase.OnSpeakerEdit:
+                    {
+                        EventsPageVm.Handler.ApplySpeakerEditFilter();
+                    } break;
+                }
+            }
+            base.OnNavigatedTo(e);
         }
     }
 }
