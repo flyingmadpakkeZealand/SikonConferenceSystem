@@ -28,12 +28,12 @@ namespace SikonConferenceSystem.View
         public UserLoginMenu()
         {
             this.InitializeComponent();
-            UserLoginMenusCompositeVm.Handler.NavigateToProfileMenuOnLogin = NavigateToProfileMenu;
         }
 
-        private void NavigateToProfileMenu()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Frame.Navigate(typeof(UserLoginProfileMenu));
+            UserLoginMenuVm.NavigationService = new NavigationService(Frame);
+            base.OnNavigatedTo(e);
         }
     }
 }

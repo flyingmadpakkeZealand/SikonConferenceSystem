@@ -32,6 +32,8 @@ namespace SikonConferenceSystem.Common
 
         public object EventsPage { get { return typeof(EventsPage); } }
         public object DetailedEventPage { get { return typeof(DetailedEventView); } }
+        public object UserLoginProfileMenu { get { return typeof(UserLoginProfileMenu); } }
+        public object SetupEventsPage { get { return typeof(SetupEventsPage); } }
 
         public void GoBack()
         {

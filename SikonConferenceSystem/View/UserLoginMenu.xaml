@@ -7,21 +7,31 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
     xmlns:common="using:SikonConferenceSystem.Common"
+    xmlns:converter="using:SikonConferenceSystem.Converter"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <viewModel:UserLoginMenusCompositeVM x:Name="UserLoginMenusCompositeVm"/>
+        <viewModel:UserLoginMenuVM x:Name="UserLoginMenuVm"/>
     </Page.DataContext>
+
+    <Page.Resources>
+        <converter:BoolToVisibility x:Key="BoolToVisibility"/>
+    </Page.Resources>
 
 
     <Grid Style="{StaticResource ProfileMenuGrid}">
         <StackPanel Name="LoginStackPanel">
             <TextBlock Name="TopTxtBlock" Text="Enter Phone Number or Email" FontSize="16"/>
             <TextBox Text="{Binding LoginId, Mode=TwoWay}" MaxWidth="{Binding ElementName=TopTxtBlock, Path=ActualWidth}"/>
+            <TextBlock Text="{Binding LoginIdErrorMessage}" Visibility="{Binding DisplayLoginIdErrorMessage, Converter={StaticResource BoolToVisibility}}" Foreground="Red"/>
+
 
             <TextBlock Text="Password" FontSize="16"/>
             <PasswordBox Password="{Binding Password, Mode=TwoWay}" MaxWidth="{Binding ElementName=TopTxtBlock, Path=ActualWidth}"/>
+            <TextBlock Text="{Binding PasswordErrorMessage}" Visibility="{Binding DisplayPasswordErrorMessage, Converter={StaticResource BoolToVisibility}}" Foreground="Red"/>
+
+
             <Grid HorizontalAlignment="Stretch" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -34,6 +44,12 @@
 
                 <HyperlinkButton HorizontalContentAlignment="Right" HorizontalAlignment="Stretch" Content="SignUp" Grid.Column="2"></HyperlinkButton>
             </Grid>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <ProgressRing IsEnabled="True" Visibility="{Binding IsLoadingUser, Converter={StaticResource BoolToVisibility}}"/>
+                <TextBlock Text="Loading..." Visibility="{Binding IsLoadingUser, Converter={StaticResource BoolToVisibility}}"/>
+                <TextBlock Text="Invalid Login" Foreground="Red" Visibility="{Binding WrongLogin, Converter={StaticResource BoolToVisibility}}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

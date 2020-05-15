@@ -20,11 +20,11 @@ namespace RestAPISCS.Controllers
             DataBases.Access<Speaker>(BaseNames.SikonDatabase, "Speaker");
 
         private ManageGenericWithLambda<Admin>
-            adminManager = DataBases.Access<Admin>(BaseNames.SikonDatabase, "Admin");
+            adminManager = DataBases.Access<Admin>(BaseNames.SikonDatabase, "Admins");
         // GET: api/Logins
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
         // GET: api/Logins/5
@@ -33,26 +33,27 @@ namespace RestAPISCS.Controllers
         {
             if (loginId.Contains('@'))
             {
-                return ManageLogin(UsersController.EmailKey(loginId));
+                return ManageLogin(UsersController.EmailKey(loginId), true);
             }
 
-            return ManageLogin(UsersController.PhoneNumberKey(loginId));
+            return ManageLogin(UsersController.PhoneNumberKey(loginId), false);
         }
 
-        private Tuple<User, Speaker, Admin> ManageLogin(Dictionary<string, object> lookupDictionary)
+        private Tuple<User, Speaker, Admin> ManageLogin(Dictionary<string, object> lookupDictionary, bool isEmailKey)
         {
             User user = userManager.GetOne(Fillables.FillUser, lookupDictionary);
 
             if (user != null)
             {
-                Speaker speaker = speakerManager.GetOne(Fillables.FillSpeaker, lookupDictionary);
+
+                Speaker speaker = speakerManager.GetOne(Fillables.FillSpeaker, SpeakersController.PrimaryKeys(user.Id));
 
                 if (speaker != null)
                 {
                     return new Tuple<User, Speaker, Admin>(null, speaker, null);
                 }
 
-                Admin admin = adminManager.GetOne(Fillables.FillAdmin, lookupDictionary);
+                Admin admin = adminManager.GetOne(Fillables.FillAdmin, AdminsController.PrimaryKeys(user.Id));
 
                 if (admin != null)
                 {

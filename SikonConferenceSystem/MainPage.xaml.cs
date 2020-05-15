@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ModelLibrary;
 using SikonConferenceSystem.Common;
 using SikonConferenceSystem.View;
 
@@ -42,8 +43,21 @@ namespace SikonConferenceSystem
             AproxFrameHeight = screenHeight - (TopSize + BottomSize + NativeScreenSace);
 
             UserLoginFrame.Navigate(typeof(UserLoginMenu));
-            ContentFrame.Navigate(typeof(EventsPage));
+            ContentFrame.Navigate(typeof(SetupEventsPage));
+
+            ToolBar.Visibility = Visibility.Collapsed;
+            AppData.OnUserLoggedIn(() =>
+            {
+                if (AppData.LoadedUser is Speaker)
+                {
+                    ToolBar.Visibility = Visibility.Visible;
+                }
+            });
         }
 
+        private void MenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainPageViewModel.NavigationService.Navigate(typeof(EventsPage), SpecialCase.OnSpeakerEdit);
+        }
     }
 }

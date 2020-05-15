@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\AppData.cs" />
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Converter\BoolToVisibility.cs" />
@@ -136,6 +137,7 @@
     </Compile>
     <Compile Include="Model\CatalogSingleton.cs" />
     <Compile Include="Model\PlaceHolder.cs" />
+    <Compile Include="Model\TupleJSON.cs" />
     <Compile Include="Persistency\CommonConsumer.cs" />
     <Compile Include="Persistency\CommonConsumerFactory.cs" />
     <Compile Include="Persistency\ConsumerBase.cs" />
@@ -150,10 +152,12 @@
     <Compile Include="ViewModel\BookingEventViewModel.cs" />
     <Compile Include="ViewModel\DetailedEventViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IFormattedEventViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\IUserLoginMenu.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\PlaceHolder.cs" />
     <Compile Include="ViewModel\SetupEventsPageVM.cs" />
-    <Compile Include="ViewModel\UserLoginMenusCompositeVM.cs" />
+    <Compile Include="ViewModel\UserLoginMenuVM.cs" />
+    <Compile Include="ViewModel\UserLoginProfileMenuVM.cs" />
     <Compile Include="View\BookingEventPage.xaml.cs">
       <DependentUpon>BookingEventPage.xaml</DependentUpon>
     </Compile>

@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ModelLibrary;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +26,12 @@ namespace SikonConferenceSystem.View
         public UserLoginProfileMenu()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            UserLoginProfileMenuVm.LoadedUser = e.Parameter as User;
+            base.OnNavigatedTo(e);
         }
     }
 }
