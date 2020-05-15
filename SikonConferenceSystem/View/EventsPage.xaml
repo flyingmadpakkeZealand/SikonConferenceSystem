@@ -114,7 +114,7 @@
                                 <TextBlock Text="{Binding Event.Type}"/>
                                 <TextBlock Text="{Binding FormattedDescription}"/>
                                 <TextBlock Text="{Binding FormattedDuration}"/>
-                                <Button Content="See Event" Click="Button_Click" CommandParameter="{Binding Event}"></Button>
+                                <Button Content="See event" Click="Button_Click" CommandParameter="{Binding Event}" Loaded="FrameworkElement_OnLoaded"/>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>

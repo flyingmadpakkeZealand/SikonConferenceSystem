@@ -43,7 +43,7 @@ namespace SikonConferenceSystem
             AproxFrameHeight = screenHeight - (TopSize + BottomSize + NativeScreenSace);
 
             UserLoginFrame.Navigate(typeof(UserLoginMenu));
-            ContentFrame.Navigate(typeof(SetupEventsPage));
+            ContentFrame.Navigate(typeof(EventsPage));
 
             ToolBar.Visibility = Visibility.Collapsed;
             AppData.OnUserLoggedIn(() =>

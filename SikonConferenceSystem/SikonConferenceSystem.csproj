@@ -123,6 +123,8 @@
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Converter\BoolToVisibility.cs" />
+    <Compile Include="Converter\ReversedBool.cs" />
+    <Compile Include="Converter\ReversedBoolToVisibility.cs" />
     <Compile Include="Handler\AdminRoomHandler.cs" />
     <Compile Include="Handler\AdminSpeakerHandler.cs" />
     <Compile Include="Handler\DetailedEventHandler.cs" />

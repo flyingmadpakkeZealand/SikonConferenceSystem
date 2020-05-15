@@ -9,6 +9,7 @@ namespace SikonConferenceSystem.Common
 {
     public enum SpecialCase
     {
+        None,
         OnSpeakerEdit
     }
 

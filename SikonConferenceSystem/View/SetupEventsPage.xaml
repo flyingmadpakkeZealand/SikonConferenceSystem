@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:converter="using:SikonConferenceSystem.Converter"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -34,6 +35,8 @@
             <Setter Property="MaxWidth" Value="40"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
+        <converter:ReversedBool x:Key="ReversedBool"/>
+        <converter:ReversedBoolToVisibility x:Key="ReversedBoolToVisibility"/>
     </Page.Resources>
 
 
@@ -76,15 +79,15 @@
                     
                     <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" Background="Black"/>
 
-                    <ComboBox HorizontalAlignment="Right" PlaceholderText="Select Event Type" SelectedIndex="{Binding SelectedTypeIndex}" SelectedValue="{Binding Type, Mode=TwoWay}" ItemsSource="{Binding AllEventTypes}" Grid.Row="0" Grid.Column="2"/>
+                    <ComboBox HorizontalAlignment="Right" PlaceholderText="Select Event Type" SelectedIndex="{Binding SelectedTypeIndex}" SelectedValue="{Binding Type, Mode=TwoWay}" ItemsSource="{Binding AllEventTypes}" Grid.Row="0" Grid.Column="2" IsEnabled="{Binding DisableAdminControls, Converter={StaticResource ReversedBool}}"/>
                     <StackPanel HorizontalAlignment="Right" Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
                         <TextBlock Text="hour(s)"/>
                         <Border BorderBrush="Black" BorderThickness="1">
-                            <TextBox Text="{Binding EventDurationHours, Mode=TwoWay}" Style="{StaticResource DurationTxtBox}"/>
+                            <TextBox Text="{Binding EventDurationHours, Mode=TwoWay}" Style="{StaticResource DurationTxtBox}" IsReadOnly="{Binding DisableAdminControls}"/>
                         </Border>
                         <TextBlock Text=", min."/>
                         <Border BorderBrush="Black" BorderThickness="1">
-                            <TextBox Text="{Binding EventDurationMinutes, Mode=TwoWay}" Style="{StaticResource DurationTxtBox}"/>
+                            <TextBox Text="{Binding EventDurationMinutes, Mode=TwoWay}" Style="{StaticResource DurationTxtBox}" IsReadOnly="{Binding DisableAdminControls}"/>
                         </Border>
                     </StackPanel>
                     <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="2" Grid.Column="2"/>
@@ -107,20 +110,20 @@
 
         <Border Grid.Row="1" Grid.Column="1" Padding="120,40,120,40">
             <StackPanel Spacing="20">
-                <FlipView Height="80" SelectedIndex="{Binding SelectedDay, Mode=TwoWay}" ItemsSource="{Binding AllEventDays}" Background="White" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top">
+                <FlipView Height="80" SelectedIndex="{Binding SelectedDay, Mode=TwoWay}" ItemsSource="{Binding AllEventDays}" Background="White" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top" IsEnabled="{Binding DisableAdminControls, Converter={StaticResource ReversedBool}}">
                     <FlipView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
                         </DataTemplate>
                     </FlipView.ItemTemplate>
                 </FlipView>
-                <TimePicker Time="{Binding EventDateHours, Mode=TwoWay}" FontSize="24" ClockIdentifier="24HourClock" MinuteIncrement="5" Background="White" HorizontalAlignment="Center"/>
+                <TimePicker Time="{Binding EventDateHours, Mode=TwoWay}" FontSize="24" ClockIdentifier="24HourClock" MinuteIncrement="5" Background="White" HorizontalAlignment="Center" IsEnabled="{Binding DisableAdminControls, Converter={StaticResource ReversedBool}}"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="1" Grid.Column="0" Padding="120,40,120,40">
             <StackPanel>
-                <AutoSuggestBox Name="SpeakersInEventSuggestBox" QueryIcon="Add" TextChanged="SpeakersInEventSuggestBox_OnTextChanged" QuerySubmitted="SpeakersInEventSuggestBox_OnQuerySubmitted" PlaceholderText="Enter a speaker's name to add them to the event" TextMemberPath="Name">
+                <AutoSuggestBox Name="SpeakersInEventSuggestBox" QueryIcon="Add" TextChanged="SpeakersInEventSuggestBox_OnTextChanged" QuerySubmitted="SpeakersInEventSuggestBox_OnQuerySubmitted" PlaceholderText="Enter a speaker's name to add them to the event" TextMemberPath="Name" Visibility="{Binding DisableAdminControls, Converter={StaticResource ReversedBoolToVisibility}}">
                     <AutoSuggestBox.ContextFlyout>
                         <Flyout ShowMode="Transient" Placement="Bottom">
                             <TextBlock Text="Unable to find Speaker, please use the list"/>

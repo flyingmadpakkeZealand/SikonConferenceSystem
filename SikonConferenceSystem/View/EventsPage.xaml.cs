@@ -26,8 +26,11 @@ namespace SikonConferenceSystem.View
     /// </summary>
     public sealed partial class EventsPage : Page
     {
+        private Type _eventDestination;
+        private string _eventDestinationButtonText;
+        private SpecialCase _specialCase;
         public uint MaxHeightForGrid { get; set; }
-        private List<User> users;
+        
         public EventsPage()
         {
             MaxHeightForGrid = MainPage.AproxFrameHeight;
@@ -41,7 +44,23 @@ namespace SikonConferenceSystem.View
         {
             if (sender is Button button)
             {
-                Frame.Navigate(typeof(DetailedEventView), button.CommandParameter); 
+                if (_specialCase == SpecialCase.OnSpeakerEdit)
+                {
+                    object[] data = new[] {button.CommandParameter, SpecialCase.OnSpeakerEdit};
+                    Frame.Navigate(_eventDestination, data);
+                }
+                else
+                {
+                    Frame.Navigate(_eventDestination, button.CommandParameter);
+                }
+            }
+        }
+
+        private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                button.Content = _eventDestinationButtonText;
             }
         }
 
@@ -54,8 +73,16 @@ namespace SikonConferenceSystem.View
                     case SpecialCase.OnSpeakerEdit:
                     {
                         EventsPageVm.Handler.ApplySpeakerEditFilter();
+                        _eventDestination = typeof(SetupEventsPage);
+                        _eventDestinationButtonText = "Edit Event";
                     } break;
                 }
+                _specialCase = specialCase;
+            }
+            else
+            {
+                _eventDestination = typeof(DetailedEventView);
+                _eventDestinationButtonText = "See Event";
             }
             base.OnNavigatedTo(e);
         }

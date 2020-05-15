@@ -19,8 +19,7 @@ namespace SikonConferenceSystem.ViewModel
         public static readonly DateTime BaseDateTime = DateTime.Today;
         public static int EventDays = 2;
         //Cannot decide on the best practice for loading a pre-existing Event, therefore putting it into this static variable just before it is accessed is the simplest way.
-        public static Event EventToLoad; // = new Event(DateTime.Today.AddDays(3).AddHours(11), new TimeSpan(0,1,30,0), 5, "4;TestSikonConferenceDescription", 0, 0, "https://metro.co.uk/wp-content/uploads/2019/04/GettyImages-1143719384.jpg?quality=90&strip=all", new List<Speaker>() {new Speaker() {Name = "Test1"}}, Event.EventType.Workshop);
-
+        
         private Event _newEvent;
         public Event NewEvent
         {
@@ -34,6 +33,8 @@ namespace SikonConferenceSystem.ViewModel
         {
             get { return _handler; }
         }
+
+        public bool DisableAdminControls { get; set; }
 
         public string Abstract { get; set; }
         public string AbstractHeader { get; set; }
@@ -98,24 +99,17 @@ namespace SikonConferenceSystem.ViewModel
         }
 
 
-
-
-        public SetupEventsPageVM()
+        public void LoadOrSetupEvent(Event eventToLoad)
         {
-            SpeakersCatalog = CatalogSingleton<Speaker>.Instance;
-
-            _handler = new SetupEventsHandler(this);
-
-            if (EventToLoad != null)
+            if (eventToLoad != null)
             {
-                _newEvent = EventToLoad;
-                EventToLoad = null;
+                _newEvent = eventToLoad;
                 Handler.LoadEvent(_newEvent);
                 //Remember to setup SelectedDay on load. And also duration hours and min.
                 SetupSelectedDay();
                 _eventDurationHours = NewEvent.Duration.Hours;
                 _eventDurationMinutes = NewEvent.Duration.Minutes;
-                SelectedTypeIndex = (int) Type;
+                SelectedTypeIndex = (int)Type;
             }
             else
             {
@@ -129,6 +123,15 @@ namespace SikonConferenceSystem.ViewModel
                 AbstractHeader = string.Empty;
                 EventDuration = TimeSpan.Zero;
             }
+        }
+
+        public SetupEventsPageVM()
+        {
+            SpeakersCatalog = CatalogSingleton<Speaker>.Instance;
+
+            _handler = new SetupEventsHandler(this);
+
+            
 
             _allEventDays = GetDateStrings();
 

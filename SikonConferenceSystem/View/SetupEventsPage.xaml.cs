@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using ModelLibrary;
+using SikonConferenceSystem.Common;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -77,6 +78,8 @@ namespace SikonConferenceSystem.View
         private void SpeakerViewDeleteButton_OnLoaded(object sender, RoutedEventArgs e)
         {
             Button deleteButton = sender as Button;
+            deleteButton.Visibility =
+                SetupEventsPageVm.DisableAdminControls ? Visibility.Collapsed : Visibility.Visible;
             deleteButton.Command = SetupEventsPageVm.PressSpeakersInEventDeleteCommand;
         }
 
@@ -107,6 +110,20 @@ namespace SikonConferenceSystem.View
             }
 
             return false;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is object[] data)
+            {
+                if (data.Length == 2 && data[0] is Event eventToLoad && data[1] is SpecialCase.OnSpeakerEdit)
+                {
+                    SetupEventsPageVm.LoadOrSetupEvent(eventToLoad);
+                    SetupEventsPageVm.DisableAdminControls = true;
+                }
+            }
+            
+            base.OnNavigatedTo(e);
         }
     }
 }
