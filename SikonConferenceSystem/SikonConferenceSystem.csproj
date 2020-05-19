@@ -162,7 +162,6 @@
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\PlaceHolder.cs" />
     <Compile Include="ViewModel\SetupEventsPageVM.cs" />
-    <Compile Include="ViewModel\UserLoginMenusCompositeVM.cs" />
     <Compile Include="ViewModel\UserLoginSignupMenuVM.cs" />
     <Compile Include="ViewModel\UserLoginMenuVM.cs" />
     <Compile Include="ViewModel\UserLoginProfileMenuVM.cs" />
