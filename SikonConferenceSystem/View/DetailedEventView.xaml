@@ -71,7 +71,7 @@
                     <TextBlock Text="Room" Grid.Row="2" Grid.Column="0"/>
                     <TextBlock Text="Remaining Seats" Grid.Row="3" Grid.Column="0"/>
                     <TextBlock Text="Total Seats" Grid.Row="4" Grid.Column="0"/>
-                    <CheckBox IsEnabled="False" Content="Attending Event" Grid.Row="5" Grid.Column="0"/>
+                    <CheckBox IsEnabled="True" Content="Attending Event" Grid.Row="5" Grid.Column="0"/>
                     
                     <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" Background="Black"/>
 
@@ -109,7 +109,6 @@
                     <TextBlock Text="{Binding EventDate, Converter={StaticResource DateToFormattedString}}" TextAlignment="Right" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
                 </StackPanel>
                 <TextBlock Text="{Binding EventDateHours, Converter={StaticResource TimeSpanToFormattedString}}" Style="{StaticResource SubHeader}"/>
-                <CheckBox IsEnabled="True" Content="Attending Event" CommandParameter="{Binding }"/>
             </StackPanel>
         </Border>
 
