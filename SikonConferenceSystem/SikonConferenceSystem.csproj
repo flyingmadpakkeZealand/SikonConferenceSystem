@@ -162,6 +162,8 @@
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\PlaceHolder.cs" />
     <Compile Include="ViewModel\SetupEventsPageVM.cs" />
+    <Compile Include="ViewModel\UserLoginMenusCompositeVM.cs" />
+    <Compile Include="ViewModel\UserLoginSignupMenuVM.cs" />
     <Compile Include="ViewModel\UserLoginMenuVM.cs" />
     <Compile Include="ViewModel\UserLoginProfileMenuVM.cs" />
     <Compile Include="View\BookingEventPage.xaml.cs">
@@ -189,6 +191,9 @@
     </Compile>
     <Compile Include="View\UserLoginProfileMenu.xaml.cs">
       <DependentUpon>UserLoginProfileMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserLoginSignupMenu.xaml.cs">
+      <DependentUpon>UserLoginSignupMenu.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserLoginProfileMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserLoginSignupMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
