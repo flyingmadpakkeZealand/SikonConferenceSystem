@@ -12,6 +12,7 @@ using Windows.Media.SpeechRecognition;
 using ModelLibrary;
 using SikonConferenceSystem.Annotations;
 using SikonConferenceSystem.Common;
+using SikonConferenceSystem.Converter;
 using SikonConferenceSystem.Handler;
 using SikonConferenceSystem.Model;
 using SikonConferenceSystem.ViewModel.Interfaces;
@@ -57,6 +58,7 @@ namespace SikonConferenceSystem.ViewModel
         public Event.EventType Type { get; set; }
         public DateTime EventDate { get; set; }
         public TimeSpan EventDateHours { get; set; }
+
         public int SelectedTypeIndex;
         //private List<string> _allEventDays;
         //public List<string> AllEventsDays
@@ -69,6 +71,7 @@ namespace SikonConferenceSystem.ViewModel
         //public string SelectedDay
         //{
         //    get { return _selectedDay; }
+
         //}
         //private int _eventDurationHours;
         //public int EventDurationHours
@@ -83,6 +86,6 @@ namespace SikonConferenceSystem.ViewModel
         //}
 
 
-        public static Event EventToLoad;
+        //public static Event EventToLoad;
     }
 }
