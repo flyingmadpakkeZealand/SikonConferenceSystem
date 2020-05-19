@@ -75,5 +75,43 @@ namespace SikonConferenceSystem.Handler
             return loginDetails.GetItem<Admin>(3);
             
         }
+
+        public async void SignUp(User newUser, Action onErrors)
+        {
+            IUserLoginMenu Vm = _userLoginVm;
+            Vm.LoadedUser.Email = string.Empty;
+            Vm.LoadedUser.PhoneNumber = string.Empty;
+
+            var loginConsumer = CommonConsumerFactory.Create(new ConsumerStringIds<TupleJSON>());
+
+            TupleJSON mailTuple = await loginConsumer.GetOneAsync(new[] {newUser.Email});
+            TupleJSON phoneTuple = await loginConsumer.GetOneAsync(new[] {newUser.PhoneNumber});
+
+            if (mailTuple != null)
+            {
+                Vm.LoadedUser.Email = GetUser(mailTuple).Email;
+                onErrors();
+            }
+            else if (phoneTuple != null)
+            {
+                Vm.LoadedUser.PhoneNumber = GetUser(phoneTuple).PhoneNumber;
+                onErrors();
+            }
+            else
+            {
+                var userConsumer = CommonConsumerFactory.Create(new Consumer<User>());
+
+                bool postOk = await userConsumer.PostAsync(newUser);
+                if (postOk)
+                {
+                    Vm.LoadedUser = newUser;
+                }
+                else
+                {
+                    throw new ArgumentException("Post Failed");
+                }
+            }
+            
+        }
     }
 }
