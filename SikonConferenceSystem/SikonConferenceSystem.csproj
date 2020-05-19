@@ -120,6 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\AppData.cs" />
+    <Compile Include="Common\Interfaces\INavigationService.cs" />
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Converter\BoolToVisibility.cs" />

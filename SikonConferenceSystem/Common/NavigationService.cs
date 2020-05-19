@@ -4,20 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using SikonConferenceSystem.Common.Interfaces;
 using SikonConferenceSystem.View;
 using SikonConferenceSystem.ViewModel;
 
 namespace SikonConferenceSystem.Common
 { //Initial Commit. //Initial Commit - CreateEvents_Draft. //Initial Commit - ProfilesTab_Draft.
-    public class NavigationService
+    public enum Contents
     {
-        private readonly Frame _frame;
+        MainPageContent,
+        UserLoginContent
+    }
 
-        public NavigationService(object frameObject)
+    public class NavigationService : INavigationService
+    {
+        
+
+        private static Dictionary<Contents, Frame> _usedFrames = new Dictionary<Contents, Frame>();
+
+        public static NavigationService SetupService(Frame frame, Contents content)
+        {
+            if (_usedFrames.TryAdd(content, frame))
+            {
+                return new NavigationService(_usedFrames[content]);
+            }
+            return null;
+        }
+
+        public static NavigationService SetupService(object frameObject, Contents content)
         {
             if (frameObject is Frame frame)
             {
-                _frame = frame;
+                if (_usedFrames.TryAdd(content, frame))
+                {
+                    return new NavigationService(_usedFrames[content]);
+                }
+
+                return null;
             }
             else
             {
@@ -25,15 +48,29 @@ namespace SikonConferenceSystem.Common
             }
         }
 
-        public NavigationService(Frame frame)
+        public static NavigationService GetService(Contents content)
+        {
+            if (_usedFrames.ContainsKey(content))
+            {
+                return new NavigationService(_usedFrames[content]);
+            }
+
+            return null;
+        }
+
+
+
+        private readonly Frame _frame;
+
+        private NavigationService(Frame frame)
         {
             _frame = frame;
         }
 
-        public object EventsPage { get { return typeof(EventsPage); } }
-        public object DetailedEventPage { get { return typeof(DetailedEventView); } }
-        public object UserLoginProfileMenu { get { return typeof(UserLoginProfileMenu); } }
-        public object SetupEventsPage { get { return typeof(SetupEventsPage); } }
+        public Type EventsPage { get { return typeof(EventsPage); } }
+        public Type DetailedEventPage { get { return typeof(DetailedEventView); } }
+        public Type UserLoginProfileMenu { get { return typeof(UserLoginProfileMenu); } }
+        public Type SetupEventsPage { get { return typeof(SetupEventsPage); } }
 
         public void GoBack()
         {

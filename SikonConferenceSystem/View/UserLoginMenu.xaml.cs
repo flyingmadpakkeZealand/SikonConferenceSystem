@@ -32,7 +32,7 @@ namespace SikonConferenceSystem.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            UserLoginMenuVm.NavigationService = new NavigationService(Frame);
+            UserLoginMenuVm.NavigationService = NavigationService.SetupService(Frame, Contents.UserLoginContent);
             base.OnNavigatedTo(e);
         }
     }
