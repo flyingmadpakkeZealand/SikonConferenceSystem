@@ -52,7 +52,7 @@
         <Border Padding="40,40,40,40" BorderBrush="Black"  BorderThickness="2" Grid.Row="0" Grid.Column="0">
             <RelativePanel>
                 <Image Name ="EventImage" Source="{Binding ImagePath}" MinWidth="300" MinHeight="500" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
-                <!--<Grid Background="White" MinWidth="300" BorderBrush="Goldenrod" BorderThickness="5" CornerRadius="10" RelativePanel.Below="EventImage" Padding="10,10,10,10" Margin="0,10,0,0" RelativePanel.AlignLeftWith="EventImage" RelativePanel.AlignRightWith="EventImage">
+                <Grid Background="White" MinWidth="300" BorderBrush="Goldenrod" BorderThickness="5" CornerRadius="10" RelativePanel.Below="EventImage" Padding="10,10,10,10" Margin="0,10,0,0" RelativePanel.AlignLeftWith="EventImage" RelativePanel.AlignRightWith="EventImage">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -62,7 +62,9 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
                         <ColumnDefinition Width="1"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Event Type" Grid.Row="0" Grid.Column="0"/>
                     <TextBlock Text="Duration" Grid.Row="1" Grid.Column="0"/>
@@ -74,16 +76,19 @@
                     <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" Background="Black"/>
 
                     <StackPanel HorizontalAlignment="Right" Spacing="5" Orientation="Horizontal" Grid.Row="1">
-                        <TextBlock Text="Date"/>
+                        <TextBlock Text="Hour(s)"/>
                         <Border BorderBrush="Black" BorderThickness="1">
-                            <TextBlock Text="{Binding EventDate, Converter={StaticResource DateToFormattedString}}"/>
+                            <TextBlock Text="{Binding EventDurationMinutes}"/>
                         </Border>
-                        <TextBlock Text=", Time."/>
+                        <TextBlock Text=", min."/>
                         <Border BorderBrush="Black" BorderThickness="1">
-                            <TextBlock Text="{Binding EventDateHours, Converter={StaticResource TimeSpanToFormattedString}}"></TextBlock>
+                            <TextBlock Text="{Binding EventDurationMinutes}"></TextBlock>
                         </Border>
                     </StackPanel>
-                </Grid>-->
+                    <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="2" Grid.Column="2"/>
+                    <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="3" Grid.Column="2"/>
+                    <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="4" Grid.Column="2"/>
+                </Grid>
             </RelativePanel>
         </Border>
 
