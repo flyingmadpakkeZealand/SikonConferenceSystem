@@ -23,10 +23,12 @@ namespace SikonConferenceSystem.ViewModel
         public User _newUser { get; set; }
         public UserLoginSignupMenuVM()
         {
+            _loadedUser = new User();
+            ErrorMessageMail = string.Empty;
             SignupUserSingleton = CatalogSingleton<User>.Instance;
             _newUser = new User("", "", "", "");
             UserLoginHandler = new UserLoginCompositeHandler(this);
-            //CreateUserCommand = new RelayCommand(UserLoginHandler.CreateUser, (() => CheckforBlank() && CheckData()));
+            CreateUserCommand = new RelayCommand(() => UserLoginHandler.SignUp(NewUser, CheckNoErrors), (() => CheckforBlank() && CheckData()));
             //ClearUserCommand = new RelayCommand(UserLoginHandler.ClearUser);
         }
 
@@ -68,7 +70,34 @@ namespace SikonConferenceSystem.ViewModel
             }
         }
 
-        public User LoadedUser { get; set; }
+        public string ErrorMessageMail { get; set; }
+        public string ErrorMessagePhoneNumber { get; set; }
+
+        private void CheckNoErrors()
+        {
+            bool emailTaken = !string.IsNullOrEmpty(LoadedUser.Email);
+            bool phoneNumberTaken = !string.IsNullOrEmpty(LoadedUser.PhoneNumber);
+
+            if (emailTaken)
+            {
+                ErrorMessageMail = "This email is already taken";
+                OnPropertyChanged(nameof(ErrorMessageMail));
+            }
+            if(phoneNumberTaken)
+            {
+                ErrorMessagePhoneNumber = "This phone number is already taken";
+                OnPropertyChanged(nameof(ErrorMessagePhoneNumber));
+            }
+        }
+
+        private User _loadedUser;
+
+        public User LoadedUser
+        {
+            get { return _loadedUser;}
+            set { AppData.LoadedUser = value; }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
