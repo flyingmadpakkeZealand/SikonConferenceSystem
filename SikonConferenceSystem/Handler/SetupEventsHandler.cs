@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ModelLibrary;
+using SikonConferenceSystem.Model;
 using SikonConferenceSystem.Persistency;
 using SikonConferenceSystem.ViewModel;
 
@@ -35,10 +36,13 @@ namespace SikonConferenceSystem.Handler
 
             Vm.NewEvent.Abstract = UnifyAbstract();
 
-            Consumer<Event> consumer = new Consumer<Event>(ConsumerCatalog.GetUrl<Event>());
-            bool postOk = await consumer.PostAsync(Vm.NewEvent);
+            var consumer = CommonConsumerFactory.Create(new Consumer<Event>());
 
-            if (!postOk && TriggerOverrideDialogOnSaveEvent != null)
+            if (Vm.NewEvent.EventID == -1)
+            {
+                bool postOk = await consumer.PostAsync(Vm.NewEvent);
+            }
+            else if (TriggerOverrideDialogOnSaveEvent != null)
             {
                 bool confirmOverride = await TriggerOverrideDialogOnSaveEvent();
                 if (confirmOverride)
@@ -46,6 +50,8 @@ namespace SikonConferenceSystem.Handler
                     bool overrideOk = await consumer.PutAsync(Vm.NewEvent, new[] { Vm.NewEvent.EventID }); 
                 }
             }
+
+            await CatalogSingleton<Event>.Instance.Reload();
         }
 
         private string UnifyAbstract()

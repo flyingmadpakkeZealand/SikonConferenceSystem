@@ -48,7 +48,7 @@ namespace RestAPISCS.DatabaseUtility
             lookupDictionary.Add("Duration", sikonEvent.Duration);
             lookupDictionary.Add("Rating", sikonEvent.Rating);
             lookupDictionary.Add("Abstract", sikonEvent.Abstract);
-            lookupDictionary.Add("EventId", sikonEvent.EventID);
+            //lookupDictionary.Add("EventId", sikonEvent.EventID); - Auto generated.
             lookupDictionary.Add("RoomNr", sikonEvent.RoomNr);
             lookupDictionary.Add("ImagePath", sikonEvent.ImagePath);
             lookupDictionary.Add("Type", sikonEvent.Type.ToString());

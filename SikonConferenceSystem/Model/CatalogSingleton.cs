@@ -37,12 +37,14 @@ namespace SikonConferenceSystem.Model
         private CatalogSingleton()
         {
             _catalog = new ObservableCollection<T>();
-            _isLoading = true;
+            
             LoadItems();
         }
 
         private async Task LoadItems()
         {
+            _isLoading = true;
+
             Consumer<T> consumer = null;
             try
             {

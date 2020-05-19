@@ -103,7 +103,7 @@ namespace SikonConferenceSystem.ViewModel
         {
             if (eventToLoad != null)
             {
-                _newEvent = eventToLoad;
+                _newEvent = new Event(eventToLoad);
                 Handler.LoadEvent(_newEvent);
                 //Remember to setup SelectedDay on load. And also duration hours and min.
                 SetupSelectedDay();
@@ -113,7 +113,7 @@ namespace SikonConferenceSystem.ViewModel
             }
             else
             {
-                _newEvent = new Event();
+                _newEvent = new Event {EventID = -1};
 
                 SpeakersInEvent = new ObservableCollection<Speaker>();
                 SelectedTypeIndex = -1;
@@ -123,6 +123,8 @@ namespace SikonConferenceSystem.ViewModel
                 AbstractHeader = string.Empty;
                 EventDuration = TimeSpan.Zero;
             }
+
+            _allEventDays = GetDateStrings();
         }
 
         public SetupEventsPageVM()
@@ -132,8 +134,6 @@ namespace SikonConferenceSystem.ViewModel
             _handler = new SetupEventsHandler(this);
 
             
-
-            _allEventDays = GetDateStrings();
 
             _pressSpeakersInEventDeleteCommand = new RelayCommand(Handler.RemoveFromSpeakersView);
             _pressSaveCommand = new RelayCommand(Handler.SaveEvent);
