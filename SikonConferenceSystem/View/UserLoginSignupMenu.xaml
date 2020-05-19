@@ -21,7 +21,7 @@
 
 
             <StackPanel Orientation="Horizontal" Margin="0,50,0,0" HorizontalAlignment="Center">
-                <Button Background="White" Content="Create" Command ="{Binding CreateSpeakerCommand}" FontSize="24"></Button>
+                <Button Background="White" Content="Signup" Command ="{}" FontSize="24"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>
