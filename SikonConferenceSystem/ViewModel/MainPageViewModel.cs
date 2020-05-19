@@ -14,22 +14,8 @@ namespace SikonConferenceSystem.ViewModel
 {
     public class MainPageViewModel: INotifyPropertyChanged
     {
-        private NavigationService _navigationService;
 
-        public NavigationService NavigationService
-        {
-            get { return _navigationService; }
-            set
-            {
-                _navigationService = value;
-                _instanceNav = _navigationService;
-            }
-        }
-        
-
-        private static NavigationService _instanceNav;
-        public static NavigationService InstanceNav
-        { get { return _instanceNav; } }
+        public NavigationService NavigationService { get; set; }
 
 
         public MainPageViewModel(/*NavigationService navService*/)
@@ -39,7 +25,7 @@ namespace SikonConferenceSystem.ViewModel
         }
         public void NavigateToPage(object pageType)
         {
-            _navigationService.Navigate((Type)pageType);
+            NavigationService.Navigate((Type)pageType);
         }
 
         public ICommand NavToPageCommand { get; set; }

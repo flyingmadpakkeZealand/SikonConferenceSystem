@@ -17,6 +17,9 @@ namespace RestAPISCS.Controllers
         private ManageGenericWithLambda<SimpleType<int>> MessagesManager =
             DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "BookedEvents");
 
+        private ManageGenericWithLambda<SimpleType<int>> SettingsMessagesManager =
+            DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "MessageSetting");
+
 
 
         // GET: api/Messages
@@ -27,10 +30,23 @@ namespace RestAPISCS.Controllers
             var fillInts = Fillables.CreateFillSimpleType<int>("BookingId");
             IEnumerable<SimpleType<int>> listToConvert = MessagesManager.GetSelection(fillInts, EventsController.PrimaryKeys(EventID));
             List<int> bookingsToMessage = new List<int>();
+
+            var fillIntsSettings = Fillables.CreateFillSimpleType<int>("Id");
+            IEnumerable<SimpleType<int>> listToConvertSettings = SettingsMessagesManager.GetSelection(fillInts, EventsController.PrimaryKeys(EventID));
+            List<int> bookingsToMessageSettings = new List<int>();
+
+
             foreach (SimpleType<int> booking in listToConvert)
             {
-                bookingsToMessage.Add(booking.Variable);
+                foreach (SimpleType<int> Setting in listToConvertSettings)
+                {
+                    if (booking.Variable == Setting.Variable)
+                    {
+                        bookingsToMessage.Add(booking.Variable);
+                    }
+                }
             }
+
 
             return bookingsToMessage;
             

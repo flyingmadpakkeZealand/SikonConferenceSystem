@@ -62,9 +62,11 @@ namespace SikonConferenceSystem.Handler
             }
         }
 
-        public void EditEvent()
-        {
-            MainPageViewModel.InstanceNav.Navigate((Type) MainPageViewModel.InstanceNav.SetupEventsPage);
-        }
+        //public void EditEvent()
+        //{
+        //    /*MainPageViewModel.InstanceNav.Navigate((Type) MainPageViewModel.InstanceNav.SetupEventsPage)*/
+        //    NavigationService navigationService = NavigationService.GetService(Contents.MainPageContent);
+        //    navigationService.Navigate(navigationService.SetupEventsPage);
+        //}
     }
 }

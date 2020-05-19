@@ -38,7 +38,7 @@ namespace SikonConferenceSystem
         {
             this.InitializeComponent();
 
-            MainPageViewModel.NavigationService = new NavigationService(ContentFrame);
+            MainPageViewModel.NavigationService = NavigationService.SetupService(ContentFrame, Contents.MainPageContent);
             var screenHeight = DisplayInformation.GetForCurrentView().ScreenHeightInRawPixels;
             AproxFrameHeight = screenHeight - (TopSize + BottomSize + NativeScreenSace);
 
