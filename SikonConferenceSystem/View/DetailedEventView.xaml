@@ -6,11 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
+    xmlns:converter="using:SikonConferenceSystem.Converter"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <viewModel:DetailedEventViewModel/>
+        <viewModel:DetailedEventViewModel x:Name="DetailedEventViewModel"/>
     </Page.DataContext>
 
     <Page.Resources>
@@ -32,6 +33,8 @@
             <Setter Property="MaxWidth" Value="40"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
+        <converter:DateToFormattedString x:Key="DateToFormattedString"/>
+        <converter:TimeSpanToFormattedString x:Key="TimeSpanToFormattedString"/>
     </Page.Resources>
 
 
@@ -48,15 +51,38 @@
 
         <Border Padding="40,40,40,40" BorderBrush="Black"  BorderThickness="2" Grid.Row="0" Grid.Column="0">
             <RelativePanel>
-                <Image Name ="EventImage" Source="../Assets/Square150x150Logo.png" MinWidth="300" MinHeight="500" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+                <Image Name ="EventImage" Source="{Binding ImagePath}" MinWidth="300" MinHeight="500" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
                 <Grid Background="White" MinWidth="300" BorderBrush="Goldenrod" BorderThickness="5" CornerRadius="10" RelativePanel.Below="EventImage" Padding="10,10,10,10" Margin="0,10,0,0" RelativePanel.AlignLeftWith="EventImage" RelativePanel.AlignRightWith="EventImage">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
-
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Event Type" Grid.Row="0" Grid.Column="0"/>
+                    <TextBlock Text="Duration" Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="Room" Grid.Row="2" Grid.Column="0"/>
+                    <TextBlock Text="Remaining Seats" Grid.Row="3" Grid.Column="0"/>
+                    <TextBlock Text="Total Seats" Grid.Row="4" Grid.Column="0"/>
+                    <CheckBox IsEnabled="False" Content="Attending Event" Grid.Row="5" Grid.Column="0"/>
+                    
+                    <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" Background="Black"/>
+
+                    <StackPanel HorizontalAlignment="Right" Spacing="5" Orientation="Horizontal" Grid.Row="1">
+                        <TextBlock Text="Date"/>
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <TextBlock Text="{Binding EventDate, Converter={StaticResource DateToFormattedString}}"/>
+                        </Border>
+                        <TextBlock Text=", Time."/>
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <TextBlock Text="{Binding EventDateHours, Converter={StaticResource TimeSpanToFormattedString}}"></TextBlock>
+                        </Border>
+                    </StackPanel>
                 </Grid>
             </RelativePanel>
         </Border>
@@ -67,27 +93,45 @@
                     <RowDefinition Height="80"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBox Text="{Binding AbstractHeader, Mode=TwoWay}" Grid.Row="0" TextAlignment="Center" FontSize="24" VerticalAlignment="Bottom" Background="White" MaxLength="50" Margin="0,0,0,10"/>
-                <TextBox Text="{Binding Abstract, Mode=TwoWay}" MaxLength="2000" TextWrapping="Wrap" MaxHeight="500" Background="White" Grid.Row="1" Margin="0,2,0,-2"></TextBox>
+                <TextBlock Text="{Binding AbstractHeader}" Grid.Row="0" TextAlignment="Center" FontSize="24" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                <TextBlock Text="{Binding Abstract}" TextWrapping="Wrap" MaxHeight="500" Grid.Row="1" Margin="0,2,0,-2"></TextBlock>
             </Grid>
         </Border>
 
         <Border Grid.Row="1" Grid.Column="1" Padding="120,40,120,40">
             <StackPanel Spacing="20">
-                <FlipView Height="80" SelectedIndex="{Binding SelectedDay, Mode=TwoWay}" Background="White" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top">
-                    <FlipView.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
-                        </DataTemplate>
-                    </FlipView.ItemTemplate>
-                </FlipView>
-                <TimePicker Time="{Binding EventDateHours}" FontSize="24" ClockIdentifier="24HourClock" MinuteIncrement="5" Background="White" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Height="80" VerticalAlignment="Top">
+                    <TextBlock Text="{Binding EventDate, Converter={StaticResource DateToFormattedString}}" TextAlignment="Right" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
+                </StackPanel>
+                <TextBlock Text="{Binding EventDateHours, Converter={StaticResource TimeSpanToFormattedString}}" Style="{StaticResource SubHeader}"/>
+                <CheckBox IsEnabled="True" Content="Attending Event"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="1" Grid.Column="0" Padding="120,40,120,40">
             <StackPanel>
                 <ListView Name="SpeakerView" ItemsSource="{Binding SpeakersInEvent}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Text="{Binding Name}" Style="{StaticResource SpeakerDisplayTxtBox}"/>
+                                <TextBox Text="{Binding Email}" Grid.Column="1" Style="{StaticResource SpeakerDisplayTxtBox}"></TextBox>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="MinWidth" Value="0"/>
+                            <Setter Property="MinHeight" Value="0"/>
+                            <Setter Property="Margin" Value="0,0,0,0"/>
+                            <Setter Property="Padding" Value="0,0,0,0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.HeaderTemplate>
                         <DataTemplate>
                             <Grid>

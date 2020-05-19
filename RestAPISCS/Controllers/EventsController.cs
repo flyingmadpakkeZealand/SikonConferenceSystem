@@ -37,14 +37,18 @@ namespace RestAPISCS.Controllers
             return eventManager.GetOne(Fillables.FillEvent, PrimaryKeys(id));
         }
 
+        private List<SimpleType<int>> _initialIds;
+
         // POST: api/Events
         public bool Post([FromBody]Event sikonEvent)
         {
+            _initialIds = GetAllIds();
             bool eventOk = eventManager.Post(Extractables.ExtractEvent(sikonEvent));
 
             bool speakersInEventOk = false;
             if (eventOk)
             {
+                sikonEvent.EventID = RetrieveId();
                 speakersInEventOk = true;
                 foreach (Speaker speaker in sikonEvent.SpeakersInEvent)
                 {
@@ -83,7 +87,30 @@ namespace RestAPISCS.Controllers
             return eventOk;
         }
 
-        //Der mangler CheckNoDuplicate og RetrieveId
+        private int RetrieveId()
+        {
+            List<SimpleType<int>> allIds = GetAllIds();
 
+            for (int i = allIds.Count-1; i > 0; i--)
+            {
+                if (allIds[i].Variable != _initialIds[i-1].Variable)
+                {
+                    return allIds[i].Variable;
+                }
+                
+            }
+
+            return allIds[0].Variable;
+        }
+
+        private List<SimpleType<int>> GetAllIds()
+        {
+            var fillIds = Fillables.CreateFillSimpleType<int>("EventId");
+
+            IEnumerable<SimpleType<int>> allIds =
+                DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "Event").Get(fillIds);
+
+            return new List<SimpleType<int>>(allIds);
+        }
     }
 }

@@ -12,7 +12,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <viewModel:EventsPageVM x:Name="GroupingEventVm"/>
+        <viewModel:EventsPageVM x:Name="EventsPageVm"/>
     </Page.DataContext>
 
 
@@ -82,7 +82,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <FlipView Background="White" BorderBrush="Black" BorderThickness="2" Grid.Row="0" SelectedIndex="{Binding SelectedDayIndex, Mode=TwoWay}" ItemsSource="{Binding EventDays}" MaxWidth="1000" HorizontalAlignment="Center">
+            <FlipView Background="White" BorderBrush="Black" BorderThickness="2" Grid.Row="0" SelectedIndex="{Binding SelectedDayIndex, Mode=TwoWay}" ItemsSource="{Binding EventDays}" MaxWidth="1000" MaxHeight="150" HorizontalAlignment="Center">
                 <FlipView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding}" Style="{StaticResource SubHeader}"/>
@@ -114,6 +114,7 @@
                                 <TextBlock Text="{Binding Event.Type}"/>
                                 <TextBlock Text="{Binding FormattedDescription}"/>
                                 <TextBlock Text="{Binding FormattedDuration}"/>
+                                <Button Content="See event" Click="Button_Click" CommandParameter="{Binding Event}" Loaded="FrameworkElement_OnLoaded"/>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>

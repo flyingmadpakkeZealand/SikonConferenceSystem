@@ -6,8 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:SikonConferenceSystem.Converter"
+    xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModel:UserLoginProfileMenuVM x:Name="UserLoginProfileMenuVm"/>
+    </Page.DataContext>
+
 
     <Page.Resources>
         <Style x:Key="ProfileButton" TargetType="Button">
@@ -23,11 +29,16 @@
             <Button Content="Account" Style="{StaticResource ProfileButton}"/>
             <Button Content="Bookings" Style="{StaticResource ProfileButton}"/>
             <Button Content="Messages" Style="{StaticResource ProfileButton}"/>
-            <TextBlock Text="Profile:"/>
-            <TextBlock Text="Some User"/>
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <TextBlock Text="Profile:"/>
+                <TextBlock Text="{Binding LoadedUser.Name}"/>
+            </StackPanel>
+            <StackPanel Visibility="{Binding DisplaySpecialUserInfo, Converter={StaticResource BoolToVisibility}}" Orientation="Horizontal" Spacing="5">
+                <TextBlock Text="Type:"/>
+                <TextBlock Text="{Binding SpecialUserInfo}"/>
+            </StackPanel>
             <CheckBox Name="UserCodeCheckBox" Content="Show Code"/>
-            <TextBlock Visibility="{Binding ElementName=UserCodeCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" Text="211"/>
+            <TextBlock Visibility="{Binding ElementName=UserCodeCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" Text="{Binding LoadedUser.Id}"/>
         </StackPanel>
-
     </Grid>
 </Page>

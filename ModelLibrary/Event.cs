@@ -42,5 +42,18 @@ namespace ModelLibrary
             
         }
 
+        public Event(Event eventToCopy)
+        {
+            Date = eventToCopy.Date;
+            Duration = eventToCopy.Duration;
+            Rating = eventToCopy.Rating;
+            Abstract = eventToCopy.Abstract;
+            EventID = eventToCopy.EventID;
+            RoomNr = eventToCopy.RoomNr;
+            ImagePath = eventToCopy.ImagePath;
+            SpeakersInEvent = new List<Speaker>(eventToCopy.SpeakersInEvent);
+            Type = eventToCopy.Type;
+        }
+
     }
 }

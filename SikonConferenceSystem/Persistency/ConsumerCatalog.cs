@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ModelLibrary;
+using SikonConferenceSystem.Handler;
+using SikonConferenceSystem.Model;
 
 namespace SikonConferenceSystem.Persistency
 {
@@ -17,7 +19,7 @@ namespace SikonConferenceSystem.Persistency
             {typeof(Event), "http://localhost:61467/api/Events" },
             {typeof(Booking), "http://localhost:61467/api/Bookings" },
             {typeof(Room), "http://localhost:61467/api/Rooms" },
-            {typeof(Tuple<User, Speaker, Admin>), "http://localhost:61467/api/Logins" }
+            {typeof(TupleJSON), "http://localhost:61467/api/Logins" }
         };
 
         public static string GetUrl<T>()
