@@ -71,6 +71,7 @@ namespace SikonConferenceSystem.Common
         public Type DetailedEventPage { get { return typeof(DetailedEventView); } }
         public Type UserLoginProfileMenu { get { return typeof(UserLoginProfileMenu); } }
         public Type SetupEventsPage { get { return typeof(SetupEventsPage); } }
+        public Type UserLoginSignUpMenu { get { return typeof(UserLoginSignupMenu); } }
 
         public void GoBack()
         {
