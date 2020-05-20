@@ -139,15 +139,31 @@
             <Grid Background="SlateGray" Name="Content" >
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="400"/>
                 </Grid.RowDefinitions>
 
 <!--<TextBlock Text="Test Text" FontSize="800"/>-->
 
                 <Frame Background="Transparent" Name="ContentFrame" Navigated="ContentFrame_OnNavigated" Grid.Row="0"/>
 
-                <Grid Name="ContentLowerPage" Background="DarkSlateGray" Grid.Row="1">
-                    <TextBlock VerticalAlignment="Bottom" Text="LowerPage" FontSize="150"></TextBlock>
+                <Grid Name="ContentLowerPage" Background="DarkSlateGray" Grid.Row="1" Padding="120,40,120,0">
+                    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Image HorizontalAlignment="Left" Height="150" Source="Assets/sikon.png"/>
+                        <TextBlock Foreground="White" Text="Contact" Style="{StaticResource SubHeader}" Margin="0,40,0,0"/>
+                        <StackPanel Spacing="100" Orientation="Horizontal">
+                            <StackPanel>
+                                <TextBlock Foreground="LightGray" Text="Landsforening Autisme"/>
+                                <TextBlock Foreground="LightGray" Text="Banestrøget 19-21"/>
+                                <TextBlock Foreground="LightGray" Text="2630 Taastrup"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Foreground="LightGray" Text="Telefon 70 25 30 65"/>
+                                <TextBlock Foreground="LightGray" Text="kontor@autismeforening.dk"/>
+                                <TextBlock Foreground="LightGray" Text="CVR 84414913"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </StackPanel>
                 </Grid>
             </Grid>
         </ScrollViewer>
