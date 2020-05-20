@@ -63,5 +63,14 @@ namespace SikonConferenceSystem.Persistency
                 return await HandleHTTPResponseAsync<bool>(() => client.DeleteAsync(URL + RouteIds(ids)));
             }
         }
+
+        protected override string RouteIds(string[] ids)
+        {
+            for (int i = 0; i < ids.Length; i++)
+            {
+                ids[i] = ids[i].Replace('.', ' ');
+            }
+            return base.RouteIds(ids);
+        }
     }
 }

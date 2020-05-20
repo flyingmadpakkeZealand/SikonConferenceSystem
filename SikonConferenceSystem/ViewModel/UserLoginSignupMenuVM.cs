@@ -15,18 +15,17 @@ using SikonConferenceSystem.ViewModel.Interfaces;
 
 namespace SikonConferenceSystem.ViewModel
 {
-    class UserLoginSignupMenuVM:IUserLoginMenu,INotifyPropertyChanged
+    public class UserLoginSignupMenuVM:IUserLoginMenu,INotifyPropertyChanged
     {
-        public CatalogSingleton<User> SignupUserSingleton { get; set; }
 
         public UserLoginCompositeHandler UserLoginHandler { get; set; }
-        public User _newUser { get; set; }
+        private User _newUser;
         public UserLoginSignupMenuVM()
         {
             _loadedUser = new User();
-            ErrorMessageMail = string.Empty;
-            SignupUserSingleton = CatalogSingleton<User>.Instance;
-            _newUser = new User("", "", "", "");
+            DisplayPhoneNumberError = false;
+            DisplayMailError = false;
+            _newUser = new User("","","","");
             UserLoginHandler = new UserLoginCompositeHandler(this);
             CreateUserCommand = new RelayCommand(() => UserLoginHandler.SignUp(NewUser, CheckNoErrors), (() => CheckforBlank() && CheckData()));
             //ClearUserCommand = new RelayCommand(UserLoginHandler.ClearUser);
@@ -70,24 +69,61 @@ namespace SikonConferenceSystem.ViewModel
             }
         }
 
-        public string ErrorMessageMail { get; set; }
-        public string ErrorMessagePhoneNumber { get; set; }
+
+        public string TransitionName
+        {
+            get { return NewUser.Name; }
+            set
+            {
+                NewUser.Name = value;
+                ((RelayCommand)CreateUserCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public string TransitionPhoneNumber
+        {
+            get { return NewUser.PhoneNumber; }
+            set
+            {
+                NewUser.PhoneNumber = value;
+                ((RelayCommand)CreateUserCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public string TransitionEmail
+        {
+            get { return NewUser.Email; }
+            set
+            {
+                NewUser.Email = value;
+                ((RelayCommand)CreateUserCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public string TransitionPassword
+        {
+            get { return NewUser.Password; }
+            set
+            {
+                NewUser.Password = value;
+                ((RelayCommand)CreateUserCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+
+        public bool DisplayMailError { get; set; } 
+        public bool DisplayPhoneNumberError { get; set; }
 
         private void CheckNoErrors()
         {
             bool emailTaken = !string.IsNullOrEmpty(LoadedUser.Email);
             bool phoneNumberTaken = !string.IsNullOrEmpty(LoadedUser.PhoneNumber);
 
-            if (emailTaken)
-            {
-                ErrorMessageMail = "This email is already taken";
-                OnPropertyChanged(nameof(ErrorMessageMail));
-            }
-            if(phoneNumberTaken)
-            {
-                ErrorMessagePhoneNumber = "This phone number is already taken";
-                OnPropertyChanged(nameof(ErrorMessagePhoneNumber));
-            }
+            DisplayMailError = emailTaken;
+            DisplayPhoneNumberError = phoneNumberTaken;
+
+            OnPropertyChanged(nameof(DisplayMailError));
+            OnPropertyChanged(nameof(DisplayPhoneNumberError));
         }
 
         private User _loadedUser;
@@ -95,7 +131,7 @@ namespace SikonConferenceSystem.ViewModel
         public User LoadedUser
         {
             get { return _loadedUser;}
-            set { AppData.LoadedUser = value; }
+            set { _loadedUser = value; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

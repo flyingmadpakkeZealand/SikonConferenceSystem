@@ -110,6 +110,7 @@ namespace SikonConferenceSystem.ViewModel
             _handler = new UserLoginCompositeHandler(this);
 
             _pressLoginCommand = new RelayCommand(Handler.Login, ()=>ValidLogin() && !IsLoadingUser);
+            _pressSignUpCommand = new RelayCommand(()=>NavigationService.Navigate(NavigationService.UserLoginSignUpMenu));
 
             LoginIdErrorMessage = "OK";
             PasswordErrorMessage = "OK";
@@ -120,6 +121,13 @@ namespace SikonConferenceSystem.ViewModel
         public ICommand PressLoginCommand
         {
             get { return _pressLoginCommand; }
+        }
+
+        private RelayCommand _pressSignUpCommand;
+
+        public ICommand PressSignUpCommand
+        {
+            get { return _pressSignUpCommand; }
         }
 
 

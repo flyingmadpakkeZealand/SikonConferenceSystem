@@ -31,6 +31,7 @@ namespace RestAPISCS.Controllers
         [Route ("api/Logins/{loginId}")]
         public Tuple<User, Speaker, Admin> Get(string loginId)
         {
+            loginId = loginId.Replace(' ', '.');
             if (loginId.Contains('@'))
             {
                 return ManageLogin(UsersController.EmailKey(loginId), true);

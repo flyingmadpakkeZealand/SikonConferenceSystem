@@ -42,7 +42,7 @@
 
                 <Border Background="Black" Grid.Column="1"/>
 
-                <HyperlinkButton HorizontalContentAlignment="Right" HorizontalAlignment="Stretch" Content="SignUp" Grid.Column="2"></HyperlinkButton>
+                <HyperlinkButton Command="{Binding PressSignUpCommand}" HorizontalContentAlignment="Right" HorizontalAlignment="Stretch" Content="SignUp" Grid.Column="2"></HyperlinkButton>
             </Grid>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

@@ -5,23 +5,34 @@
     xmlns:local="using:SikonConferenceSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
+    xmlns:converter="using:SikonConferenceSystem.Converter"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+<Page.DataContext>
+    <viewModel:UserLoginSignupMenuVM></viewModel:UserLoginSignupMenuVM>
+</Page.DataContext>
+
+    <Page.Resources>
+        <converter:BoolToVisibility x:Key="BoolToVisibility"/>
+    </Page.Resources>
 
     <Grid Style="{StaticResource ProfileMenuGrid}">
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="500" Height="600">
-            <TextBlock Text="Name" FontSize="24"></TextBlock>
-            <TextBox Background="White" Text="{}" PlaceholderText="Name" FontSize="36"></TextBox>
-            <TextBlock Text="Phonenumber" FontSize="24"></TextBlock>
-            <TextBox Background="White" Text="{}"  PlaceholderText="Phonenumber" FontSize="36"></TextBox>
-            <TextBlock Text="Email" FontSize="24"></TextBlock>
-            <TextBox Background="White" Text="{}" PlaceholderText="Email" FontSize="36"></TextBox>
-            <TextBlock Text="Password" FontSize="24"></TextBlock>
-            <TextBox Background="White" Text="{}" PlaceholderText="Password" FontSize="36"></TextBox>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+            <TextBlock Text="Name"></TextBlock>
+            <TextBox Background="White" Text="{Binding TransitionName, Mode=TwoWay}" PlaceholderText="Name"></TextBox>
+            <TextBlock Text="Phonenumber"></TextBlock>
+            <TextBox Background="White" Text="{Binding TransitionPhoneNumber, Mode=TwoWay}"  PlaceholderText="Phonenumber"></TextBox>
+            <TextBlock Text="Phone Number taken" Foreground="Red" Visibility="{Binding DisplayPhoneNumberError, Converter={StaticResource BoolToVisibility}}"/>
+            <TextBlock Text="Email"></TextBlock>
+            <TextBox Background="White" Text="{Binding TransitionEmail, Mode=TwoWay}" PlaceholderText="Email"></TextBox>
+            <TextBlock Text="Email taken" Foreground="Red" Visibility="{Binding DisplayMailError, Converter={StaticResource BoolToVisibility}}"></TextBlock>
+            <TextBlock Text="Password"></TextBlock>
+            <TextBox Background="White" Text="{Binding TransitionPassword, Mode=TwoWay}" PlaceholderText="Password"></TextBox>
 
 
             <StackPanel Orientation="Horizontal" Margin="0,50,0,0" HorizontalAlignment="Center">
-                <Button Background="White" Content="Signup" Command ="{}" FontSize="24"></Button>
+                <Button Background="White" Content="Signup" Command="{Binding CreateUserCommand}"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -105,12 +105,19 @@ namespace SikonConferenceSystem.Handler
                 if (postOk)
                 {
                     Vm.LoadedUser = newUser;
+                    NavigationService navigationService = NavigationService.GetService(Contents.UserLoginContent);
+                    navigationService.Navigate(navigationService.UserLoginProfileMenu, newUser);
                 }
                 else
                 {
                     throw new ArgumentException("Post Failed");
                 }
             }
+
+            //bool CheckNoDuplicates()
+            //{
+
+            //}
             
         }
     }
