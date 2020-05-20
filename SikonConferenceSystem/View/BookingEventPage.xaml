@@ -14,7 +14,17 @@
     </Page.DataContext>
 
 
-    <Grid>
-
+    <Grid Style="{StaticResource ProfileMenuGrid}">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="400" Height="150">
+            <StackPanel>
+                <TextBlock Text="Event" FontSize="24"/>
+                <TextBlock Text="{}" FontSize="24"/>
+                <TextBlock Text="Do you want to book this event?" FontSize="24"/>
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Button Content="Yes"/>
+                    <Button Content="No"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

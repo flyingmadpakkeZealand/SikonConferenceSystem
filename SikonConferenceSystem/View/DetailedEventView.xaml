@@ -82,7 +82,7 @@
                         </Border>
                         <TextBlock Text=", min."/>
                         <Border BorderBrush="Black" BorderThickness="1">
-                            <TextBlock Text="{Binding EventDurationMinutes}"></TextBlock>
+                            <TextBlock Text="{Binding EventDurationMinutes}"/>
                         </Border>
                     </StackPanel>
                     <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="2" Grid.Column="2"/>
