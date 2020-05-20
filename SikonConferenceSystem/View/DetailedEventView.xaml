@@ -62,27 +62,32 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
                         <ColumnDefinition Width="1"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Event Type" Grid.Row="0" Grid.Column="0"/>
                     <TextBlock Text="Duration" Grid.Row="1" Grid.Column="0"/>
                     <TextBlock Text="Room" Grid.Row="2" Grid.Column="0"/>
                     <TextBlock Text="Remaining Seats" Grid.Row="3" Grid.Column="0"/>
                     <TextBlock Text="Total Seats" Grid.Row="4" Grid.Column="0"/>
-                    <CheckBox IsEnabled="False" Content="Attending Event" Grid.Row="5" Grid.Column="0"/>
+                    <CheckBox IsEnabled="True" Content="Attending Event" Grid.Row="5" Grid.Column="0"/>
                     
                     <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" Background="Black"/>
 
                     <StackPanel HorizontalAlignment="Right" Spacing="5" Orientation="Horizontal" Grid.Row="1">
-                        <TextBlock Text="Date"/>
+                        <TextBlock Text="Hour(s)"/>
                         <Border BorderBrush="Black" BorderThickness="1">
-                            <TextBlock Text="{Binding EventDate, Converter={StaticResource DateToFormattedString}}"/>
+                            <TextBlock Text="{Binding EventDurationMinutes}"/>
                         </Border>
-                        <TextBlock Text=", Time."/>
+                        <TextBlock Text=", min."/>
                         <Border BorderBrush="Black" BorderThickness="1">
-                            <TextBlock Text="{Binding EventDateHours, Converter={StaticResource TimeSpanToFormattedString}}"></TextBlock>
+                            <TextBlock Text="{Binding EventDurationMinutes}"></TextBlock>
                         </Border>
                     </StackPanel>
+                    <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="2" Grid.Column="2"/>
+                    <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="3" Grid.Column="2"/>
+                    <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="4" Grid.Column="2"/>
                 </Grid>
             </RelativePanel>
         </Border>
@@ -104,7 +109,6 @@
                     <TextBlock Text="{Binding EventDate, Converter={StaticResource DateToFormattedString}}" TextAlignment="Right" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
                 </StackPanel>
                 <TextBlock Text="{Binding EventDateHours, Converter={StaticResource TimeSpanToFormattedString}}" Style="{StaticResource SubHeader}"/>
-                <CheckBox IsEnabled="True" Content="Attending Event"/>
             </StackPanel>
         </Border>
 
@@ -147,9 +151,5 @@
                 </ListView>
             </StackPanel>
         </Border>
-
-        <Grid Name="BookGrid" Row="2" Column="0" ColumnSpan="2" BorderBrush="Black" BorderThickness="2" Padding="0,0,0,0">
-            <Button Name="BookGridButton" Content="Book" HorizontalAlignment="Center" Background="White" Margin="50,0,50,0"/>
-        </Grid>
     </Grid>
 </Page>
