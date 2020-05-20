@@ -36,6 +36,16 @@
             <Setter Property="Margin" Value="6"/>
             <Setter Property="FontSize" Value="18"/>
         </Style>
+        <Style x:Key="MainPageToolBar" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Content" Value="ToolBar"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0,52,0,0"/>
+            <Setter Property="Canvas.ZIndex" Value="1"/>
+            <Setter Property="Grid.Row" Value="0"/>
+            <Setter Property="Grid.RowSpan" Value="3"/>
+        </Style>
     </Page.Resources>
 
     <Grid Background="White">
@@ -46,10 +56,18 @@
         </Grid.RowDefinitions>
 
         <!-- Testing Toolbar button, not sure it should be here or like this, but it's 100% guaranteed attached to the top bar and will stay in place !-->
-        <Button Name="ToolBar" Content="ToolBar" Grid.Row="0" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.RowSpan="3" Margin="0,52,0,0" Canvas.ZIndex="1">
+        <Button Name="ToolBar" Style="{StaticResource MainPageToolBar}">
             <Button.Flyout>
                 <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                    <MenuFlyoutItem Text="Edit My Events" Click="MenuFlyoutItem_OnClick"/>
+                    <MenuFlyoutItem Text="Edit My Events" Command="{Binding NavToPageCommand}" CommandParameter="{x:Bind OnSpeakerEditEventData}"/>
+                </MenuFlyout>
+            </Button.Flyout>
+        </Button>
+
+        <Button Name="AdminToolBar" Style="{StaticResource MainPageToolBar}">
+            <Button.Flyout>
+                <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                    <MenuFlyoutItem Text="Add Sikon Speaker" Command="{Binding NavToPageCommand}" CommandParameter="{Binding NavigationService.CreateSpeakerPage}"/>
                 </MenuFlyout>
             </Button.Flyout>
         </Button>
@@ -66,16 +84,16 @@
 
             <Grid Grid.Column="0" Background="CornflowerBlue">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Command="{Binding NavBackCommand}" Width="50" Style="{StaticResource MenuNavButtonStyle}">
+                    <Button Name="BackButton" Command="{Binding NavBackCommand}" Width="50" Style="{StaticResource MenuNavButtonStyle}">
                         <StackPanel>
                             <TextBlock Text="&#xE760;" FontSize="16" Style="{StaticResource MenuNavIconStyle}" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Tilbage" FontSize="8" Style="{StaticResource MenuNavTextStyle}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Back" FontSize="8" Style="{StaticResource MenuNavTextStyle}" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button Command="{Binding NavForwardCommand}" Width="50" Style="{StaticResource MenuNavButtonStyle}">
+                    <Button Name="ForwardButton" Command="{Binding NavForwardCommand}" Width="50" Style="{StaticResource MenuNavButtonStyle}">
                         <StackPanel>
                             <TextBlock Text="&#xE761;" FontSize="16" Style="{StaticResource MenuNavIconStyle}" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Frem" FontSize="8" Style="{StaticResource MenuNavTextStyle}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Forward" FontSize="8" Style="{StaticResource MenuNavTextStyle}" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -87,7 +105,8 @@
                 <TextBlock Margin="20,0,0,0" Text="{Binding ActiveUser.UserName}" Width="100" TextAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
                 <TextBlock Margin="5,0,0,0" Text="&#xE77B;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource TextBlockStyle}"/>
                 <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent" HorizontalAlignment="Left" IsOpen="True" IsSticky="True">
-                    <AppBarButton IsCompact="False" Label="Login" AllowFocusOnInteraction="True" Width="100" Icon="ContactInfo">
+                    <AppBarButton Command="{Binding NavToPageCommand}" CommandParameter="{Binding NavigationService.EventsPage}" IsCompact="False" Label="Events" Icon="Calendar" Width="100"/>
+                    <AppBarButton IsCompact="False" Label="Profile" AllowFocusOnInteraction="True" Width="100" Icon="ContactInfo">
                         <AppBarButton.Flyout>
                             <Flyout>
                                 <Flyout.FlyoutPresenterStyle>
@@ -125,7 +144,7 @@
 
 <!--<TextBlock Text="Test Text" FontSize="800"/>-->
 
-                <Frame Background="Transparent" Name="ContentFrame" Grid.Row="0"/>
+                <Frame Background="Transparent" Name="ContentFrame" Navigated="ContentFrame_OnNavigated" Grid.Row="0"/>
 
                 <Grid Name="ContentLowerPage" Background="DarkSlateGray" Grid.Row="1">
                     <TextBlock VerticalAlignment="Bottom" Text="LowerPage" FontSize="150"></TextBlock>

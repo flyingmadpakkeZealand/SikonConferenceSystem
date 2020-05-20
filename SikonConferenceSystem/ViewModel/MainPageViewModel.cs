@@ -17,23 +17,39 @@ namespace SikonConferenceSystem.ViewModel
 
         public NavigationService NavigationService { get; set; }
 
-
         public MainPageViewModel(/*NavigationService navService*/)
         {
             //_navigationService = navService;
             NavToPageCommand = new RelayCommand(NavigateToPage);
+            NavBackCommand = new RelayCommand(GoBack);
+            NavForwardCommand = new RelayCommand(GoForward);
         }
-        public void NavigateToPage(object pageType)
+
+        private void NavigateToPage(object data)
         {
-            NavigationService.Navigate((Type)pageType);
+            if (data is object[] dataArray)
+            {
+                NavigationService.Navigate((Type) dataArray[0], dataArray[1]);
+            }
+            else
+            {
+                NavigationService.Navigate((Type)data);
+            }
+        }
+
+        private void GoBack()
+        {
+            NavigationService.GoBack();
+        }
+
+        private void GoForward()
+        {
+            NavigationService.GoForward();
         }
 
         public ICommand NavToPageCommand { get; set; }
         public ICommand NavBackCommand { get; set; }
         public ICommand NavForwardCommand { get; set; }
-
-        // Lock in 
-        //Under login skal login knappen ændre sig 
 
         public event PropertyChangedEventHandler PropertyChanged;
 

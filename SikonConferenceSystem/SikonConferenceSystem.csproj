@@ -143,7 +143,6 @@
     </Compile>
     <Compile Include="Model\CatalogSingleton.cs" />
     <Compile Include="Model\Messages.cs" />
-    <Compile Include="Model\PlaceHolder.cs" />
     <Compile Include="Model\TupleJSON.cs" />
     <Compile Include="Persistency\CommonConsumer.cs" />
     <Compile Include="Persistency\CommonConsumerFactory.cs" />
@@ -161,7 +160,6 @@
     <Compile Include="ViewModel\Interfaces\IFormattedEventViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IUserLoginMenu.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
-    <Compile Include="ViewModel\PlaceHolder.cs" />
     <Compile Include="ViewModel\SetupEventsPageVM.cs" />
     <Compile Include="ViewModel\UserLoginSignupMenuVM.cs" />
     <Compile Include="ViewModel\UserLoginMenuVM.cs" />
@@ -183,7 +181,6 @@
     <Compile Include="View\DetailedEventView.xaml.cs">
       <DependentUpon>DetailedEventView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PlaceHolder.cs" />
     <Compile Include="View\SetupEventsPage.xaml.cs">
       <DependentUpon>SetupEventsPage.xaml</DependentUpon>
     </Compile>

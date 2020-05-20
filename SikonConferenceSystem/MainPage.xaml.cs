@@ -34,6 +34,11 @@ namespace SikonConferenceSystem
 
         public static uint AproxFrameHeight { get; set; }
 
+        public object[] OnSpeakerEditEventData
+        {
+            get { return new object[] {typeof(EventsPage), SpecialCase.OnSpeakerEdit}; }
+        }
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -43,21 +48,27 @@ namespace SikonConferenceSystem
             AproxFrameHeight = screenHeight - (TopSize + BottomSize + NativeScreenSace);
 
             UserLoginFrame.Navigate(typeof(UserLoginMenu));
-            ContentFrame.Navigate(typeof(EventsPage));
+            ContentFrame.Navigate(typeof(SetupEventsPage));
 
             ToolBar.Visibility = Visibility.Collapsed;
+            AdminToolBar.Visibility = Visibility.Collapsed;
             AppData.OnUserLoggedIn(() =>
             {
                 if (AppData.LoadedUser is Speaker)
                 {
                     ToolBar.Visibility = Visibility.Visible;
                 }
+                else if(AppData.LoadedUser is Admin)
+                {
+                    AdminToolBar.Visibility = Visibility.Visible;
+                }
             });
         }
 
-        private void MenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)
+        private void ContentFrame_OnNavigated(object sender, NavigationEventArgs e)
         {
-            MainPageViewModel.NavigationService.Navigate(typeof(EventsPage), SpecialCase.OnSpeakerEdit);
+            BackButton.IsEnabled = MainPageViewModel.NavigationService.CanGoBack;
+            ForwardButton.IsEnabled = MainPageViewModel.NavigationService.CanGoForward;
         }
     }
 }

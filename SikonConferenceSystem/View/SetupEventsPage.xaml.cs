@@ -121,6 +121,19 @@ namespace SikonConferenceSystem.View
                     SetupEventsPageVm.LoadOrSetupEvent(eventToLoad);
                     SetupEventsPageVm.DisableAdminControls = true;
                 }
+                else
+                {
+                    string errorMessage = "Invalid data\n";
+                    foreach (object piece in data)
+                    {
+                        errorMessage += $"{piece.GetType().Name}\n";
+                    }
+                    throw new ArgumentException(errorMessage);
+                }
+            }
+            else
+            {
+                SetupEventsPageVm.LoadOrSetupEvent(null);
             }
             
             base.OnNavigatedTo(e);
