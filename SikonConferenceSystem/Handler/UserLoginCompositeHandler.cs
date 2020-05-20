@@ -50,7 +50,7 @@ namespace SikonConferenceSystem.Handler
 
             if (Vm.Password == Vm.LoadedUser?.Password)
             {
-                Vm.NavigationService?.Navigate((Type) Vm.NavigationService.UserLoginProfileMenu, Vm.LoadedUser);
+                Vm.NavigationService?.Navigate((Type)Vm.NavigationService.UserLoginProfileMenu, Vm.LoadedUser);
             }
             else
             {
@@ -73,7 +73,7 @@ namespace SikonConferenceSystem.Handler
             }
 
             return loginDetails.GetItem<Admin>(3);
-            
+
         }
 
         public async void SignUp(User newUser, Action onErrors)
@@ -84,41 +84,52 @@ namespace SikonConferenceSystem.Handler
 
             var loginConsumer = CommonConsumerFactory.Create(new ConsumerStringIds<TupleJSON>());
 
-            TupleJSON mailTuple = await loginConsumer.GetOneAsync(new[] {newUser.Email});
-            TupleJSON phoneTuple = await loginConsumer.GetOneAsync(new[] {newUser.PhoneNumber});
+            var userConsumer = CommonConsumerFactory.Create(new Consumer<User>());
 
-            if (mailTuple != null)
+            bool postOk = await userConsumer.PostAsync(newUser);
+            if (postOk)
             {
-                Vm.LoadedUser.Email = GetUser(mailTuple).Email;
-                onErrors();
+                //Vm.LoadedUser = newUser;
+                NavigationService navigationService = NavigationService.GetService(Contents.UserLoginContent);
+                navigationService.Navigate(navigationService.UserLoginProfileMenu, await RetrieveNewUser());
             }
-            else if (phoneTuple != null)
+            else if (await CheckNoDuplicates())
             {
-                Vm.LoadedUser.PhoneNumber = GetUser(phoneTuple).PhoneNumber;
-                onErrors();
+                throw new ArgumentException("Post Failed");
             }
-            else
-            {
-                var userConsumer = CommonConsumerFactory.Create(new Consumer<User>());
 
-                bool postOk = await userConsumer.PostAsync(newUser);
-                if (postOk)
+
+
+            async Task<bool> CheckNoDuplicates()
+            {
+                TupleJSON mailTuple = await loginConsumer.GetOneAsync(new[] { newUser.Email });
+                TupleJSON phoneTuple = await loginConsumer.GetOneAsync(new[] { newUser.PhoneNumber });
+
+                if (mailTuple != null)
                 {
-                    Vm.LoadedUser = newUser;
-                    NavigationService navigationService = NavigationService.GetService(Contents.UserLoginContent);
-                    navigationService.Navigate(navigationService.UserLoginProfileMenu, newUser);
+                    Vm.LoadedUser.Email = GetUser(mailTuple).Email;
+                }
+                if (phoneTuple != null)
+                {
+                    Vm.LoadedUser.PhoneNumber = GetUser(phoneTuple).PhoneNumber;
+                }
+                onErrors();
+                return string.IsNullOrEmpty(Vm.LoadedUser.Email) && string.IsNullOrEmpty(Vm.LoadedUser.PhoneNumber);
+            }
+
+            async Task<User> RetrieveNewUser()
+            {
+                if (!string.IsNullOrEmpty(newUser.Email))
+                {
+                    TupleJSON response = await loginConsumer.GetOneAsync(new[] { newUser.Email });
+                    return GetUser(response);
                 }
                 else
                 {
-                    throw new ArgumentException("Post Failed");
+                    TupleJSON response = await loginConsumer.GetOneAsync(new[] { newUser.PhoneNumber });
+                    return GetUser(response);
                 }
             }
-
-            //bool CheckNoDuplicates()
-            //{
-
-            //}
-            
         }
     }
 }
