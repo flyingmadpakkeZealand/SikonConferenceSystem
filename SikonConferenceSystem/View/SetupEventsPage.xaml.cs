@@ -116,10 +116,21 @@ namespace SikonConferenceSystem.View
         {
             if (e.Parameter is object[] data)
             {
-                if (data.Length == 2 && data[0] is Event eventToLoad && data[1] is SpecialCase.OnSpeakerEdit)
+                if (data.Length == 2 && data[0] is Event eventToLoad && data[1] is SpecialCase specialCase)
                 {
                     SetupEventsPageVm.LoadOrSetupEvent(eventToLoad);
-                    SetupEventsPageVm.DisableAdminControls = true;
+
+                    switch (specialCase)
+                    {
+                        case SpecialCase.OnSpeakerEdit:
+                        {
+                            SetupEventsPageVm.DisableAdminControls = true;
+                        } break;
+                        case SpecialCase.OnAdminEdit:
+                        {
+
+                        } break;
+                    }
                 }
                 else
                 {

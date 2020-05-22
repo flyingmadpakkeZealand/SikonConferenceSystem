@@ -39,6 +39,11 @@ namespace SikonConferenceSystem
             get { return new object[] {typeof(EventsPage), SpecialCase.OnSpeakerEdit}; }
         }
 
+        public object[] OnAdminEditEventData
+        {
+            get { return new object[] {typeof(EventsPage), SpecialCase.OnAdminEdit};}
+        }
+
         public MainPage()
         {
             this.InitializeComponent();
