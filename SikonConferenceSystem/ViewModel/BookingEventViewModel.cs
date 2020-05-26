@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.Devices.WiFiDirect;
 using SikonConferenceSystem.Model;
 using ModelLibrary;
@@ -13,35 +14,58 @@ using SikonConferenceSystem.Annotations;
 using SikonConferenceSystem.Common;
 using SikonConferenceSystem.Handler;
 using SikonConferenceSystem.Model;
+using SikonConferenceSystem.ViewModel.Interfaces;
 
 namespace SikonConferenceSystem.ViewModel
 {
     public class BookingEventViewModel:INotifyPropertyChanged
     {
         private Booking _newBooking;
+        public BookingEventHandler BookingEventHandler { get; set; }
+        public BookingEventViewModel()
+        {
+            BookingEventSingleton = CatalogSingleton<Booking>.Instance;
+            _newBooking = new Booking();
+            BookingEventHandler = new BookingEventHandler();
+            BookUserCommand = new RelayCommand(BookingEventHandler.CreateBooking);
+            /*_bookUserCommand = new RelayCommand(BookingEventHandler.CreateBooking)*/
+            ;
+
+        }
 
         public ObservableCollection<Event> BookedEvents;
-        public Event _newEvent;
 
         public Booking NewBooking
         {
             get { return _newBooking;}
-            set { _newBooking = value; }
+            set
+            {
+                if (value != null)
+                {
+                    _newBooking = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(TranstionBookToEvent));
+                    ((RelayCommand)BookUserCommand).RaiseCanExecuteChanged();
+                }
+            }
         }
 
-        public Event NewEvent
-        {
-            get { return _newEvent; }
-            set { _newEvent = value; }
-        }
+        
         public CatalogSingleton<Booking> BookingEventSingleton { get; set; }
 
-        public BookingEventViewModel()
+
+        public int TranstionBookToEvent
         {
-            BookingEventSingleton=CatalogSingleton<Booking>.Instance;
-            _newBooking=new Booking();
+            get { return NewBooking.BookingID; }
+            set
+            {
+                NewBooking.BookingID = value;
+                ((RelayCommand)BookUserCommand).RaiseCanExecuteChanged();
+            }
         }
 
+
+        public ICommand BookUserCommand { get; set; }
 
 
 

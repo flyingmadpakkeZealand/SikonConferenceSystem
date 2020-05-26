@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Audio;
 using ModelLibrary;
+using SikonConferenceSystem.Persistency;
 using SikonConferenceSystem.ViewModel;
+using SikonConferenceSystem.ViewModel.Interfaces;
 
 namespace SikonConferenceSystem.Handler
 {
@@ -15,8 +17,10 @@ namespace SikonConferenceSystem.Handler
 
         public BookingEventHandler()
         {
-            _bookingEventViewModel=new BookingEventViewModel();
+            _bookingEventViewModel = new BookingEventViewModel();
         }
+
+        
 
         public async void CreateBooking()
         {
@@ -26,7 +30,7 @@ namespace SikonConferenceSystem.Handler
             Booking aBooking = new Booking(bookingId,bookingDate,Id);
             Persistency.Consumer<Booking> bookingFacade = new Persistency.Consumer<Booking>("http://localhost:61467/api/Bookings");
             bool ok = await bookingFacade.PostAsync(aBooking);
-            ClearBooking();
+            //ClearBooking();
         }
 
         public async void DeleteBooking()
@@ -34,25 +38,25 @@ namespace SikonConferenceSystem.Handler
             int bookingId = _bookingEventViewModel.NewBooking.BookingID;
             Persistency.Consumer<Booking> bookingFacade = new Persistency.Consumer<Booking>("http://localhost:61467/api/Bookings");
             bool ok = await bookingFacade.DeleteAsync(new []{(bookingId)});
-            ClearBooking();
+            //ClearBooking();
         }
 
-        public async void AddEvent()
-        {
-            _bookingEventViewModel.BookedEvents.Add(_bookingEventViewModel.NewEvent);
+        //public async void AddEvent()
+        //{
+        //    _bookingEventViewModel.BookedEvents.Add(_bookingEventViewModel.NewEvent);
 
-        }
-        public async void DeleteEvent()//Har brug for at ændres til at slette med Id
-        {
-            _bookingEventViewModel.BookedEvents.Remove(_bookingEventViewModel.NewEvent);
+        //}
+        //public async void DeleteEvent()//Har brug for at ændres til at slette med Id
+        //{
+        //    _bookingEventViewModel.BookedEvents.Remove(_bookingEventViewModel.NewEvent);
 
-        }
+        //}
 
-        public async void ClearBooking()
-        {
-            int bookingId = -1;
-            DateTime bookingDate = new DateTime();
-            int Id = -1;
-        }
+        //public async void ClearBooking()
+        //{
+        //    int bookingId = -1;
+        //    DateTime bookingDate = new DateTime();
+        //    int Id = -1;
+        //}
     }
 }

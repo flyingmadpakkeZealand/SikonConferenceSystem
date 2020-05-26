@@ -75,7 +75,7 @@
                     
                     <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" Background="Black"/>
 
-                    <StackPanel HorizontalAlignment="Right" Spacing="5" Orientation="Horizontal" Grid.Row="1">
+                    <StackPanel HorizontalAlignment="Right" Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
                         <TextBlock Text="Hour(s)"/>
                         <Border BorderBrush="Black" BorderThickness="1">
                             <TextBlock Text="{Binding EventDurationMinutes}"/>
@@ -109,6 +109,7 @@
                     <TextBlock Text="{Binding EventDate, Converter={StaticResource DateToFormattedString}}" TextAlignment="Right" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
                 </StackPanel>
                 <TextBlock Text="{Binding EventDateHours, Converter={StaticResource TimeSpanToFormattedString}}" Style="{StaticResource SubHeader}"/>
+                
             </StackPanel>
         </Border>
 

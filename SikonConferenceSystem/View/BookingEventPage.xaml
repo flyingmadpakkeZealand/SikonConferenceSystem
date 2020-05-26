@@ -21,8 +21,7 @@
                 <TextBlock Text="{}" FontSize="24"/>
                 <TextBlock Text="Do you want to book this event?" FontSize="24"/>
                 <StackPanel Orientation="Horizontal" Spacing="10">
-                    <Button Content="Yes"/>
-                    <Button Content="No"/>
+                    <Button Content="Book" CommandParameter="{Binding BookUserCommand}"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

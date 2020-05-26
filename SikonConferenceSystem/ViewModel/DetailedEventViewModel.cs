@@ -36,7 +36,6 @@ namespace SikonConferenceSystem.ViewModel
         }
 
 
-
         public DetailedEventViewModel()
         {
 
