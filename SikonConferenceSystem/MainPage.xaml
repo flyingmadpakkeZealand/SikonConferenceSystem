@@ -68,6 +68,7 @@
             <Button.Flyout>
                 <MenuFlyout Placement="BottomEdgeAlignedLeft">
                     <MenuFlyoutItem Text="Add Sikon Speaker" Command="{Binding NavToPageCommand}" CommandParameter="{Binding NavigationService.CreateSpeakerPage}"/>
+                    <MenuFlyoutItem Text="Edit events" Command="{Binding NavToPageCommand}" CommandParameter="{x:Bind OnAdminEditEventData}"/>
                 </MenuFlyout>
             </Button.Flyout>
         </Button>

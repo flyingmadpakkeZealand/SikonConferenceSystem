@@ -10,7 +10,8 @@ namespace SikonConferenceSystem.Common
     public enum SpecialCase
     {
         None,
-        OnSpeakerEdit
+        OnSpeakerEdit,
+        OnAdminEdit
     }
 
     public static class AppData
