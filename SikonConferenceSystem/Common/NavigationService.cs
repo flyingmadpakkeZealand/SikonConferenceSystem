@@ -72,16 +72,28 @@ namespace SikonConferenceSystem.Common
         public Type UserLoginProfileMenu { get { return typeof(UserLoginProfileMenu); } }
         public Type SetupEventsPage { get { return typeof(SetupEventsPage); } }
         public Type UserLoginSignUpMenu { get { return typeof(UserLoginSignupMenu); } }
+        public Type CreateSpeakerPage { get { return typeof(CreateSpeaker); } }
+        public Type CreateRoomsPage { get { return typeof(CreateRooms); } }
+
+        public bool CanGoBack
+        {
+            get { return _frame.CanGoBack; }
+        }
+
+        public bool CanGoForward
+        {
+            get { return _frame.CanGoForward; }
+        }
 
         public void GoBack()
         {
-            if(_frame.CanGoBack)
+            if(CanGoBack)
                 _frame.GoBack();
         }
 
         public void GoForward()
         {
-            if(_frame.CanGoForward)
+            if(CanGoForward)
                 _frame.GoForward();
         }
 

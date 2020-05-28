@@ -44,15 +44,34 @@ namespace SikonConferenceSystem.View
         {
             if (sender is Button button)
             {
-                if (_specialCase == SpecialCase.OnSpeakerEdit)
+                object data;
+
+                switch (_specialCase)
                 {
-                    object[] data = new[] {button.CommandParameter, SpecialCase.OnSpeakerEdit};
-                    Frame.Navigate(_eventDestination, data);
+                    case SpecialCase.OnSpeakerEdit:
+                    {
+                        data = new[] { button.CommandParameter, SpecialCase.OnSpeakerEdit };
+                    } break;
+                    case SpecialCase.OnAdminEdit:
+                    {
+                        data = new[] {button.CommandParameter, SpecialCase.OnAdminEdit};
+                    } break;
+                    default:
+                    {
+                        data = button.CommandParameter;
+                    } break;
                 }
-                else
-                {
-                    Frame.Navigate(_eventDestination, button.CommandParameter);
-                }
+                //if (_specialCase == SpecialCase.OnSpeakerEdit)
+                //{
+                //    object[] data = new[] {button.CommandParameter, SpecialCase.OnSpeakerEdit};
+                //    Frame.Navigate(_eventDestination, data);
+                //}
+                //else
+                //{
+                //    Frame.Navigate(_eventDestination, button.CommandParameter);
+                //}
+
+                Frame.Navigate(_eventDestination, data);
             }
         }
 
@@ -73,10 +92,14 @@ namespace SikonConferenceSystem.View
                     case SpecialCase.OnSpeakerEdit:
                     {
                         EventsPageVm.Handler.ApplySpeakerEditFilter();
-                        _eventDestination = typeof(SetupEventsPage);
-                        _eventDestinationButtonText = "Edit Event";
+                    } break;
+                    case SpecialCase.OnAdminEdit:
+                    {
+
                     } break;
                 }
+                _eventDestination = typeof(SetupEventsPage);
+                _eventDestinationButtonText = "Edit Event";
                 _specialCase = specialCase;
             }
             else

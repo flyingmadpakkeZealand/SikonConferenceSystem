@@ -61,7 +61,7 @@ namespace SikonConferenceSystem.Handler
             Vm.IsLoadingUser = false;
         }
 
-        private User GetUser(TupleJSON loginDetails)
+        private User GetUser(TupleJSON loginDetails) //The exact type is important for deserializing correctly.
         {
             if (loginDetails.GetItem<User>(1) is User user)
             {
