@@ -41,7 +41,8 @@ namespace SikonConferenceSystem.ViewModel
 
         private bool CheckData()
         {
-            if ((NewUser.Password.Length > 7 && NewUser.PhoneNumber.Length == 8) || (NewUser.Password.Length > 7 && NewUser.Email.Contains("@")))
+            if ((NewUser.Password.Length > 7 && NewUser.PhoneNumber.Length == 8) || 
+                (NewUser.Password.Length > 7 && NewUser.Email.Contains("@")))
             {
                 return true;
             }
