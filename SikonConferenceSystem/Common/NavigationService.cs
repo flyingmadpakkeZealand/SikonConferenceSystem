@@ -73,6 +73,7 @@ namespace SikonConferenceSystem.Common
         public Type SetupEventsPage { get { return typeof(SetupEventsPage); } }
         public Type UserLoginSignUpMenu { get { return typeof(UserLoginSignupMenu); } }
         public Type CreateSpeakerPage { get { return typeof(CreateSpeaker); } }
+        public Type CreateRoomsPage { get { return typeof(CreateRooms); } }
 
         public bool CanGoBack
         {
