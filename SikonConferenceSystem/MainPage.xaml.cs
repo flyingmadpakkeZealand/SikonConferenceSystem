@@ -68,9 +68,26 @@ namespace SikonConferenceSystem
                     AdminToolBar.Visibility = Visibility.Visible;
                 }
             });
+
+            AppData.OnUserLoggedOut(() =>
+            {
+                ContentFrame.Navigate(typeof(EventsPage));
+                UserLoginFrame.Navigate(typeof(UserLoginMenu));
+                ContentFrame.BackStack.Clear();
+                ContentFrame.ForwardStack.Clear();
+                UpdateNavButtons();
+
+                ToolBar.Visibility = Visibility.Collapsed;
+                AdminToolBar.Visibility = Visibility.Collapsed;
+            });
         }
 
         private void ContentFrame_OnNavigated(object sender, NavigationEventArgs e)
+        {
+            UpdateNavButtons();
+        }
+
+        private void UpdateNavButtons()
         {
             BackButton.IsEnabled = MainPageViewModel.NavigationService.CanGoBack;
             ForwardButton.IsEnabled = MainPageViewModel.NavigationService.CanGoForward;

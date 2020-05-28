@@ -29,6 +29,7 @@
             <Button Content="Settings" Command="{Binding PressSettingsCommand}" Style="{StaticResource ProfileButton}"/>
             <Button Content="Bookings" Style="{StaticResource ProfileButton}"/>
             <Button Content="Messages" Style="{StaticResource ProfileButton}"/>
+            <Button Content="Sign out" Command="{Binding PressSignOutCommand}" Style="{StaticResource ProfileButton}"/>
             <StackPanel Orientation="Horizontal" Spacing="5">
                 <TextBlock Text="Profile:"/>
                 <TextBlock Text="{Binding LoadedUser.Name}"/>

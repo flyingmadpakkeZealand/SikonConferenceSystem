@@ -50,7 +50,7 @@ namespace SikonConferenceSystem.Handler
 
             if (Vm.Password == Vm.LoadedUser?.Password)
             {
-                Vm.NavigationService?.Navigate((Type)Vm.NavigationService.UserLoginProfileMenu, Vm.LoadedUser);
+                Vm.NavigationService?.Navigate(Vm.NavigationService.UserLoginProfileMenu, Vm.LoadedUser);
             }
             else
             {
@@ -129,6 +129,14 @@ namespace SikonConferenceSystem.Handler
                     TupleJSON response = await loginConsumer.GetOneAsync(new[] { newUser.PhoneNumber });
                     return GetUser(response);
                 }
+            }
+        }
+
+        public void SignOut()
+        {
+            if (!AppData.TryLogOut())
+            {
+                throw new Exception("Unable to log out");
             }
         }
     }

@@ -71,6 +71,7 @@ namespace SikonConferenceSystem.ViewModel
             _handler = new UserLoginCompositeHandler(this);
             _mainPageService = NavigationService.GetService(Contents.MainPageContent);
             _pressSettingsCommand = new RelayCommand(()=>MainPageService.Navigate(MainPageService.UserSettingsPage));
+            _pressSignOutCommand = new RelayCommand(Handler.SignOut);
         }
 
         private RelayCommand _pressSettingsCommand;
@@ -78,6 +79,13 @@ namespace SikonConferenceSystem.ViewModel
         public ICommand PressSettingsCommand
         {
             get { return _pressSettingsCommand; }
+        }
+
+        private RelayCommand _pressSignOutCommand;
+
+        public ICommand PressSignOutCommand
+        {
+            get { return _pressSignOutCommand; }
         }
 
 

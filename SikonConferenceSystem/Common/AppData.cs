@@ -16,6 +16,8 @@ namespace SikonConferenceSystem.Common
 
     public static class AppData
     {
+        private static event Action _onUserLoggedOut;
+
         private static event Action _onUserLoggedIn;
 
         private static User _loadedUser;
@@ -38,6 +40,23 @@ namespace SikonConferenceSystem.Common
         public static void OnUserLoggedIn(Action action)
         {
             _onUserLoggedIn += action;
+        }
+
+        public static void OnUserLoggedOut(Action action)
+        {
+            _onUserLoggedOut += action;
+        }
+
+        public static bool TryLogOut()
+        {
+            if (LoadedUser != null)
+            {
+                _loadedUser = null;
+                _onUserLoggedOut?.Invoke();
+                return true;
+            }
+
+            return false;
         }
     }
 }
