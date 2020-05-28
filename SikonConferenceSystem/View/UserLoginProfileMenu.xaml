@@ -26,7 +26,7 @@
 
     <Grid Style="{StaticResource ProfileMenuGrid}">
         <StackPanel Spacing="20">
-            <Button Content="Account" Style="{StaticResource ProfileButton}"/>
+            <Button Content="Settings" Command="{Binding PressSettingsCommand}" Style="{StaticResource ProfileButton}"/>
             <Button Content="Bookings" Style="{StaticResource ProfileButton}"/>
             <Button Content="Messages" Style="{StaticResource ProfileButton}"/>
             <StackPanel Orientation="Horizontal" Spacing="5">

@@ -85,6 +85,8 @@ namespace SikonConferenceSystem.ViewModel
         }
 
 
+        public RelayCommand Test { get { return new RelayCommand(()=>{});} }
+
         //public static Event EventToLoad;
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ModelLibrary;
 using SikonConferenceSystem.Annotations;
 using SikonConferenceSystem.Common;
@@ -21,6 +22,14 @@ namespace SikonConferenceSystem.ViewModel
         {
             get { return _handler; }
         }
+
+        private NavigationService _mainPageService;
+
+        public NavigationService MainPageService
+        {
+            get { return _mainPageService; }
+        }
+
 
         private User _loadedUser;
 
@@ -60,7 +69,17 @@ namespace SikonConferenceSystem.ViewModel
         public UserLoginProfileMenuVM()
         {
             _handler = new UserLoginCompositeHandler(this);
+            _mainPageService = NavigationService.GetService(Contents.MainPageContent);
+            _pressSettingsCommand = new RelayCommand(()=>MainPageService.Navigate(MainPageService.UserSettingsPage));
         }
+
+        private RelayCommand _pressSettingsCommand;
+
+        public ICommand PressSettingsCommand
+        {
+            get { return _pressSettingsCommand; }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
