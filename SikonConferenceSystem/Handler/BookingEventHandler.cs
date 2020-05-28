@@ -13,24 +13,28 @@ namespace SikonConferenceSystem.Handler
 {
     public class BookingEventHandler
     {
+        public Action<bool> OnClickedBook { get; set; }
+
         private BookingEventViewModel _bookingEventViewModel;
 
-        public BookingEventHandler()
+        public BookingEventHandler(BookingEventViewModel bookingEventViewModel)
         {
-            _bookingEventViewModel = new BookingEventViewModel();
+            _bookingEventViewModel = bookingEventViewModel;
         }
 
         
 
         public async void CreateBooking()
         {
-            int bookingId = _bookingEventViewModel.NewBooking.BookingID;
-            DateTime bookingDate = _bookingEventViewModel.NewBooking.BookingDate;
-            int Id = _bookingEventViewModel.NewBooking.Id;
-            Booking aBooking = new Booking(bookingId,bookingDate,Id);
-            Persistency.Consumer<Booking> bookingFacade = new Persistency.Consumer<Booking>("http://localhost:61467/api/Bookings");
-            bool ok = await bookingFacade.PostAsync(aBooking);
+            //int bookingId = _bookingEventViewModel.NewBooking.BookingID;
+            //DateTime bookingDate = _bookingEventViewModel.NewBooking.BookingDate;
+            //int Id = _bookingEventViewModel.NewBooking.Id;
+            //Booking aBooking = new Booking(bookingId,bookingDate,Id);
+            //Persistency.Consumer<Booking> bookingFacade = new Persistency.Consumer<Booking>("http://localhost:61467/api/Bookings");
+            //bool ok = await bookingFacade.PostAsync(aBooking);
             //ClearBooking();
+
+            OnClickedBook?.Invoke(true);
         }
 
         public async void DeleteBooking()

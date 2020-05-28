@@ -10,18 +10,18 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <viewModel:BookingEventViewModel/>
+        <viewModel:BookingEventViewModel x:Name="BookingEventViewModel"/>
     </Page.DataContext>
 
 
     <Grid Style="{StaticResource ProfileMenuGrid}">
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="400" Height="150">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
             <StackPanel>
-                <TextBlock Text="Event" FontSize="24"/>
-                <TextBlock Text="{}" FontSize="24"/>
-                <TextBlock Text="Do you want to book this event?" FontSize="24"/>
+                <TextBlock Text="Event" FontSize="18"/>
+                <TextBlock Text="{}" FontSize="18"/>
+                <TextBlock Text="Do you want to book this event?" FontSize="18"/>
                 <StackPanel Orientation="Horizontal" Spacing="10">
-                    <Button Content="Book" CommandParameter="{Binding BookUserCommand}"/>
+                    <Button Content="Book" Command="{Binding BookUserCommand}"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

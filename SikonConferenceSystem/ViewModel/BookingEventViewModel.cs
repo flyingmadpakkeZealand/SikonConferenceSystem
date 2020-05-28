@@ -26,7 +26,7 @@ namespace SikonConferenceSystem.ViewModel
         {
             BookingEventSingleton = CatalogSingleton<Booking>.Instance;
             _newBooking = new Booking();
-            BookingEventHandler = new BookingEventHandler();
+            BookingEventHandler = new BookingEventHandler(this);
             BookUserCommand = new RelayCommand(BookingEventHandler.CreateBooking);
             /*_bookUserCommand = new RelayCommand(BookingEventHandler.CreateBooking)*/
             ;

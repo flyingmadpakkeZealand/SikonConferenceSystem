@@ -30,8 +30,11 @@ namespace SikonConferenceSystem.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            
+            if (e.Parameter is Action<bool> onClickBook)
+            {
+                BookingEventViewModel.BookingEventHandler.OnClickedBook = onClickBook;
+            }
             base.OnNavigatedTo(e);
-        } 
+        }
     }
 }
