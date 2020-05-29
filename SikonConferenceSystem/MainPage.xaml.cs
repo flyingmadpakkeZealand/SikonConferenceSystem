@@ -53,7 +53,7 @@ namespace SikonConferenceSystem
             AproxFrameHeight = screenHeight - (TopSize + BottomSize + NativeScreenSace);
 
             UserLoginFrame.Navigate(typeof(UserLoginMenu));
-            ContentFrame.Navigate(typeof(SetupEventsPage));
+            ContentFrame.Navigate(typeof(FeaturedStartPage));
 
             ToolBar.Visibility = Visibility.Collapsed;
             AdminToolBar.Visibility = Visibility.Collapsed;
@@ -71,7 +71,7 @@ namespace SikonConferenceSystem
 
             AppData.OnUserLoggedOut(() =>
             {
-                ContentFrame.Navigate(typeof(EventsPage));
+                ContentFrame.Navigate(typeof(FeaturedStartPage));
                 UserLoginFrame.Navigate(typeof(UserLoginMenu));
                 ContentFrame.BackStack.Clear();
                 ContentFrame.ForwardStack.Clear();

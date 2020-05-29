@@ -181,6 +181,9 @@
     <Compile Include="View\DetailedEventView.xaml.cs">
       <DependentUpon>DetailedEventView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FeaturedStartPage.xaml.cs">
+      <DependentUpon>FeaturedStartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SetupEventsPage.xaml.cs">
       <DependentUpon>SetupEventsPage.xaml</DependentUpon>
     </Compile>
@@ -236,6 +239,10 @@
     </Page>
     <Page Include="View\EventsPage.xaml" />
     <Page Include="View\DetailedEventView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FeaturedStartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
