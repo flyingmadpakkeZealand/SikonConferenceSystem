@@ -184,6 +184,7 @@
     <Compile Include="View\FeaturedStartPage.xaml.cs">
       <DependentUpon>FeaturedStartPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PlaceHolder.cs" />
     <Compile Include="View\SetupEventsPage.xaml.cs">
       <DependentUpon>SetupEventsPage.xaml</DependentUpon>
     </Compile>
