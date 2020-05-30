@@ -29,12 +29,12 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" RowSpan="2" Background="SlateGray" Visibility="{Binding ListIsLoading, Converter={StaticResource BoolToVisibility}}" Canvas.ZIndex="1">
+        <!--<Grid Grid.Row="0" RowSpan="2" Background="SlateGray" Visibility="{Binding ListIsLoading, Converter={StaticResource BoolToVisibility}}" Canvas.ZIndex="1">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing Height="100" Width="100" IsActive="True"/>
                 <TextBlock FontSize="50" Text="Loading events"/>
             </StackPanel>
-        </Grid>
+        </Grid>-->
 
         <!--#region OldDesign -->
         <!--<Grid Background="Transparent" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0,0,0,30" >
@@ -78,20 +78,24 @@
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="150"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <FlipView Background="White" BorderBrush="Black" BorderThickness="2" Grid.Row="0" SelectedIndex="{Binding SelectedDayIndex, Mode=TwoWay}" ItemsSource="{Binding EventDays}" MaxWidth="1000" MaxHeight="150" HorizontalAlignment="Center">
-                <FlipView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding}" Style="{StaticResource SubHeader}"/>
-                    </DataTemplate>
-                </FlipView.ItemTemplate>
-            </FlipView>
+            <Border Background="White" BorderBrush="Black" BorderThickness="2" Grid.Row="0">
+                <FlipView Width="500" HorizontalAlignment="Center" Background="White" SelectedIndex="{Binding SelectedDayIndex, Mode=TwoWay}" ItemsSource="{Binding EventDays}">
+                    <FlipView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding}" Style="{StaticResource SubHeader}"/>
+                        </DataTemplate>
+                    </FlipView.ItemTemplate>
+                </FlipView>
+            </Border>
 
+            <TextBlock Text="Filter" FontSize="40" Grid.Row="1"></TextBlock>
 
-            <ListView Background="Beige" ItemsSource="{Binding Source={StaticResource ViewSourceEvents}}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
+            <ListView Name="EventList" Background="Beige" ItemsSource="{Binding Source={StaticResource ViewSourceEvents}}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2">
                 <ListView.GroupStyle>
                     <GroupStyle HidesIfEmpty="True">
                         <GroupStyle.HeaderTemplate>
