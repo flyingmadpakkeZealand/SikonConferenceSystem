@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ModelLibrary;
 using SikonConferenceSystem.Annotations;
 using SikonConferenceSystem.Model;
 
@@ -13,6 +14,10 @@ namespace SikonConferenceSystem.ViewModel
     public class FilterVM : INotifyPropertyChanged
     {
         private FilterBuilder _filterBuilder;
+        public FilterBuilder FilterBuilder
+        {
+            get { return _filterBuilder; }
+        }
 
         private int _selectedFilter;
         public int SelectedFilter
@@ -66,7 +71,22 @@ namespace SikonConferenceSystem.ViewModel
         public object Value
         {
             get { return _value; }
-            set { _value = value; }
+            set
+            {
+                _value = value;
+                if (SelectedFilter>=2)
+                {
+                    _filterBuilder.Value = (Event.EventType) value;
+                }
+                else if(SelectedFilter>=1)
+                {
+                    _filterBuilder.Value = Convert.ToDouble(value);
+                }
+                else
+                {
+                    _filterBuilder.Value = value;
+                }
+            }
         }
 
         private List<string> _FilterOptions;

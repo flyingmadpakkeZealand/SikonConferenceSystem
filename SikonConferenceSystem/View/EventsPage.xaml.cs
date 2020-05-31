@@ -127,5 +127,10 @@ namespace SikonConferenceSystem.View
                 FilterListView.Height = double.NaN;
             }
         }
+
+        private void ButtonBase_OnClick3(object sender, RoutedEventArgs e)
+        {
+            EventsPageVm.Handler.ApplyFilter();
+        }
     }
 }

@@ -18,11 +18,14 @@ namespace SikonConferenceSystem.Handler
         private List<EventsInfo> _filteredEvents;
         private List<EventsInfo> _bufferFilteredEvents;
 
+        private List<Func<Event, bool>> _filters;
+
         public EventsHandler(EventsPageVM eventsPageVm)
         {
             _eventsPageVm = eventsPageVm;
             _filteredEvents = new List<EventsInfo>();
             _bufferFilteredEvents = new List<EventsInfo>();
+            _filters = new List<Func<Event, bool>>();
         }
 
         public void ApplySpeakerEditFilter()
@@ -73,6 +76,38 @@ namespace SikonConferenceSystem.Handler
         //    NavigationService navigationService = NavigationService.GetService(Contents.MainPageContent);
         //    navigationService.Navigate(navigationService.SetupEventsPage);
         //}
+
+        public void ApplyFilter()
+        {
+            ConstructFilters();
+
+            AllEventsWithFilter(RunAllConditionsAsAnd);
+
+            _filters.Clear();
+        }
+
+        private void ConstructFilters()
+        {
+            EventsPageVM Vm = _eventsPageVm;
+
+            foreach (FilterVM filterVm in Vm.FilterVms)
+            {
+                _filters.Add(filterVm.FilterBuilder.ConstructFilterFunc());
+            }
+        }
+
+        private bool RunAllConditionsAsAnd(EventAdapter eventToFilter)
+        {
+            foreach (Func<Event, bool> filter in _filters)
+            {
+                if (!filter(eventToFilter.Event))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         private void AllEventsWithFilter(Func<EventAdapter, bool> condition)
         {
