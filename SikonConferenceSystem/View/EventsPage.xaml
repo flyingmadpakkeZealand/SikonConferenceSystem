@@ -115,9 +115,7 @@
                                 <ComboBox Header="Condition" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding Conditions}" SelectedIndex="{Binding SelectedCondition, Mode=TwoWay}">
                                 </ComboBox>
                                 <TextBox Header="Value" Text="{Binding Value, Mode=TwoWay}" Style="{StaticResource FilterTextBox}"/>
-                                <ComboBox Header="Order by" Margin="40,0,0,0" Style="{StaticResource FilterComboBox}">
-                                    <TextBlock Text="Event Name" Style="{StaticResource FilterTextBlock}"/>
-                                    <TextBlock Text="Speaker Name" Style="{StaticResource FilterTextBlock}"/>
+                                <ComboBox Header="Order by" Margin="40,0,0,0" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding OrderList}" SelectedIndex="{Binding SelectedOrder, Mode=TwoWay}">
                                 </ComboBox>
                             </StackPanel>
                         </DataTemplate>

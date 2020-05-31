@@ -89,6 +89,17 @@ namespace SikonConferenceSystem.ViewModel
             }
         }
 
+        private int _selectedOrder;
+        public int SelectedOrder
+        {
+            get { return _selectedOrder; }
+            set
+            {
+                _selectedOrder = value;
+                _filterBuilder.SelectedOrder = value;
+            }
+        }
+
         private List<string> _FilterOptions;
         public List<string> FilterOptions
         {
@@ -101,6 +112,11 @@ namespace SikonConferenceSystem.ViewModel
 
         private List<string> _typeConditions;
 
+        private List<string> _orderList;
+        public List<string> OrderList
+        {
+            get { return _orderList; }
+        }
 
         public FilterVM()
         {
@@ -135,7 +151,16 @@ namespace SikonConferenceSystem.ViewModel
                 "Is"
             };
 
+            _orderList = new List<string>()
+            {
+                "None",
+                "Event name",
+                "Rating"
+            };
+
             SelectedFilter = 0;
+            SelectedOrder = 0;
+            Value = "";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

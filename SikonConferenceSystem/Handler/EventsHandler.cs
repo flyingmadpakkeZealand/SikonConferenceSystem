@@ -136,6 +136,8 @@ namespace SikonConferenceSystem.Handler
             }
 
             MoveBufferEventsToAllEvents();
+
+            OrderEvents();
         }
 
         private void MoveFilteredEventsToBuffer(Func<EventAdapter, bool> condition)
@@ -161,6 +163,46 @@ namespace SikonConferenceSystem.Handler
             }
 
             _bufferFilteredEvents.Clear();
+        }
+
+        private void OrderEvents()
+        {
+            EventsPageVM Vm = _eventsPageVm;
+
+            foreach (ObservableCollection<HourGroup> hourGroups in Vm.HourGroupsByDate)
+            {
+                foreach (HourGroup hourGroup in hourGroups)
+                {
+                    ObservableCollection<EventAdapter> events = hourGroup.Events;
+
+                    List<EventAdapter> list = events.ToList();
+                    list.Sort(CycleOrders);
+
+                    events.Clear();
+
+                    foreach (EventAdapter @event in list)
+                    {
+                        events.Add(@event);
+                    }
+                }
+            }
+        }
+
+        private int CycleOrders(EventAdapter caller, EventAdapter other)
+        {
+            foreach (FilterVM filterVm in _eventsPageVm.FilterVms)
+            {
+                if (filterVm.FilterBuilder.ConstructOrderFunc() is Func<Event, Event, int> comparer)
+                {
+                    int result = comparer(caller.Event, other.Event);
+                    if (result !=0)
+                    {
+                        return result;
+                    }
+                }
+            }
+
+            return 0;
         }
 
         private class EventsInfo
