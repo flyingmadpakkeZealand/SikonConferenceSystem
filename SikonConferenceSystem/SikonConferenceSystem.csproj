@@ -142,6 +142,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\CatalogSingleton.cs" />
+    <Compile Include="Model\FilterBuilder.cs" />
     <Compile Include="Model\Messages.cs" />
     <Compile Include="Model\TupleJSON.cs" />
     <Compile Include="Persistency\CommonConsumer.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="ViewModel\AdminSpeakerViewModel.cs" />
     <Compile Include="ViewModel\BookingEventViewModel.cs" />
     <Compile Include="ViewModel\DetailedEventViewModel.cs" />
+    <Compile Include="ViewModel\FilterVM.cs" />
     <Compile Include="ViewModel\Interfaces\IFormattedEventViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IUserLoginMenu.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />

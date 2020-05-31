@@ -15,9 +15,14 @@ namespace SikonConferenceSystem.Handler
     {
         private EventsPageVM _eventsPageVm;
 
+        private List<EventsInfo> _filteredEvents;
+        private List<EventsInfo> _bufferFilteredEvents;
+
         public EventsHandler(EventsPageVM eventsPageVm)
         {
             _eventsPageVm = eventsPageVm;
+            _filteredEvents = new List<EventsInfo>();
+            _bufferFilteredEvents = new List<EventsInfo>();
         }
 
         public void ApplySpeakerEditFilter()
@@ -68,5 +73,74 @@ namespace SikonConferenceSystem.Handler
         //    NavigationService navigationService = NavigationService.GetService(Contents.MainPageContent);
         //    navigationService.Navigate(navigationService.SetupEventsPage);
         //}
+
+        private void AllEventsWithFilter(Func<EventAdapter, bool> condition)
+        {
+            EventsPageVM Vm = _eventsPageVm;
+
+            MoveFilteredEventsToBuffer(condition);
+
+            int dayIndex = 0;
+            foreach (ObservableCollection<HourGroup> hourGroups in Vm.HourGroupsByDate)
+            {
+                for (int hourIndex = 0; hourIndex < hourGroups.Count; hourIndex++)
+                {
+                    ObservableCollection<EventAdapter> events = hourGroups[hourIndex].Events;
+                    for (int i = 0; i < events.Count; i++)
+                    {
+                        if (!condition(events[i]))
+                        {
+                            _filteredEvents.Add(new EventsInfo(dayIndex, hourIndex, events[i]));
+                            events.RemoveAt(i);
+                            i += -1;
+                        }
+                    }
+                }
+
+                dayIndex++;
+            }
+
+            MoveBufferEventsToAllEvents();
+        }
+
+        private void MoveFilteredEventsToBuffer(Func<EventAdapter, bool> condition)
+        {
+            for (int i = 0; i < _filteredEvents.Count; i++)
+            {
+                if (condition(_filteredEvents[i].EventAdapter))
+                {
+                    _bufferFilteredEvents.Add(new EventsInfo(_filteredEvents[i].DayIndex, _filteredEvents[i].HourIndex, _filteredEvents[i].EventAdapter));
+                    _filteredEvents.RemoveAt(i);
+                    i += -1;
+                }
+            }
+        }
+
+        private void MoveBufferEventsToAllEvents()
+        {
+            EventsPageVM Vm = _eventsPageVm;
+
+            foreach (EventsInfo eventsInfo in _bufferFilteredEvents)
+            {
+                Vm.HourGroupsByDate[eventsInfo.DayIndex][eventsInfo.HourIndex].Events.Add(eventsInfo.EventAdapter);
+            }
+
+            _bufferFilteredEvents.Clear();
+        }
+
+        private class EventsInfo
+        {
+            public int DayIndex { get; set; }
+            public int HourIndex { get; set; }
+
+            public EventAdapter EventAdapter { get; set; }
+
+            public EventsInfo(int dayIndex, int hourIndex, EventAdapter @event)
+            {
+                DayIndex = dayIndex;
+                HourIndex = hourIndex;
+                EventAdapter = @event;
+            }
+        }
     }
 }
