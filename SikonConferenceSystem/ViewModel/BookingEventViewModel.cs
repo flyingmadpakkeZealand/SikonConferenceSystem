@@ -20,20 +20,26 @@ namespace SikonConferenceSystem.ViewModel
 {
     public class BookingEventViewModel:INotifyPropertyChanged
     {
+        public static readonly DateTime BaseDateTime = DateTime.Today;
         private Booking _newBooking;
-        public BookingEventHandler BookingEventHandler { get; set; }
+        private BookingEventHandler _handler;
+
+        public BookingEventHandler Handler
+        {
+            get { return _handler; }
+        }
         public BookingEventViewModel()
         {
             BookingEventSingleton = CatalogSingleton<Booking>.Instance;
-            _newBooking = new Booking();
-            BookingEventHandler = new BookingEventHandler(this);
-            BookUserCommand = new RelayCommand(BookingEventHandler.CreateBooking);
-            /*_bookUserCommand = new RelayCommand(BookingEventHandler.CreateBooking)*/
-            ;
 
+            _handler=new BookingEventHandler(this);
+
+            
+            _bookUserCommand = new RelayCommand(Handler.CreateBooking);
         }
 
-        public ObservableCollection<Event> BookedEvents;
+        
+        public DateTime BookingDate { get; set; }
 
         public Booking NewBooking
         {
@@ -45,6 +51,7 @@ namespace SikonConferenceSystem.ViewModel
                     _newBooking = value;
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(TranstionBookToEvent));
+                    OnPropertyChanged(nameof(BookingDay));
                     ((RelayCommand)BookUserCommand).RaiseCanExecuteChanged();
                 }
             }
@@ -52,6 +59,19 @@ namespace SikonConferenceSystem.ViewModel
 
         
         public CatalogSingleton<Booking> BookingEventSingleton { get; set; }
+
+        
+        private User _loadedUser;
+
+        public User LoadedUser
+        {
+            get { return _loadedUser; }
+            set
+            {
+                _loadedUser=value;
+                ((RelayCommand)BookUserCommand).RaiseCanExecuteChanged();
+            }
+        }
 
 
         public int TranstionBookToEvent
@@ -64,8 +84,25 @@ namespace SikonConferenceSystem.ViewModel
             }
         }
 
+        private int _bookingDay;
 
-        public ICommand BookUserCommand { get; set; }
+        public int BookingDay
+        {
+            get { return _bookingDay; }
+            set
+            {
+                BookingDate = BaseDateTime.Date;
+                _bookingDay = value;
+                ((RelayCommand)BookUserCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        private RelayCommand _bookUserCommand;
+
+        public ICommand BookUserCommand
+        {
+            get { return _bookUserCommand; }
+        }
 
 
 
