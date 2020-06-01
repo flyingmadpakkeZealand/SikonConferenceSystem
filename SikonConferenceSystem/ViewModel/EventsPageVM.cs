@@ -148,7 +148,7 @@ namespace SikonConferenceSystem.ViewModel
         private void SetupEventsList()
         {
             var quary = from @event in EventSingleton.Catalog
-                group @event by @event.Date.ToString("dd/MM/yyyy")
+                group @event by @event.Date.Subtract(@event.Date.TimeOfDay)/*@event.Date.ToString("dd/MM/yyyy")*/
                 into eventByDate
                 orderby eventByDate.Key
                 select eventByDate;
@@ -265,6 +265,7 @@ namespace SikonConferenceSystem.ViewModel
 
         private bool _formatOccurred;
         private int _hours;
+        private int _remainingHours;
 
         public EventAdapter(Event @event)
         {
@@ -286,11 +287,10 @@ namespace SikonConferenceSystem.ViewModel
                 } break;
             }
 
-            _hours = @event.Duration.Hours;
-            if (@event.Duration.Minutes>0)
-            {
-                _hours++;
-            }
+            DateTime eventHours = @event.Date.Add(@event.Duration);
+
+            _hours = eventHours.Hour - @event.Date.Hour + (eventHours.Minute != 0 ? 1 : 0);
+            _remainingHours = _hours;
         }
 
         private string FormatAbstract(string eventAbstract)
@@ -314,14 +314,10 @@ namespace SikonConferenceSystem.ViewModel
                 result = $"This event started at {Event.Date.TimeOfDay:hh\\:mm}\nDuration : {Event.Duration:hh\\:mm}";
             }
 
-            _hours--;
-            if (_hours<=0)
+            _remainingHours--;
+            if (_remainingHours<=0)
             {
-                _hours = Event.Duration.Hours;
-                if (Event.Duration.Minutes > 0)
-                {
-                    _hours++;
-                }
+                _remainingHours = _hours;
                 _formatOccurred = false;
             }
             else
