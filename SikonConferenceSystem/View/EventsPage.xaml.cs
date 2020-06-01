@@ -131,6 +131,10 @@ namespace SikonConferenceSystem.View
         private void ButtonBase_OnClick3(object sender, RoutedEventArgs e)
         {
             EventsPageVm.Handler.ApplyFilter();
+
+            int day = EventsPageVm.SelectedDayIndex;
+            EventsPageVm.SelectedDayIndex = day != 0 ? 0 : 1;
+            EventsPageVm.SelectedDayIndex = day;
         }
     }
 }

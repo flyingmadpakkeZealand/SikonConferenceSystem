@@ -72,7 +72,7 @@ namespace SikonConferenceSystem.ViewModel
                 {
                     foreach (EventAdapter @event in hourGroup.Events)
                     {
-                        @event.InformDayChanged();
+                        @event.InformDayChanged(); //Should probably be refactored ;P
                     }
                 }
                 HourGroups = _HourGroupsByDate[value];
