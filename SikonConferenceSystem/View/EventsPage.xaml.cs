@@ -132,9 +132,9 @@ namespace SikonConferenceSystem.View
         {
             EventsPageVm.Handler.ApplyFilter();
 
-            int day = EventsPageVm.SelectedDayIndex;
-            EventsPageVm.SelectedDayIndex = day != 0 ? 0 : 1;
-            EventsPageVm.SelectedDayIndex = day;
+            //int day = EventsPageVm.SelectedDayIndex;
+            ////EventsPageVm.SelectedDayIndex = day != 0 ? 0 : 1;
+            //EventsPageVm.SelectedDayIndex = day;
         }
     }
 }

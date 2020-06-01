@@ -68,13 +68,13 @@ namespace SikonConferenceSystem.ViewModel
             get { return _selectedDayIndex; }
             set
             {
-                foreach (HourGroup hourGroup in _HourGroupsByDate[value])
-                {
-                    foreach (EventAdapter @event in hourGroup.Events)
-                    {
-                        @event.InformDayChanged(); //Should probably be refactored ;P
-                    }
-                }
+                //foreach (HourGroup hourGroup in _HourGroupsByDate[value])
+                //{
+                //    foreach (EventAdapter @event in hourGroup.Events)
+                //    {
+                //        @event.InformDayChanged(); //Should probably be refactored ;P
+                //    }
+                //}
                 HourGroups = _HourGroupsByDate[value];
                 _selectedDayIndex = value;
             }
@@ -264,6 +264,7 @@ namespace SikonConferenceSystem.ViewModel
         }
 
         private bool _formatOccurred;
+        private int _hours;
 
         public EventAdapter(Event @event)
         {
@@ -283,6 +284,12 @@ namespace SikonConferenceSystem.ViewModel
                 {
                     Color = BigEventColor;
                 } break;
+            }
+
+            _hours = @event.Duration.Hours;
+            if (@event.Duration.Minutes>0)
+            {
+                _hours++;
             }
         }
 
@@ -307,13 +314,27 @@ namespace SikonConferenceSystem.ViewModel
                 result = $"This event started at {Event.Date.TimeOfDay:hh\\:mm}\nDuration : {Event.Duration:hh\\:mm}";
             }
 
-            _formatOccurred = true;
+            _hours--;
+            if (_hours<=0)
+            {
+                _hours = Event.Duration.Hours;
+                if (Event.Duration.Minutes > 0)
+                {
+                    _hours++;
+                }
+                _formatOccurred = false;
+            }
+            else
+            {
+                _formatOccurred = true;
+            }
+            
             return result;
         }
 
-        public void InformDayChanged()
-        {
-            _formatOccurred = false;
-        }
+        //public void InformDayChanged()
+        //{
+        //    //_formatOccurred = false;
+        //}
     }
 }
