@@ -109,5 +109,32 @@ namespace SikonConferenceSystem.View
             }
             base.OnNavigatedTo(e);
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            EventsPageVm.FilterVms.Add(new FilterVM());
+            FilterListView.Height = double.NaN;
+        }
+
+        private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
+        {
+            if (FilterListView.ActualHeight>92)
+            {
+                FilterListView.Height = 92;
+            }
+            else
+            {
+                FilterListView.Height = double.NaN;
+            }
+        }
+
+        private void ButtonBase_OnClick3(object sender, RoutedEventArgs e)
+        {
+            EventsPageVm.Handler.ApplyFilter();
+
+            int day = EventsPageVm.SelectedDayIndex;
+            EventsPageVm.SelectedDayIndex = day != 0 ? 0 : 1;
+            EventsPageVm.SelectedDayIndex = day;
+        }
     }
 }
