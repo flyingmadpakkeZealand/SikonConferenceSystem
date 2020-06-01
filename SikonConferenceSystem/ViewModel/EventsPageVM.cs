@@ -192,7 +192,7 @@ namespace SikonConferenceSystem.ViewModel
                 {
                     if (AddEventCondition(@event, hourGroup))
                     {
-                        hourGroup.Events.Add(@event);
+                        hourGroup.Events.Add(@event); //Could possibly make new objects here, but memory would be increased unless you had an adapter for the adapter...
                     }
                 }
             }
