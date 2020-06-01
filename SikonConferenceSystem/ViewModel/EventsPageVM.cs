@@ -72,7 +72,7 @@ namespace SikonConferenceSystem.ViewModel
                 {
                     foreach (EventAdapter @event in hourGroup.Events)
                     {
-                        @event.InformDayChanged();
+                        @event.InformDayChanged(); //Should probably be refactored ;P
                     }
                 }
                 HourGroups = _HourGroupsByDate[value];
@@ -80,9 +80,17 @@ namespace SikonConferenceSystem.ViewModel
             }
         }
 
+        private ObservableCollection<FilterVM> _filterVms;
+        public ObservableCollection<FilterVM> FilterVms
+        {
+            get { return _filterVms; }
+        }
+
         private int _hourGroupIterations;
         public EventsPageVM()
         {
+            _filterVms = new ObservableCollection<FilterVM>(){new FilterVM()};
+
             _hourGroupIterations = 24;
             #region Old Mockup Code
             //HourGroups = new ObservableCollection<HourGroup>();
@@ -184,7 +192,7 @@ namespace SikonConferenceSystem.ViewModel
                 {
                     if (AddEventCondition(@event, hourGroup))
                     {
-                        hourGroup.Events.Add(@event);
+                        hourGroup.Events.Add(@event); //Could possibly make new objects here, but memory would be increased unless you had an adapter for the adapter...
                     }
                 }
             }

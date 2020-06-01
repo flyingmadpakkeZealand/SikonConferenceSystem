@@ -19,6 +19,18 @@
     <Page.Resources>
         <CollectionViewSource x:Name="ViewSourceEvents" Source="{Binding HourGroups}" ItemsPath="Events" IsSourceGrouped="True"></CollectionViewSource>
         <converter:BoolToVisibility x:Key="BoolToVisibility"/>
+        <Style x:Key="FilterComboBox" TargetType="ComboBox">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style x:Key="FilterTextBox" TargetType="TextBox">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="FilterTextBlock" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
     </Page.Resources>
 
 
@@ -29,12 +41,12 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
-        <!--<Grid Grid.Row="0" RowSpan="2" Background="SlateGray" Visibility="{Binding ListIsLoading, Converter={StaticResource BoolToVisibility}}" Canvas.ZIndex="1">
+        <Grid Grid.Row="0" RowSpan="2" Background="SlateGray" Visibility="{Binding ListIsLoading, Converter={StaticResource BoolToVisibility}}" Canvas.ZIndex="1">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing Height="100" Width="100" IsActive="True"/>
                 <TextBlock FontSize="50" Text="Loading events"/>
             </StackPanel>
-        </Grid>-->
+        </Grid>
 
         <!--#region OldDesign -->
         <!--<Grid Background="Transparent" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0,0,0,30" >
@@ -93,9 +105,31 @@
                 </FlipView>
             </Border>
 
-            <TextBlock Text="Filter" FontSize="40" Grid.Row="1"></TextBlock>
+            <StackPanel Grid.Row="1">
+                <ListView Name="FilterListView" ItemsSource="{Binding FilterVms}" SelectionMode="None" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollMode="Disabled">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Padding="0,20,0,20">
+                                <ComboBox Header="Filter" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding FilterOptions}" SelectedIndex="{Binding SelectedFilter, Mode=TwoWay}">
+                                </ComboBox>
+                                <ComboBox Header="Condition" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding Conditions}" SelectedIndex="{Binding SelectedCondition, Mode=TwoWay}">
+                                </ComboBox>
+                                <TextBox Header="Value" Text="{Binding Value, Mode=TwoWay}" Style="{StaticResource FilterTextBox}"/>
+                                <ComboBox Header="Order by" Margin="40,0,0,0" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding OrderList}" SelectedIndex="{Binding SelectedOrder, Mode=TwoWay}">
+                                </ComboBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Spacing="20" Orientation="Horizontal">
+                    <Button Content="Show/Hide Filters" Background="White" Click="ButtonBase_OnClick2"/>
+                    <Button Content="Add Filter" Background="White" Click="ButtonBase_OnClick"/>
+                    <Button Content="Apply" Background="White" Click="ButtonBase_OnClick3"/>
+                </StackPanel>
+                <Border BorderBrush="Black" BorderThickness="1"/>
+            </StackPanel>
 
-            <ListView Name="EventList" Background="Beige" ItemsSource="{Binding Source={StaticResource ViewSourceEvents}}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2">
+            <ListView SelectionMode="None" Name="EventList" Background="Beige" ItemsSource="{Binding Source={StaticResource ViewSourceEvents}}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2">
                 <ListView.GroupStyle>
                     <GroupStyle HidesIfEmpty="True">
                         <GroupStyle.HeaderTemplate>
