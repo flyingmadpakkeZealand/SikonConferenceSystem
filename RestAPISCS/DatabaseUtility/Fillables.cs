@@ -91,11 +91,22 @@ namespace RestAPISCS.DatabaseUtility
 
         public static void FillBooking(Booking booking, SqlDataReader reader)
         {
-            int id = reader.GetInt32(reader.GetOrdinal("Id"));
+            int userId = reader.GetInt32(reader.GetOrdinal("UserId"));
 
-            booking.Id = id;
-            booking.BookingID = reader.GetInt32(reader.GetOrdinal("BookingId"));
-            booking.BookingDate = reader.GetDateTime(reader.GetOrdinal("BookingDate"));
+            booking.UserId = userId;
+            booking.ReceiveMessages = reader.GetBoolean(reader.GetOrdinal("ReceiveMessages"));
+
+            var fillInt = CreateFillSimpleType<int>("EventId");
+
+            IEnumerable<SimpleType<int>> eventIds = DataBases
+                .Access<SimpleType<int>>(BaseNames.SikonDatabase, "BookedEvents")
+                .GetSelection(fillInt, BookingsController.PrimaryKeys(userId));
+
+            booking.BookedEventsId = new List<int>();
+            foreach (SimpleType<int> simpleType in eventIds)
+            {
+                booking.BookedEventsId.Add(simpleType.Variable);
+            }
         }
 
         public static Action<SimpleType<T>, SqlDataReader> CreateFillSimpleType<T>(string columnName)

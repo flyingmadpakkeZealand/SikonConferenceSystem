@@ -39,7 +39,7 @@ namespace SikonConferenceSystem.Handler
 
         public async void DeleteBooking()
         {
-            int bookingId = _bookingEventViewModel.NewBooking.BookingID;
+            int bookingId = _bookingEventViewModel.NewBooking.UserId;
             Persistency.Consumer<Booking> bookingFacade = new Persistency.Consumer<Booking>("http://localhost:61467/api/Bookings");
             bool ok = await bookingFacade.DeleteAsync(new []{(bookingId)});
             //ClearBooking();
