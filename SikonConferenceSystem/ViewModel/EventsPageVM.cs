@@ -68,13 +68,13 @@ namespace SikonConferenceSystem.ViewModel
             get { return _selectedDayIndex; }
             set
             {
-                foreach (HourGroup hourGroup in _HourGroupsByDate[value])
-                {
-                    foreach (EventAdapter @event in hourGroup.Events)
-                    {
-                        @event.InformDayChanged(); //Should probably be refactored ;P
-                    }
-                }
+                //foreach (HourGroup hourGroup in _HourGroupsByDate[value])
+                //{
+                //    foreach (EventAdapter @event in hourGroup.Events)
+                //    {
+                //        @event.InformDayChanged(); //Should probably be refactored ;P
+                //    }
+                //}
                 HourGroups = _HourGroupsByDate[value];
                 _selectedDayIndex = value;
             }
@@ -148,7 +148,7 @@ namespace SikonConferenceSystem.ViewModel
         private void SetupEventsList()
         {
             var quary = from @event in EventSingleton.Catalog
-                group @event by @event.Date.ToString("dd/MM/yyyy")
+                group @event by @event.Date.Subtract(@event.Date.TimeOfDay)/*@event.Date.ToString("dd/MM/yyyy")*/
                 into eventByDate
                 orderby eventByDate.Key
                 select eventByDate;
@@ -264,6 +264,8 @@ namespace SikonConferenceSystem.ViewModel
         }
 
         private bool _formatOccurred;
+        private int _hours;
+        private int _remainingHours;
 
         public EventAdapter(Event @event)
         {
@@ -284,6 +286,11 @@ namespace SikonConferenceSystem.ViewModel
                     Color = BigEventColor;
                 } break;
             }
+
+            DateTime eventHours = @event.Date.Add(@event.Duration);
+
+            _hours = eventHours.Hour - @event.Date.Hour + (eventHours.Minute != 0 ? 1 : 0);
+            _remainingHours = _hours;
         }
 
         private string FormatAbstract(string eventAbstract)
@@ -307,13 +314,23 @@ namespace SikonConferenceSystem.ViewModel
                 result = $"This event started at {Event.Date.TimeOfDay:hh\\:mm}\nDuration : {Event.Duration:hh\\:mm}";
             }
 
-            _formatOccurred = true;
+            _remainingHours--;
+            if (_remainingHours<=0)
+            {
+                _remainingHours = _hours;
+                _formatOccurred = false;
+            }
+            else
+            {
+                _formatOccurred = true;
+            }
+            
             return result;
         }
 
-        public void InformDayChanged()
-        {
-            _formatOccurred = false;
-        }
+        //public void InformDayChanged()
+        //{
+        //    //_formatOccurred = false;
+        //}
     }
 }
