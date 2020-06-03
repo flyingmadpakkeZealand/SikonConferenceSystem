@@ -32,7 +32,7 @@ namespace SikonConferenceSystem.View
         {
             if (e.Parameter is Action<bool> onClickBook)
             {
-                BookingEventViewModel.BookingEventHandler.OnClickedBook = onClickBook;
+                BookingEventViewModel.Handler.OnClickedBook = onClickBook;
             }
             base.OnNavigatedTo(e);
         }
