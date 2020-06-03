@@ -31,6 +31,8 @@ namespace SikonConferenceSystem.Handler
             bool ok = await UserSettingsFacade.PutAsync(aUser, new[] { _userSettingsVM.NewUser.Id });
 
 
+
+
         }
     }
 }

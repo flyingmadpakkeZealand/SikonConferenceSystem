@@ -5,29 +5,33 @@
     xmlns:local="using:SikonConferenceSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:SikonConferenceSystem.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+<Page.DataContext>
+        <viewModel:UserSettingsVM></viewModel:UserSettingsVM>
+</Page.DataContext>
     <Grid Background="SlateGray">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Width="500" Height="600">
                 <TextBlock Text="Name" FontSize="24"></TextBlock>
-                <TextBox Background="White" PlaceholderText="Name" FontSize="36"></TextBox>
+                <TextBox Background="White" PlaceholderText="Name" Text="{Binding TransitionName, Mode=TwoWay}" FontSize="36"></TextBox>
                 <TextBlock Text="Phonenumber" FontSize="24"></TextBlock>
-                <TextBox Background="White"  PlaceholderText="Phonenumber" FontSize="36"></TextBox>
+            <TextBox Background="White"  PlaceholderText="Phonenumber" Text="{Binding TransitionPhoneNumber, Mode=TwoWay}" FontSize="36"></TextBox>
                 <TextBlock Text="Email" FontSize="24"></TextBlock>
-                <TextBox Background="White" PlaceholderText="Email" FontSize="36"></TextBox>
-                <TextBlock Text="Password" FontSize="24"></TextBlock>
-                <PasswordBox Background="White" Width="500" Name ="PasswordBox"  PlaceholderText="Password" FontSize="36" PasswordRevealMode="Hidden"/>
-                <CheckBox Name="RevealModeCheckBoxPassword" Content="Show password"
-                      IsChecked="False" 
-                      FontSize="24"/>
+            <TextBox Background="White" PlaceholderText="Email" Text="{Binding TransitionEmail, Mode=TwoWay}" FontSize="36"></TextBox>
+                <TextBlock Text="Password" FontSize="24"> </TextBlock>
+                <PasswordBox Background="White" Width="500" Name ="passwordBox1"  PlaceholderText="Password" Password="{Binding TransitionPassword, Mode=TwoWay}" FontSize="36" PasswordRevealMode="Hidden"/>
+            <CheckBox Name="revealModeCheckBox" Content="Show password"
+                          IsChecked="False" 
+                          Checked="CheckBox_Changed" Unchecked="CheckBox_Changed" FontSize="24"/>
 
             <StackPanel Orientation="Horizontal" Spacing="50" Margin="0,50,0,0" HorizontalAlignment="Center">
                     <Button Background="White" Content="Update" FontSize="24"></Button>
                     <TextBlock Text="Allow messages" FontSize="24"></TextBlock>
                     <CheckBox Name="revealModeCheckBoxMessages"
                               IsChecked="False" 
-                              FontSize="24"/>
+                              Checked="MessageCheckBoxOn" Unchecked="MessageCheckBoxOff" FontSize="24"/>
+                            
                 </StackPanel>
             </StackPanel>
     </Grid>

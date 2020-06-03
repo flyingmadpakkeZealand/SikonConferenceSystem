@@ -86,12 +86,12 @@ namespace SikonConferenceSystem.ViewModel
             get { return _filterVms; }
         }
 
-        private int _hourGroupIterations;
+        private const int _hourGroupIterations = 24;
         public EventsPageVM()
         {
             _filterVms = new ObservableCollection<FilterVM>(){new FilterVM()};
 
-            _hourGroupIterations = 24;
+            //_hourGroupIterations = 24;
             #region Old Mockup Code
             //HourGroups = new ObservableCollection<HourGroup>();
 

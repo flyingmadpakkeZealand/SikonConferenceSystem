@@ -76,10 +76,10 @@ namespace SikonConferenceSystem.ViewModel
 
         public int TranstionBookToEvent
         {
-            get { return NewBooking.BookingID; }
+            get { return NewBooking.UserId; }
             set
             {
-                NewBooking.BookingID = value;
+                NewBooking.UserId = value;
                 ((RelayCommand)BookUserCommand).RaiseCanExecuteChanged();
             }
         }

@@ -13,46 +13,82 @@ namespace RestAPISCS.Controllers
 {
     public class BookingsController : ApiController
     {
-        private ManageGenericWithLambda<Booking> bookingManager = DataBases.Access<Booking>(BaseNames.SikonDatabase, "Booking");
+        private ManageGenericWithLambda<Booking> bookingSettingsManager = DataBases.Access<Booking>(BaseNames.SikonDatabase, "BookingSettings");
 
-        private static Dictionary<string, object> PrimaryKeys(int bookingId)
+        private ManageGenericWithLambda<SimpleType<int>> bookedEventsManager =
+            DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "BookedEvents");
+
+
+        public static Dictionary<string, object> PrimaryKeys(int userId)
         {
             Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
-            lookupDictionary.Add("BookingId", bookingId);
+            lookupDictionary.Add("UserId", userId);
             return lookupDictionary;
         }
 
         // GET: api/Bookings
         public IEnumerable<Booking> Get()
         {
-            return bookingManager.Get(Fillables.FillBooking);
+            return bookingSettingsManager.Get(Fillables.FillBooking); //Fills a booking object by itself.
         }
 
         // GET: api/Bookings/5
-        public Booking Get(int bookingId)
+        public Booking Get(int id)
         {
-            return bookingManager.GetOne(Fillables.FillBooking, PrimaryKeys(bookingId));
+            return bookingSettingsManager.GetOne(Fillables.FillBooking, PrimaryKeys(id));
         }
 
         // POST: api/Bookings
         public bool Post([FromBody]Booking booking)
         {
-            return bookingManager.Post(Extractables.ExtractBooking(booking));
+            bool settingsOk = bookingSettingsManager.Post(Extractables.ExtractBookingSettings(booking));
+
+            bool bookedOk = false;
+            if (settingsOk)
+            {
+                bookedOk = true;
+                foreach (int eventId in booking.BookedEventsId)
+                {
+                    bookedOk = bookedEventsManager.Post(Extractables.ExtractBookedEvents(booking.UserId, eventId));
+                }
+            }
+
+            return settingsOk && bookedOk;
         }
 
         // PUT: api/Bookings/5
-        public bool Put(int bookingId, [FromBody]Booking booking)
+        public bool Put(int id, [FromBody]Booking booking)
         {
-            return bookingManager.Put(Extractables.ExtractBooking(booking), PrimaryKeys(bookingId));
+            bool settingsOk = bookingSettingsManager.Put(Extractables.ExtractBookingSettings(booking), PrimaryKeys(id));
+
+            bool bookedOk = false;
+            if (settingsOk)
+            {
+                bookedEventsManager.Delete(PrimaryKeys(id));
+
+                bookedOk = true;
+                foreach (int eventId in booking.BookedEventsId)
+                {
+                    bookedOk = bookedEventsManager.Post(Extractables.ExtractBookedEvents(booking.UserId, eventId));
+                }
+            }
+
+            return settingsOk && bookedOk;
         }
 
         // DELETE: api/Bookings/5
-        public bool Delete(int bookingId)
+        public bool Delete(int id)
         {
-            return bookingManager.Delete(PrimaryKeys(bookingId));
-        }
+            bool settingsOk = bookingSettingsManager.Delete(PrimaryKeys(id));
 
-        //Der mangler CheckNoDuplicate og RetrieveId
+            bool bookedOk = false;
+            if (settingsOk)
+            {
+                bookedOk = bookedEventsManager.Delete(PrimaryKeys(id));
+            }
+
+            return settingsOk && bookedOk;
+        }
 
     }
 }
