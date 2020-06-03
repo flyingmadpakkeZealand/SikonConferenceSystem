@@ -124,6 +124,7 @@
                 <StackPanel Spacing="20" Orientation="Horizontal">
                     <Button Content="Show/Hide Filters" Background="White" Click="ButtonBase_OnClick2"/>
                     <Button Content="Add Filter" Background="White" Click="ButtonBase_OnClick"/>
+                    <Button Name="RemoveFilterButton" Content="Remove Filter" Background="White" Click="ButtonBase_OnClick4"></Button>
                     <Button Content="Apply" Background="White" Click="ButtonBase_OnClick3"/>
                 </StackPanel>
                 <Border BorderBrush="Black" BorderThickness="1"/>

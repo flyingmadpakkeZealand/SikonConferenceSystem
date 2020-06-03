@@ -16,8 +16,8 @@ namespace SikonConferenceSystem.ViewModel
     public class SetupEventsPageVM : IFormattedEventViewModel
     {
         //Mockup values. You choose dates by going through a collection of valid dates based on the BaseDateTime and eventDuration.
-        public static readonly DateTime BaseDateTime = DateTime.Today;
-        public static int EventDays = 2;
+        public static readonly DateTime BaseDateTime = new DateTime(2020,6,2);
+        public static int EventDays = 3;
         //Cannot decide on the best practice for loading a pre-existing Event, therefore putting it into this static variable just before it is accessed is the simplest way.
         
         private Event _newEvent;
@@ -147,7 +147,7 @@ namespace SikonConferenceSystem.ViewModel
             int selectedDay = NewEvent.Date.Subtract(BaseDateTime).Days;
             if (selectedDay > 10)
             {
-                throw new ArgumentException("Testing date mismatch, selectedDay: " + selectedDay);
+                throw new ArgumentException("Testing date mismatch, selectedDay: " + selectedDay); //TODO: make base date an admin setting.
             }
             else if (selectedDay > EventDays - 1)
             {
