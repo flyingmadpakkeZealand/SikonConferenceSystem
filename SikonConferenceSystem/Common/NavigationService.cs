@@ -9,7 +9,7 @@ using SikonConferenceSystem.View;
 using SikonConferenceSystem.ViewModel;
 
 namespace SikonConferenceSystem.Common
-{ //Initial Commit. //Initial Commit - CreateEvents_Draft. //Initial Commit - ProfilesTab_Draft.
+{ //Initial Commit. //Initial Commit - CreateEvents_Draft. //Initial Commit - ProfilesTab_Draft. //Initial commit - EventsPage_UserFilter.
     public enum Contents
     {
         MainPageContent,

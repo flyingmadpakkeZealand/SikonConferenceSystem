@@ -76,12 +76,21 @@ namespace RestAPISCS.DatabaseUtility
             return lookupDictionary;
         }
 
-        public static Dictionary<string, object> ExtractBooking(Booking booking)
+        public static Dictionary<string, object> ExtractBookingSettings(Booking booking)
         {
             Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
-            lookupDictionary.Add("BookingId", booking.BookingID);
-            lookupDictionary.Add("BookingDate", booking.BookingDate);
-            lookupDictionary.Add("Id", booking.Id);
+            lookupDictionary.Add("UserId", booking.UserId);
+            lookupDictionary.Add("ReceiveMessages", booking.ReceiveMessages);
+
+            return lookupDictionary;
+        }
+
+        public static Dictionary<string, object> ExtractBookedEvents(int userId, int eventId)
+        {
+            Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
+
+            lookupDictionary.Add("UserId", userId);
+            lookupDictionary.Add("EventId", eventId);
 
             return lookupDictionary;
         }

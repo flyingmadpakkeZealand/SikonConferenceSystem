@@ -6,15 +6,14 @@ namespace ModelLibrary
 {
     public class Booking
     {
-        public int BookingID { get; set; }
-        public DateTime BookingDate { get; set; }
-        public int Id { get; set; }
+        public int UserId { get; set; }
+        public bool ReceiveMessages { get; set; }
+        public List<int> BookedEventsId { get; set; }
 
-        public Booking(int bookingId, DateTime bookingDate, int id)
+        public Booking(int userId, bool receiveMessages)
         {
-            BookingID = bookingId;
-            BookingDate = bookingDate;
-            Id = id;
+            UserId = userId;
+            ReceiveMessages = receiveMessages;
         }
 
         public Booking()

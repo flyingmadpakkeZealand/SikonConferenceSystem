@@ -36,8 +36,8 @@ namespace SikonConferenceSystem.View
             MaxHeightForGrid = MainPage.AproxFrameHeight;
             this.InitializeComponent();
             //TestCVS.Source = CreateGroups2();
+            RemoveFilterButton.IsEnabled = false;
 
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -108,6 +108,46 @@ namespace SikonConferenceSystem.View
                 _eventDestinationButtonText = "See Event";
             }
             base.OnNavigatedTo(e);
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            EventsPageVm.FilterVms.Add(new FilterVM());
+            FilterListView.Height = double.NaN;
+            RemoveFilterButton.IsEnabled = true;
+        }
+
+        private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
+        {
+            if (FilterListView.ActualHeight>92)
+            {
+                FilterListView.Height = 92;
+            }
+            else
+            {
+                FilterListView.Height = double.NaN;
+            }
+        }
+
+        private void ButtonBase_OnClick3(object sender, RoutedEventArgs e)
+        {
+            EventsPageVm.Handler.ApplyFilter();
+
+            //int day = EventsPageVm.SelectedDayIndex;
+            ////EventsPageVm.SelectedDayIndex = day != 0 ? 0 : 1;
+            //EventsPageVm.SelectedDayIndex = day;
+        }
+
+        private void ButtonBase_OnClick4(object sender, RoutedEventArgs e)
+        {
+            EventsPageVm.FilterVms.RemoveAt(EventsPageVm.FilterVms.Count-1);
+            if (EventsPageVm.FilterVms.Count == 1)
+            {
+                Button button = sender as Button;
+                button.IsEnabled = false;
+            }
+
+            FilterListView.Height = double.NaN;
         }
     }
 }

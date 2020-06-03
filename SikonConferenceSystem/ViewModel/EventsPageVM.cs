@@ -68,22 +68,30 @@ namespace SikonConferenceSystem.ViewModel
             get { return _selectedDayIndex; }
             set
             {
-                foreach (HourGroup hourGroup in _HourGroupsByDate[value])
-                {
-                    foreach (EventAdapter @event in hourGroup.Events)
-                    {
-                        @event.InformDayChanged();
-                    }
-                }
+                //foreach (HourGroup hourGroup in _HourGroupsByDate[value])
+                //{
+                //    foreach (EventAdapter @event in hourGroup.Events)
+                //    {
+                //        @event.InformDayChanged(); //Should probably be refactored ;P
+                //    }
+                //}
                 HourGroups = _HourGroupsByDate[value];
                 _selectedDayIndex = value;
             }
         }
 
-        private int _hourGroupIterations;
+        private ObservableCollection<FilterVM> _filterVms;
+        public ObservableCollection<FilterVM> FilterVms
+        {
+            get { return _filterVms; }
+        }
+
+        private const int _hourGroupIterations = 24;
         public EventsPageVM()
         {
-            _hourGroupIterations = 24;
+            _filterVms = new ObservableCollection<FilterVM>(){new FilterVM()};
+
+            //_hourGroupIterations = 24;
             #region Old Mockup Code
             //HourGroups = new ObservableCollection<HourGroup>();
 
@@ -140,7 +148,7 @@ namespace SikonConferenceSystem.ViewModel
         private void SetupEventsList()
         {
             var quary = from @event in EventSingleton.Catalog
-                group @event by @event.Date.ToString("dd/MM/yyyy")
+                group @event by @event.Date.Subtract(@event.Date.TimeOfDay)/*@event.Date.ToString("dd/MM/yyyy")*/
                 into eventByDate
                 orderby eventByDate.Key
                 select eventByDate;
@@ -184,7 +192,7 @@ namespace SikonConferenceSystem.ViewModel
                 {
                     if (AddEventCondition(@event, hourGroup))
                     {
-                        hourGroup.Events.Add(@event);
+                        hourGroup.Events.Add(@event); //Could possibly make new objects here, but memory would be increased unless you had an adapter for the adapter...
                     }
                 }
             }
@@ -256,6 +264,8 @@ namespace SikonConferenceSystem.ViewModel
         }
 
         private bool _formatOccurred;
+        private int _hours;
+        private int _remainingHours;
 
         public EventAdapter(Event @event)
         {
@@ -276,6 +286,11 @@ namespace SikonConferenceSystem.ViewModel
                     Color = BigEventColor;
                 } break;
             }
+
+            DateTime eventHours = @event.Date.Add(@event.Duration);
+
+            _hours = eventHours.Hour - @event.Date.Hour + (eventHours.Minute != 0 ? 1 : 0);
+            _remainingHours = _hours;
         }
 
         private string FormatAbstract(string eventAbstract)
@@ -299,13 +314,23 @@ namespace SikonConferenceSystem.ViewModel
                 result = $"This event started at {Event.Date.TimeOfDay:hh\\:mm}\nDuration : {Event.Duration:hh\\:mm}";
             }
 
-            _formatOccurred = true;
+            _remainingHours--;
+            if (_remainingHours<=0)
+            {
+                _remainingHours = _hours;
+                _formatOccurred = false;
+            }
+            else
+            {
+                _formatOccurred = true;
+            }
+            
             return result;
         }
 
-        public void InformDayChanged()
-        {
-            _formatOccurred = false;
-        }
+        //public void InformDayChanged()
+        //{
+        //    //_formatOccurred = false;
+        //}
     }
 }
