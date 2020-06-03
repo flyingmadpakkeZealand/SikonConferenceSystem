@@ -20,8 +20,8 @@ namespace SikonConferenceSystem.ViewModel
         public UserSettingsHandler UserSettingsHandler { get; set; }
         public UserSettingsVM()
         {
-            _newUser = new User("", "", "","");
-            
+            UserSettingsHandler = new UserSettingsHandler(this);
+            _newUser = new User(AppData.LoadedUser.Name, AppData.LoadedUser.PhoneNumber, AppData.LoadedUser.Email, AppData.LoadedUser.Password);
             UpdateUserCommand = new RelayCommand(UserSettingsHandler.UpdateUser, (() => CheckforBlank() && CheckData()));
         }
 
