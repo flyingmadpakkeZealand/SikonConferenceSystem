@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ModelLibrary;
+using SikonConferenceSystem.Annotations;
 
 namespace SikonConferenceSystem.Common
 {
@@ -20,6 +21,10 @@ namespace SikonConferenceSystem.Common
 
         private static event Action _onUserLoggedIn;
 
+        private static Dictionary<string, Action> _stashedMethodsLogin = new Dictionary<string, Action>();
+
+        private static Dictionary<string, Action> _stashedMethodsLogout = new Dictionary<string, Action>();
+
         private static User _loadedUser;
 
         public static User LoadedUser
@@ -28,7 +33,27 @@ namespace SikonConferenceSystem.Common
             set
             {
                 _loadedUser = value;
-                _onUserLoggedIn?.Invoke();
+                InvokeUserLogin();
+            }
+        }
+
+        private static void InvokeUserLogin()
+        {
+            _onUserLoggedIn?.Invoke();
+
+            foreach (Action action in _stashedMethodsLogin.Values)
+            {
+                action?.Invoke();
+            }
+        }
+
+        private static void InvokeUserLogout()
+        {
+            _onUserLoggedOut?.Invoke();
+
+            foreach (Action action in _stashedMethodsLogout.Values)
+            {
+                action?.Invoke();
             }
         }
 
@@ -37,12 +62,36 @@ namespace SikonConferenceSystem.Common
             return LoadedUser as T;
         }
 
+        public static void StashMethodForLogin(string stashId, [NotNull] Action action)
+        {
+            if (_stashedMethodsLogin.ContainsKey(stashId))
+            {
+                _stashedMethodsLogin[stashId] = action;
+            }
+            else
+            {
+                _stashedMethodsLogin.Add(stashId, action);
+            }
+        }
+
         public static void OnUserLoggedIn(Action action)
         {
             _onUserLoggedIn += action;
         }
 
-        public static void OnUserLoggedOut(Action action)
+        public static void StashMethodForLogout(string stashId, [NotNull] Action action)
+        {
+            if (_stashedMethodsLogout.ContainsKey(stashId))
+            {
+                _stashedMethodsLogout[stashId] = action;
+            }
+            else
+            {
+                _stashedMethodsLogout.Add(stashId, action);
+            }
+        }
+
+        public static void OnUserLoggedOut([NotNull] Action action)
         {
             _onUserLoggedOut += action;
         }
@@ -52,7 +101,7 @@ namespace SikonConferenceSystem.Common
             if (LoadedUser != null)
             {
                 _loadedUser = null;
-                _onUserLoggedOut?.Invoke();
+                InvokeUserLogout();
                 return true;
             }
 
