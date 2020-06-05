@@ -75,9 +75,14 @@
                         <CheckBox.ContextFlyout>
                             <Flyout>
                                 <StackPanel>
-                                    <TextBlock Text="Are you sure you want to book?"/>
+                                    <TextBlock Text="{Binding HelperText}"/>
                                     <Button Content="Book" Command="{Binding PressBookCommand}"/>
                                 </StackPanel>
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter">
+                                        <Setter Property="MaxWidth" Value="1000"/>
+                                    </Style>
+                                </Flyout.FlyoutPresenterStyle>
                             </Flyout>
                         </CheckBox.ContextFlyout>
                     </CheckBox>

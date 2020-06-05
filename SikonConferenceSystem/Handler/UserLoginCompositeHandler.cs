@@ -50,6 +50,8 @@ namespace SikonConferenceSystem.Handler
 
             if (Vm.Password == Vm.LoadedUser?.Password)
             {
+                var consumer = CommonConsumerFactory.Create(new Consumer<Booking>());
+                Vm.LoadedUser.Booking = await consumer.GetOneAsync(new[] { Vm.LoadedUser.Id });
                 Vm.NavigationService?.Navigate(Vm.NavigationService.UserLoginProfileMenu, Vm.LoadedUser);
             }
             else

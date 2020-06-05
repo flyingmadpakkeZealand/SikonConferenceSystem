@@ -21,12 +21,9 @@ namespace SikonConferenceSystem.ViewModel
 {
     public class DetailedEventViewModel:IFormattedEventViewModel, INotifyPropertyChanged
     {
-        private Event _newEvent;
-
-        public Event NewEvent
-        {
-            get { return _newEvent; }
-        }
+        private const string UserIsLoggedInText = "Are you sure you want to book this event?";
+        private const string UserNotLoggedInText =
+            "Please click the profile button in the top right corner to login or signup,\nbefore booking an event.";
 
         private DetailedEventHandler _handler;
 
@@ -38,15 +35,22 @@ namespace SikonConferenceSystem.ViewModel
 
         public DetailedEventViewModel()
         {
-            _newEvent = new Event();
+            HelperText = AppData.LoadedUser != null ? UserIsLoggedInText : UserNotLoggedInText;
 
-            
             SelectedTypeIndex = (int) Type;
             _handler= new DetailedEventHandler(this);
             
-            _pressBookCommand = new RelayCommand(Handler.BookEvent);
+            _pressBookCommand = new RelayCommand(Handler.BookEvent, () => AppData.LoadedUser != null);
+
+            AppData.StashMethodForLogin("DEV", OnUserLoggedIn);
         }
 
+        private void OnUserLoggedIn()
+        {
+            _pressBookCommand.RaiseCanExecuteChanged();
+            Handler.UpdateEventIsBooked();
+            HelperText = UserIsLoggedInText;
+        }
 
         public string AbstractHeader { get; set; }
         public string Abstract { get; set; }
@@ -82,6 +86,28 @@ namespace SikonConferenceSystem.ViewModel
         //{
         //    get { return _eventDurationMinutes; }
         //}
+
+        private bool _eventIsBooked;
+        public bool EventIsBooked
+        {
+            get { return _eventIsBooked; }
+            set
+            {
+                _eventIsBooked = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _helperText;
+        public string HelperText
+        {
+            get { return _helperText;}
+            set
+            {
+                _helperText = value;
+                OnPropertyChanged();
+            }
+        }
 
         private RelayCommand _pressBookCommand;
         public ICommand PressBookCommand
