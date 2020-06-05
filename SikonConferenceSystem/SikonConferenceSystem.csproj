@@ -167,9 +167,6 @@
     <Compile Include="ViewModel\UserLoginMenuVM.cs" />
     <Compile Include="ViewModel\UserLoginProfileMenuVM.cs" />
     <Compile Include="ViewModel\UserSettingsVM.cs" />
-    <Compile Include="View\BookingEventPage.xaml.cs">
-      <DependentUpon>BookingEventPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\CreateRooms.xaml.cs">
       <DependentUpon>CreateRooms.xaml</DependentUpon>
     </Compile>
@@ -227,10 +224,6 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\BookingEventPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CreateRooms.xaml">
       <SubType>Designer</SubType>

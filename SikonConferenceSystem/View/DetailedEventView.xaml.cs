@@ -44,17 +44,18 @@ namespace SikonConferenceSystem.View
             return eEvent;
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        
+        private void BookCheckBox_OnClick(object sender, RoutedEventArgs e)
         {
             if (sender is CheckBox checkBox)
             {
                 checkBox.IsChecked = !checkBox.IsChecked;
-                ConfirmFrame.Navigate(typeof(BookingEventPage), new Action<bool>(eventBooked =>
-                    {
-                        checkBox.IsChecked = eventBooked;
-                        checkBox.ContextFlyout.Hide();
-                    }));
                 checkBox.ContextFlyout.ShowAt(checkBox);
+                DetailedEventViewModel.Handler.OnClickBook = (isChecked) =>
+                {
+                    checkBox.ContextFlyout.Hide();
+                    checkBox.IsChecked = isChecked;
+                };
             }
         }
     }
