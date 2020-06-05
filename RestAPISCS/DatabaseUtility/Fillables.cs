@@ -102,7 +102,7 @@ namespace RestAPISCS.DatabaseUtility
                 .Access<SimpleType<int>>(BaseNames.SikonDatabase, "BookedEvents")
                 .GetSelection(fillInt, BookingsController.PrimaryKeys(userId));
 
-            booking.BookedEventsId = new List<int>();
+            booking.BookedEventsId = new HashSet<int>();
             foreach (SimpleType<int> simpleType in eventIds)
             {
                 booking.BookedEventsId.Add(simpleType.Variable);
