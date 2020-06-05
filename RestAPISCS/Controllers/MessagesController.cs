@@ -14,11 +14,11 @@ namespace RestAPISCS.Controllers
 {
     public class MessagesController : ApiController
     {
-        private ManageGenericWithLambda<SimpleType<int>> MessagesManager =
+        private ManageGenericWithLambda<SimpleType<int>> messagesManager =
             DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "BookedEvents");
 
-        private ManageGenericWithLambda<SimpleType<int>> SettingsMessagesManager =
-            DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "MessageSetting");
+        //private ManageGenericWithLambda<SimpleType<int>> SettingsMessagesManager =
+        //    DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "MessageSetting");
 
 
 
@@ -26,30 +26,17 @@ namespace RestAPISCS.Controllers
         [Route("api/Messages/{EventID}")]
         public List<int> Get(int EventID)
         {
-           
-            var fillInts = Fillables.CreateFillSimpleType<int>("BookingId");
-            IEnumerable<SimpleType<int>> listToConvert = MessagesManager.GetSelection(fillInts, EventsController.PrimaryKeys(EventID));
-            List<int> bookingsToMessage = new List<int>();
+            var fillInts = Fillables.CreateFillSimpleType<int>("UserId");
+            List<SimpleType<int>> containedUserIds = messagesManager.GetCustomQuery(fillInts,
+                "Select BookedEvents.UserId from BookedEvents Inner Join BookingSettings on BookingSettings.UserId = BookedEvents.UserId where BookingSettings.ReceiveMessages = 1 and BookedEvents.EventId = " + EventID);
 
-            var fillIntsSettings = Fillables.CreateFillSimpleType<int>("Id");
-            IEnumerable<SimpleType<int>> listToConvertSettings = SettingsMessagesManager.GetSelection(fillInts, EventsController.PrimaryKeys(EventID));
-            List<int> bookingsToMessageSettings = new List<int>();
-
-
-            foreach (SimpleType<int> booking in listToConvert)
+            List<int> userIds = new List<int>(containedUserIds.Count);
+            foreach (SimpleType<int> containedUserId in containedUserIds)
             {
-                foreach (SimpleType<int> Setting in listToConvertSettings)
-                {
-                    if (booking.Variable == Setting.Variable)
-                    {
-                        bookingsToMessage.Add(booking.Variable);
-                    }
-                }
+                userIds.Add(containedUserId.Variable);
             }
 
-
-            return bookingsToMessage;
-            
+            return userIds;
         }
 
         // GET: api/Messages/5
@@ -68,7 +55,7 @@ namespace RestAPISCS.Controllers
             //messageString = messageString.TrimEnd(new char[]{'}', '\r', '\n'}).Trim('"');
             //MessagesManager.Post(Extractables.ExtractMessage(Convert.ToInt32(idString), messageString));
 
-            MessagesManager.Post(Extractables.ExtractMessage(message));
+            messagesManager.Post(Extractables.ExtractMessage(message));
 
         }
 

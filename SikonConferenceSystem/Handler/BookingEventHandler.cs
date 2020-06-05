@@ -26,6 +26,9 @@ namespace SikonConferenceSystem.Handler
 
         public async void CreateBooking()
         {
+            //int bookingId = _bookingEventViewModel.NewBooking.BookingID;
+            //DateTime bookingDate = _bookingEventViewModel.NewBooking.BookingDate.Date;
+            //int id = _bookingEventViewModel.NewBooking.Id;
             int userId = _bookingEventViewModel.NewBooking.UserId;
             bool receiveMessages = _bookingEventViewModel.NewBooking.ReceiveMessages;
             
