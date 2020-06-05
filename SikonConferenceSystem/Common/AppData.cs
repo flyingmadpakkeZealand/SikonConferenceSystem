@@ -32,24 +32,6 @@ namespace SikonConferenceSystem.Common
             }
         }
 
-        private static Dictionary<int, Event> _loadedEventsById;
-        public static Dictionary<int, Event> LoadedEventsById
-        {
-            get { return _loadedEventsById; }
-        }
-
-        public static void SetLoadedEventsById(IEnumerable<Event> events)
-        {
-            if (events != null)
-            {
-                _loadedEventsById = events.ToDictionary((@event => @event.EventID));
-            }
-            else
-            {
-                _loadedEventsById = new Dictionary<int, Event>();
-            }
-        }
-
         public static T TryCastUser<T>() where T : User
         {
             return LoadedUser as T;
@@ -70,7 +52,6 @@ namespace SikonConferenceSystem.Common
             if (LoadedUser != null)
             {
                 _loadedUser = null;
-                _loadedEventsById = null;
                 _onUserLoggedOut?.Invoke();
                 return true;
             }
