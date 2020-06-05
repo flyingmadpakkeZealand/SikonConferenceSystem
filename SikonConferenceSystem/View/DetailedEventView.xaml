@@ -82,14 +82,14 @@
                     <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" Background="Black"/>
 
                     <StackPanel HorizontalAlignment="Right" Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
-                        <TextBlock Text="Hour(s)"/>
-                        <Border BorderBrush="Black" BorderThickness="1">
-                            <TextBlock Text="{Binding EventDurationMinutes}"/>
+                        <Border>
+                            <TextBlock Text="{Binding EventDuration.Hours}"/>
                         </Border>
-                        <TextBlock Text=", min."/>
-                        <Border BorderBrush="Black" BorderThickness="1">
-                            <TextBlock Text="{Binding EventDurationMinutes}"/>
+                        <TextBlock Text="Hour(s), "/>
+                        <Border>
+                            <TextBlock Text="{Binding EventDuration.Minutes}"/>
                         </Border>
+                        <TextBlock Text="min"/>
                     </StackPanel>
                     <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="2" Grid.Column="2"/>
                     <TextBlock Text="Not Implemented" Style="{StaticResource InfoBoxTxtBlockRight}" Grid.Row="3" Grid.Column="2"/>
@@ -104,18 +104,21 @@
                     <RowDefinition Height="80"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="{Binding AbstractHeader}" Grid.Row="0" TextAlignment="Center" FontSize="24" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
-                <TextBlock Text="{Binding Abstract}" TextWrapping="Wrap" MaxHeight="500" Grid.Row="1" Margin="0,2,0,-2"></TextBlock>
+
+                <TextBox IsReadOnly="True" Background="White" Text="{Binding AbstractHeader}" Grid.Row="0" TextAlignment="Center" FontSize="24" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                <TextBox IsReadOnly="True" Background="White" Text="{Binding Abstract}" TextWrapping="Wrap" MaxHeight="500" Grid.Row="1" Margin="0,2,0,-2"></TextBox>
             </Grid>
         </Border>
 
         <Border Grid.Row="1" Grid.Column="1" Padding="120,40,120,40">
             <StackPanel Spacing="20">
-                <StackPanel Orientation="Horizontal" Height="80" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="White" BorderThickness="2" BorderBrush="Black">
                     <TextBlock Text="{Binding EventDate, Converter={StaticResource DateToFormattedString}}" TextAlignment="Right" VerticalAlignment="Center" Style="{StaticResource SubHeader}"/>
                 </StackPanel>
-                <TextBlock Text="{Binding EventDateHours, Converter={StaticResource TimeSpanToFormattedString}}" Style="{StaticResource SubHeader}"/>
-                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="White" BorderBrush="Black" BorderThickness="2">
+                    <TextBlock Text="{Binding EventDateHours, Converter={StaticResource TimeSpanToFormattedString}}" Style="{StaticResource SubHeader}"/>
+                </StackPanel>
+
             </StackPanel>
         </Border>
 

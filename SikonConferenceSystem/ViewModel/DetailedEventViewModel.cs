@@ -72,17 +72,17 @@ namespace SikonConferenceSystem.ViewModel
         //    get { return _selectedDay; }
 
         //}
-        private int _eventDurationHours;
-        public int EventDurationHours
-        {
-            get { return _eventDurationHours; }
-        }
+        //private int _eventDurationHours;
+        //public int EventDurationHours
+        //{
+        //    get { return _eventDurationHours; }
+        //}
 
-        private int _eventDurationMinutes;
-        public int EventDurationMinutes
-        {
-            get { return _eventDurationMinutes; }
-        }
+        //private int _eventDurationMinutes;
+        //public int EventDurationMinutes
+        //{
+        //    get { return _eventDurationMinutes; }
+        //}
 
 
         public RelayCommand Test { get { return new RelayCommand(()=>{});} }
