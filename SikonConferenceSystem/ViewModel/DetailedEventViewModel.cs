@@ -19,7 +19,7 @@ using SikonConferenceSystem.ViewModel.Interfaces;
 
 namespace SikonConferenceSystem.ViewModel
 {
-    public class DetailedEventViewModel:IFormattedEventViewModel
+    public class DetailedEventViewModel:IFormattedEventViewModel, INotifyPropertyChanged
     {
         private Event _newEvent;
 
@@ -46,6 +46,7 @@ namespace SikonConferenceSystem.ViewModel
             SelectedTypeIndex = (int) Type;
             _handler= new DetailedEventHandler(this);
             
+            _pressBookCommand = new RelayCommand(Handler.BookEvent);
         }
 
 
@@ -84,9 +85,20 @@ namespace SikonConferenceSystem.ViewModel
         //    get { return _eventDurationMinutes; }
         //}
 
+        private RelayCommand _pressBookCommand;
+        public ICommand PressBookCommand
+        {
+            get { return _pressBookCommand; }
+        }
 
-        public RelayCommand Test { get { return new RelayCommand(()=>{});} }
 
         //public static Event EventToLoad;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

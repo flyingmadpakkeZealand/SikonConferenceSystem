@@ -71,10 +71,13 @@
                     <TextBlock Text="Room" Grid.Row="2" Grid.Column="0"/>
                     <TextBlock Text="Remaining Seats" Grid.Row="3" Grid.Column="0"/>
                     <TextBlock Text="Total Seats" Grid.Row="4" Grid.Column="0"/>
-                    <CheckBox Click="ButtonBase_OnClick" Content="Attending Event" Grid.Row="5" Grid.Column="0">
+                    <CheckBox Name="BookCheckBox" Click="BookCheckBox_OnClick" IsChecked="{Binding EventIsBooked}" Content="Attending Event" Grid.Row="5" Grid.Column="0">
                         <CheckBox.ContextFlyout>
                             <Flyout>
-                                <Frame Name="ConfirmFrame"></Frame>
+                                <StackPanel>
+                                    <TextBlock Text="Are you sure you want to book?"/>
+                                    <Button Content="Book" Command="{Binding PressBookCommand}"/>
+                                </StackPanel>
                             </Flyout>
                         </CheckBox.ContextFlyout>
                     </CheckBox>
