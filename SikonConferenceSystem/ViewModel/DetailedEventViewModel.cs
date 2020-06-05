@@ -38,8 +38,6 @@ namespace SikonConferenceSystem.ViewModel
 
         public DetailedEventViewModel()
         {
-
-
             _newEvent = new Event();
 
             
