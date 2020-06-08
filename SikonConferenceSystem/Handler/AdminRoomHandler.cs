@@ -26,8 +26,17 @@ namespace SikonConferenceSystem.Handler
             Room aRoom=new Room(roomNr,maxPersons,autistSeats);
             Consumer<Room> adminRoomFacade = new Persistency.Consumer<Room>("http://localhost:61467/api/Rooms");
             bool ok = await adminRoomFacade.PostAsync(aRoom);
-            ClearRoom();
-            _adminRoomViewModel.AdminRoomSingleton.Reload(((RelayCommand)_adminRoomViewModel.CreateRoomCommand).RaiseCanExecuteChanged);
+            if (!ok)
+            {
+                MessageDialogHelper.Show("Der skete en fejl", $"Rum {aRoom.RoomNr} blev ikke oprettet");
+            }
+            else
+            {
+                MessageDialogHelper.Show("Alt gik godt", $"Rum {aRoom.RoomNr} blev oprettet");
+                ClearRoom();
+                _adminRoomViewModel.AdminRoomSingleton.Reload(((RelayCommand)_adminRoomViewModel.CreateRoomCommand).RaiseCanExecuteChanged);
+            }
+            
         }
 
         public async void DeleteRoom()
@@ -35,9 +44,21 @@ namespace SikonConferenceSystem.Handler
             int roomNr = _adminRoomViewModel.NewRoom.RoomNr;
             Consumer<Room> adminRoomFacade = new Persistency.Consumer<Room>("http://localhost:61467/api/Rooms");
             bool ok = await adminRoomFacade.DeleteAsync(new[] {(roomNr)});
-            ClearRoom();
-            _adminRoomViewModel.AdminRoomSingleton.Reload(((RelayCommand)_adminRoomViewModel.DeleteRoomCommand).RaiseCanExecuteChanged);
+
+            if (!ok)
+            {
+                MessageDialogHelper.Show("Der skete en fejl", $"Rum {roomNr} blev ikke slettet");
+            }
+            else
+            {
+                MessageDialogHelper.Show("Alt gik godt", $"Rum {roomNr} blev slettet");
+                ClearRoom();
+                _adminRoomViewModel.AdminRoomSingleton.Reload(((RelayCommand)_adminRoomViewModel.DeleteRoomCommand).RaiseCanExecuteChanged);
+            }
         }
+
+
+            
 
         public async void UpdateRoom()
         {
@@ -47,8 +68,17 @@ namespace SikonConferenceSystem.Handler
             Room aRoom = new Room(roomNr, maxPersons, autistSeats);
             Consumer<Room> adminRoomFacade = new Persistency.Consumer<Room>("http://localhost:61467/api/Rooms");
             bool ok = await adminRoomFacade.PutAsync(aRoom, new[] {(roomNr)});
-            ClearRoom();
-            _adminRoomViewModel.AdminRoomSingleton.Reload(((RelayCommand)_adminRoomViewModel.UpdateRoomCommand).RaiseCanExecuteChanged);
+            if (!ok)
+            {
+                MessageDialogHelper.Show("Der skete en fejl", $"Rum {aRoom.RoomNr} blev ikke opdateret");
+            }
+            else
+            {
+                MessageDialogHelper.Show("Alt gik godt", $"Rum {aRoom.RoomNr} blev opdateret");
+                ClearRoom();
+                _adminRoomViewModel.AdminRoomSingleton.Reload(((RelayCommand)_adminRoomViewModel.UpdateRoomCommand).RaiseCanExecuteChanged);
+            }
+            
         }
 
         public async void ClearRoom()

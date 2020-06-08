@@ -9,10 +9,10 @@ using SikonConferenceSystem.Persistency;
 
 namespace SikonConferenceSystem.Model
 {
-    public class ControlMessages
+    public class Messages
     {
 
-
+        
 
         public async void SendCancelMessages(int eventId)
         {

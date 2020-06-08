@@ -31,10 +31,17 @@ namespace SikonConferenceSystem.Handler
             Speaker aSpeaker = new Speaker(speakerName,speakerPhoneNumber,speakerEmail,speakerPassword,"", "");
             Consumer<Speaker> AdminSpeakerFacade = new Consumer<Speaker>("http://localhost:61467/api/Speakers");
             bool ok = await AdminSpeakerFacade.PostAsync(aSpeaker);
-            ClearSpeaker();
-            _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.CreateSpeakerCommand).RaiseCanExecuteChanged);
 
-
+            if (!ok)
+            {
+                MessageDialogHelper.Show("Der skete en fejl", $"Oplægsholder {speakerName} blev ikke oprettet");
+            }
+            else
+            {
+                MessageDialogHelper.Show("Alt gik godt", $"Rum {speakerName} blev oprettet");
+                ClearSpeaker();
+                _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.CreateSpeakerCommand).RaiseCanExecuteChanged);
+            }
         }
 
         public async void DeleteSpeaker()
@@ -43,8 +50,17 @@ namespace SikonConferenceSystem.Handler
             
             Consumer<Speaker> AdminSpeakerFacade = new Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
             bool ok = await AdminSpeakerFacade.DeleteAsync(new[] {(speakerID)});
-            ClearSpeaker();
-            _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.DeleteSpeakerCommand).RaiseCanExecuteChanged);
+            if (!ok)
+            {
+                MessageDialogHelper.Show("Der skete en fejl", $"Oplægsholder med id {speakerID} blev ikke slettet");
+            }
+            else
+            {
+                MessageDialogHelper.Show("Alt gik godt", $"Oplægsholder med id {speakerID} blev slettet");
+                ClearSpeaker();
+                _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.DeleteSpeakerCommand).RaiseCanExecuteChanged);
+            }
+
 
         }
 
@@ -59,10 +75,17 @@ namespace SikonConferenceSystem.Handler
             Speaker aSpeaker = new Speaker(speakerName, speakerPhoneNumber, speakerEmail, speakerPassword, "", "");
             Consumer<Speaker> AdminSpeakerFacade = new Consumer<Speaker>(ConsumerCatalog.GetUrl<Speaker>());
             bool ok = await AdminSpeakerFacade.PutAsync(aSpeaker, new[] { (speakerID) });
-            ClearSpeaker();
-            _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.UpdateSpeakerCommand).RaiseCanExecuteChanged);
 
-
+            if (!ok)
+            {
+                MessageDialogHelper.Show("Der skete en fejl", $"Oplægsholder {speakerName} blev ikke opdateret");
+            }
+            else
+            {
+                MessageDialogHelper.Show("Alt gik godt", $"Oplægsholder med id {speakerName} blev opdateret");
+                ClearSpeaker();
+                _adminSpeakerViewModel.AdminSpeakerSingleton.Reload(((RelayCommand)_adminSpeakerViewModel.UpdateSpeakerCommand).RaiseCanExecuteChanged);
+            }
         }
 
         public async void ClearSpeaker()

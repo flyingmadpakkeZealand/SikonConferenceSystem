@@ -95,6 +95,7 @@
     <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
+    <Compile Include="Controllers\ShowMessagesController.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DatabaseUtility\Extractables.cs" />
