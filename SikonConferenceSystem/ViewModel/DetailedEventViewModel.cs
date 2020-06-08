@@ -19,14 +19,11 @@ using SikonConferenceSystem.ViewModel.Interfaces;
 
 namespace SikonConferenceSystem.ViewModel
 {
-    public class DetailedEventViewModel:IFormattedEventViewModel
+    public class DetailedEventViewModel:IFormattedEventViewModel, INotifyPropertyChanged
     {
-        private Event _newEvent;
-
-        public Event NewEvent
-        {
-            get { return _newEvent; }
-        }
+        private const string UserIsLoggedInText = "Are you sure you want to book this event?";
+        private const string UserNotLoggedInText =
+            "Please click the profile button in the top right corner to login or signup,\nbefore booking an event.";
 
         private DetailedEventHandler _handler;
 
@@ -38,16 +35,22 @@ namespace SikonConferenceSystem.ViewModel
 
         public DetailedEventViewModel()
         {
+            HelperText = AppData.LoadedUser != null ? UserIsLoggedInText : UserNotLoggedInText;
 
-
-            _newEvent = new Event();
-
-            
             SelectedTypeIndex = (int) Type;
             _handler= new DetailedEventHandler(this);
             
+            _pressBookCommand = new RelayCommand(Handler.BookEvent, () => AppData.LoadedUser != null && !IsLoadingBooking);
+
+            AppData.StashMethodForLogin("DEV", OnUserLoggedIn);
         }
 
+        private void OnUserLoggedIn()
+        {
+            _pressBookCommand.RaiseCanExecuteChanged();
+            Handler.UpdateEventIsBooked();
+            HelperText = UserIsLoggedInText;
+        }
 
         public string AbstractHeader { get; set; }
         public string Abstract { get; set; }
@@ -72,21 +75,66 @@ namespace SikonConferenceSystem.ViewModel
         //    get { return _selectedDay; }
 
         //}
-        private int _eventDurationHours;
-        public int EventDurationHours
+        //private int _eventDurationHours;
+        //public int EventDurationHours
+        //{
+        //    get { return _eventDurationHours; }
+        //}
+
+        //private int _eventDurationMinutes;
+        //public int EventDurationMinutes
+        //{
+        //    get { return _eventDurationMinutes; }
+        //}
+
+        private bool _eventIsBooked;
+        public bool EventIsBooked
         {
-            get { return _eventDurationHours; }
+            get { return _eventIsBooked; }
+            set
+            {
+                _eventIsBooked = value;
+                OnPropertyChanged();
+            }
         }
 
-        private int _eventDurationMinutes;
-        public int EventDurationMinutes
+        private string _helperText;
+        public string HelperText
         {
-            get { return _eventDurationMinutes; }
+            get { return _helperText;}
+            set
+            {
+                _helperText = value;
+                OnPropertyChanged();
+            }
         }
 
+        private bool _isLoadingBooking;
+        public bool IsLoadingBooking
+        {
+            get { return _isLoadingBooking;}
+            set
+            {
+                _isLoadingBooking = value;
+                OnPropertyChanged();
+                _pressBookCommand.RaiseCanExecuteChanged();
+            }
+        }
 
-        public RelayCommand Test { get { return new RelayCommand(()=>{});} }
+        private RelayCommand _pressBookCommand;
+        public ICommand PressBookCommand
+        {
+            get { return _pressBookCommand; }
+        }
+
 
         //public static Event EventToLoad;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace ModelLibrary
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public Booking Booking { get; set; }
 
         public User(string name, string phoneNumber, string email, string password)
         {
