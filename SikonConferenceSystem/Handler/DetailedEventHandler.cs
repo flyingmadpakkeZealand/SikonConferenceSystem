@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ModelLibrary;
 using SikonConferenceSystem.Common;
+using SikonConferenceSystem.Persistency;
 using SikonConferenceSystem.ViewModel;
 
 namespace SikonConferenceSystem.Handler
@@ -29,7 +30,7 @@ namespace SikonConferenceSystem.Handler
 
         public void UpdateEventIsBooked()
         {
-            if (AppData.LoadedUser != null)
+            if (AppData.LoadedUser != null && AppData.LoadedUser.Booking != null) //Change if booking controller is changed.
             {
                 _detailedEventViewModel.EventIsBooked =
                     AppData.LoadedUser.Booking.BookedEventsId.Contains(_loadedEventId);
@@ -40,8 +41,23 @@ namespace SikonConferenceSystem.Handler
             }
         }
 
-        public void BookEvent()
+        public async void BookEvent() //Change if booking controller is changed.
         {
+            User loadedUser = AppData.LoadedUser;
+            _detailedEventViewModel.IsLoadingBooking = true;
+            var consumer = CommonConsumerFactory.Create(new Consumer<Booking>());
+
+            if (loadedUser.Booking == null)
+            {
+                loadedUser.Booking = new Booking(loadedUser.Id, true) {BookedEventsId = new HashSet<int>()};
+                await consumer.PostAsync(loadedUser.Booking);
+            }
+
+            loadedUser.Booking.BookedEventsId.Add(_loadedEventId);
+
+            await consumer.PutAsync(loadedUser.Booking, new[] {loadedUser.Id});
+            _detailedEventViewModel.IsLoadingBooking = false;
+            
             OnClickBook?.Invoke(true); //setting IsChecked to true is part of the OnClickBook method, it doesn't work with OnPropertyChanged(), presumably because of focus loss due to the context flyout.
         }
     }

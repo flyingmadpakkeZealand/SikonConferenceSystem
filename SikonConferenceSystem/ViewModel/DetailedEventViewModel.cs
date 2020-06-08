@@ -40,7 +40,7 @@ namespace SikonConferenceSystem.ViewModel
             SelectedTypeIndex = (int) Type;
             _handler= new DetailedEventHandler(this);
             
-            _pressBookCommand = new RelayCommand(Handler.BookEvent, () => AppData.LoadedUser != null);
+            _pressBookCommand = new RelayCommand(Handler.BookEvent, () => AppData.LoadedUser != null && !IsLoadingBooking);
 
             AppData.StashMethodForLogin("DEV", OnUserLoggedIn);
         }
@@ -106,6 +106,18 @@ namespace SikonConferenceSystem.ViewModel
             {
                 _helperText = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private bool _isLoadingBooking;
+        public bool IsLoadingBooking
+        {
+            get { return _isLoadingBooking;}
+            set
+            {
+                _isLoadingBooking = value;
+                OnPropertyChanged();
+                _pressBookCommand.RaiseCanExecuteChanged();
             }
         }
 

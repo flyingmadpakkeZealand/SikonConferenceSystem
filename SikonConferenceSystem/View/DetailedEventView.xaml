@@ -35,6 +35,8 @@
         </Style>
         <converter:DateToFormattedString x:Key="DateToFormattedString"/>
         <converter:TimeSpanToFormattedString x:Key="TimeSpanToFormattedString"/>
+        <converter:BoolToVisibility x:Key="BoolToVisibility"/>
+        <converter:ReversedBoolToVisibility x:Key="ReversedBoolToVisibility"/>
     </Page.Resources>
 
 
@@ -71,7 +73,7 @@
                     <TextBlock Text="Room" Grid.Row="2" Grid.Column="0"/>
                     <TextBlock Text="Remaining Seats" Grid.Row="3" Grid.Column="0"/>
                     <TextBlock Text="Total Seats" Grid.Row="4" Grid.Column="0"/>
-                    <CheckBox Name="BookCheckBox" Click="BookCheckBox_OnClick" IsChecked="{Binding EventIsBooked}" Content="Attending Event" Grid.Row="5" Grid.Column="0">
+                    <CheckBox Name="BookCheckBox" Click="BookCheckBox_OnClick" IsChecked="{Binding EventIsBooked}" Content="Attending Event" Grid.Row="5" Grid.Column="0" Visibility="{Binding IsLoadingBooking, Converter={StaticResource ReversedBoolToVisibility}}">
                         <CheckBox.ContextFlyout>
                             <Flyout>
                                 <StackPanel>
@@ -86,7 +88,12 @@
                             </Flyout>
                         </CheckBox.ContextFlyout>
                     </CheckBox>
-                    
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="0" Visibility="{Binding IsLoadingBooking, Converter={StaticResource BoolToVisibility}}">
+                        <ProgressRing IsActive="True" />
+                        <TextBlock Text="Loading..."/>
+                    </StackPanel>
+
                     <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="1" Background="Black"/>
 
                     <StackPanel HorizontalAlignment="Right" Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
