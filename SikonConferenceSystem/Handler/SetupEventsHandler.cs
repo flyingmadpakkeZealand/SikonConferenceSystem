@@ -25,6 +25,7 @@ namespace SikonConferenceSystem.Handler
         public async void SaveEvent()
         {
             SetupEventsPageVM Vm = _setupEventsPageVm;
+            Vm.IsSaving = true;
 
             Vm.NewEvent.Duration = Vm.EventDuration;
             Vm.NewEvent.ImagePath = Vm.ImagePath;
@@ -51,6 +52,7 @@ namespace SikonConferenceSystem.Handler
                 }
             }
 
+            Vm.IsSaving = false;
             await CatalogSingleton<Event>.Instance.Reload();
         }
 
