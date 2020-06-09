@@ -136,7 +136,8 @@ namespace SikonConferenceSystem.ViewModel
             
 
             _pressSpeakersInEventDeleteCommand = new RelayCommand(Handler.RemoveFromSpeakersView);
-            _pressSaveCommand = new RelayCommand(Handler.SaveEvent);
+            _isSaving = false;
+            _pressSaveCommand = new RelayCommand(Handler.SaveEvent, ()=>!IsSaving);
         }
 
 
@@ -174,6 +175,18 @@ namespace SikonConferenceSystem.ViewModel
         {
             get { return _pressSpeakersInEventDeleteCommand; }
             
+        }
+
+        private bool _isSaving;
+        public bool IsSaving
+        {
+            get { return _isSaving;}
+            set
+            {
+                _isSaving = value;
+                _pressSaveCommand.RaiseCanExecuteChanged();
+            }
+
         }
 
         private RelayCommand _pressSaveCommand;

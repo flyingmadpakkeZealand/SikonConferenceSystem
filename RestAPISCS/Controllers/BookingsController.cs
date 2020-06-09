@@ -39,7 +39,7 @@ namespace RestAPISCS.Controllers
         }
 
         // POST: api/Bookings
-        public bool Post([FromBody]Booking booking)
+        public bool Post([FromBody] Booking booking)
         {
             bool settingsOk = bookingSettingsManager.Post(Extractables.ExtractBookingSettings(booking));
 
@@ -57,23 +57,20 @@ namespace RestAPISCS.Controllers
         }
 
         // PUT: api/Bookings/5
-        public bool Put(int id, [FromBody]Booking booking)
+        public bool Put(int id, [FromBody] Booking booking)
         {
-            bool settingsOk = bookingSettingsManager.Put(Extractables.ExtractBookingSettings(booking), PrimaryKeys(id));
+            //bool settingsOk = bookingSettingsManager.Put(Extractables.ExtractBookingSettings(booking), PrimaryKeys(id));
 
-            bool bookedOk = false;
-            if (settingsOk)
+            bookedEventsManager.Delete(PrimaryKeys(id));
+
+            bool bookedOk = true;
+            foreach (int eventId in booking.BookedEventsId)
             {
-                bookedEventsManager.Delete(PrimaryKeys(id));
-
-                bookedOk = true;
-                foreach (int eventId in booking.BookedEventsId)
-                {
-                    bookedOk = bookedEventsManager.Post(Extractables.ExtractBookedEvents(booking.UserId, eventId));
-                }
+                bookedOk = bookedEventsManager.Post(Extractables.ExtractBookedEvents(booking.UserId, eventId));
             }
 
-            return settingsOk && bookedOk;
+
+            return bookedOk;
         }
 
         // DELETE: api/Bookings/5

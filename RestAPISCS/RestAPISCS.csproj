@@ -91,6 +91,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
+    <Compile Include="Controllers\BookingSettingsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
