@@ -50,7 +50,8 @@ namespace SikonConferenceSystem.Handler
                     bool overrideOk = await consumer.PutAsync(Vm.NewEvent, new[] { Vm.NewEvent.EventID }); 
                 }
             }
-
+            MessageController SendEditedMessages = new MessageController();
+            SendEditedMessages.SendChangedMessages(Vm.NewEvent.EventID, Vm.AbstractHeader);
             await CatalogSingleton<Event>.Instance.Reload();
         }
 

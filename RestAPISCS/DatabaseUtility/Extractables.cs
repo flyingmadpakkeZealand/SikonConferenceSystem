@@ -99,7 +99,7 @@ namespace RestAPISCS.DatabaseUtility
         public static Dictionary<string, object> ExtractMessage(Message message)
         {
             Dictionary<string, object> lookupDictionary = new Dictionary<string, object>();
-            lookupDictionary.Add("Id", message.Id);
+            lookupDictionary.Add("UserId", message.Id);
             lookupDictionary.Add("Message", message.textMessage);
 
             return lookupDictionary;

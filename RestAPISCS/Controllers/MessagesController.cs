@@ -14,8 +14,11 @@ namespace RestAPISCS.Controllers
 {
     public class MessagesController : ApiController
     {
-        private ManageGenericWithLambda<SimpleType<int>> messagesManager =
+        private ManageGenericWithLambda<SimpleType<int>> bookedEventsManager =
             DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "BookedEvents");
+
+        private ManageGenericWithLambda<Message> messageManager =
+            DataBases.Access<Message>(BaseNames.SikonDatabase, "Message");
 
         //private ManageGenericWithLambda<SimpleType<int>> SettingsMessagesManager =
         //    DataBases.Access<SimpleType<int>>(BaseNames.SikonDatabase, "MessageSetting");
@@ -27,7 +30,7 @@ namespace RestAPISCS.Controllers
         public List<int> Get(int EventID)
         {
             var fillInts = Fillables.CreateFillSimpleType<int>("UserId");
-            List<SimpleType<int>> containedUserIds = messagesManager.GetCustomQuery(fillInts,
+            List<SimpleType<int>> containedUserIds = bookedEventsManager.GetCustomQuery(fillInts,
                 "Select BookedEvents.UserId from BookedEvents Inner Join BookingSettings on BookingSettings.UserId = BookedEvents.UserId where BookingSettings.ReceiveMessages = 1 and BookedEvents.EventId = " + EventID);
 
             List<int> userIds = new List<int>(containedUserIds.Count);
@@ -46,7 +49,7 @@ namespace RestAPISCS.Controllers
         }
 
         // POST: api/Messages
-        public void Post([FromBody]Message message)
+        public bool Post([FromBody]Message message)
         {
             //string content = message.ToString();
             //string[] splitContent = content.Split(new [] {','},2);
@@ -55,7 +58,7 @@ namespace RestAPISCS.Controllers
             //messageString = messageString.TrimEnd(new char[]{'}', '\r', '\n'}).Trim('"');
             //MessagesManager.Post(Extractables.ExtractMessage(Convert.ToInt32(idString), messageString));
 
-            messagesManager.Post(Extractables.ExtractMessage(message));
+            return messageManager.Post(Extractables.ExtractMessage(message));
 
         }
 
